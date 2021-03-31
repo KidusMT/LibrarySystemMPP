@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.librarian.viewCheckouts.ViewCheckout">
+   <children>
+      <Label layoutX="194.0" layoutY="127.0" prefHeight="47.0" prefWidth="218.0" text="View checkouts">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="userLabel" layoutX="194.0" layoutY="83.0" prefHeight="41.0" prefWidth="186.0" />
+   </children>
+</AnchorPane>
