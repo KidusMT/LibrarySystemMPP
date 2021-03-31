@@ -33,15 +33,24 @@ public class LoginController {
     @FXML
     public void loginButtonController(ActionEvent event) throws Exception {
         Stage stage = new Stage();
-        Main.primaryStage.hide();
+
         if (usernameField.getText().equals("admin") && passwordField.getText().equals("admin")) {
             UserSession.createInstance("admin@gmail.com", UserSession.Role.Admin);
             admin.start(stage);
+            Main.primaryStage.hide();
         } else if (usernameField.getText().equals("member") && passwordField.getText().equals("member")) {
             UserSession.createInstance("member@gmail.com", UserSession.Role.User);
             librarian.start(stage);
-        } else
+            Main.primaryStage.hide();
+        } else if(usernameField.getText().isEmpty() && passwordField.getText().isEmpty()){
+            errorLabel.setText("Please, enter a non-empty username and password.");
+        } else if(usernameField.getText().isEmpty()){
+            errorLabel.setText("Please, enter a non-empty username.");
+        } else if(passwordField.getText().isEmpty()){
+            errorLabel.setText("Please, enter a non-empty password.");
+        }else {
             errorLabel.setText("Incorrect Id/Password");
+        }
 
     }
 }
