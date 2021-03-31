@@ -49,11 +49,5 @@
             <Label fx:id="errorLabel" layoutX="25.0" layoutY="402.0" prefHeight="17.0" prefWidth="348.0" textFill="#fc1010" />
             </children>
         </Pane>
-        <!--      <ImageView fitHeight="43.0" fitWidth="45.0" layoutX="394.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">-->
-        <!--         <image>-->
-        <!--            <Image url="@User.png" />-->
-        <!--         </image>-->
-        <!--      </ImageView>-->
-
     </children>
 </AnchorPane>
