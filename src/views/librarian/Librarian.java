@@ -34,6 +34,7 @@ Librarian extends Application {
         stage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("/views/librarian/viewCheckouts/view-checkout.fxml"));
         stage.setScene(new Scene(root, 1080, 720));
+        stage.setTitle("Librarian");
         stage.setFullScreenExitHint("");
         stage.show();
     }
