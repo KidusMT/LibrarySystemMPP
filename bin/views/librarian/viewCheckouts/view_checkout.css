@@ -14,7 +14,7 @@
     Struktur column-header-background -> column-header */
 
 .table-view .column-header-background{
-    -fx-background-color: linear-gradient(#131313 0%, #424141 100%);
+    -fx-background-color: #424141;
 }
 
 .table-view .column-header-background .label{
@@ -57,7 +57,12 @@
     -fx-background-color: transparent;
 }
 
-
+.label-header {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
 
 .table-view > .virtual-flow > .scroll-bar > .increment-button,
 .table-view > .virtual-flow > .scroll-bar > .decrement-button {
