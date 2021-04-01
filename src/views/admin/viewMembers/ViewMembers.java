@@ -19,4 +19,7 @@ public class ViewMembers {
         List<LibraryMember> memberList =memberController.getAllMembers();
         System.out.println(memberList.isEmpty());
     }
+    public void navigateToCreateMember(ActionEvent event) throws IOException{
+        Admin.routeToCreateMember();
+    }
 }
