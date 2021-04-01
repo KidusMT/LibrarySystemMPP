@@ -24,13 +24,13 @@
             <ListView fx:id="authorListView" prefHeight="61.0" prefWidth="273.0" />
             <HBox alignment="BOTTOM_RIGHT" prefHeight="26.0" prefWidth="273.0">
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Add Author" textFill="WHITE" />
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addAuthorDialog" text="Add Author" textFill="WHITE" />
                </children>
             </HBox>
             <HBox alignment="BOTTOM_RIGHT" prefHeight="32.0" prefWidth="477.0" spacing="10.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#createBookHandler" text="Create Book" textFill="WHITE" />
-                  <Button mnemonicParsing="false" text="Cancel" onAction="#navigateToViewBooks"/>
+                  <Button mnemonicParsing="false" onAction="#navigateToViewBooks" text="Cancel" />
                </children>
             </HBox>
          </children>
