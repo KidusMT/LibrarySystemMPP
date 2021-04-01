@@ -20,7 +20,7 @@
                     </font>
                 </Label>
                 <Label text="Personal Information" />
-                <ComboBox fx:id="maxCheckoutLength" prefHeight="25.0" prefWidth="497.0" promptText="-- SELECT MEMBER --" />
+                <ComboBox fx:id="membersList" prefHeight="25.0" prefWidth="497.0" promptText="-- SELECT MEMBER --" />
                 <HBox alignment="BOTTOM_RIGHT" prefHeight="27.0" prefWidth="456.0" spacing="10.0">
                     <children>
                         <Button mnemonicParsing="false" onAction="#createCheckout" text="Create member">
