@@ -15,10 +15,10 @@ public class CheckoutEntity implements Serializable {
 
     public CheckoutEntity(String entryId, LocalDate date, LocalDate due_date, BookCopy bookCopy, CheckoutRecord checkoutRecord) {
         this.entryId = entryId;
-        this.date = new SimpleObjectProperty<LocalDate>(date);
-        this.due_date = new SimpleObjectProperty<LocalDate>(due_date);
-        this.bookCopy = new SimpleObjectProperty<BookCopy>(bookCopy);
-        this.checkoutRecord = new SimpleObjectProperty<CheckoutRecord>(checkoutRecord);
+        this.date = new SimpleObjectProperty<>(date);
+        this.due_date = new SimpleObjectProperty<>(due_date);
+        this.bookCopy = new SimpleObjectProperty<>(bookCopy);
+        this.checkoutRecord = new SimpleObjectProperty<>(checkoutRecord);
     }
 
     public BookCopy getBookCopy() {

@@ -52,10 +52,10 @@ public class ViewCheckout {
         // String entryId, LocalDate date, LocalDate due_date, BookCopy bookCopy, CheckoutRecord checkoutRecord
         CheckoutRecord checkoutRecord = new CheckoutRecord("1001", new LibraryMember("100", "Hans", "Muster", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", "52557")));
         checkoutEntityData.add(new CheckoutEntity("2001", LocalDate.now(), LocalDate.now(), new BookCopy(new Book("123123123", "The Alchemist", 2, new ArrayList<>()), 2, true), checkoutRecord));
-        checkoutEntityData.add(new CheckoutEntity("2001", LocalDate.now(), LocalDate.now(), new BookCopy(new Book("123123123", "The Alchemist", 2, new ArrayList<>()), 2, true), checkoutRecord));
-        checkoutEntityData.add(new CheckoutEntity("2001", LocalDate.now(), LocalDate.now(), new BookCopy(new Book("123123123", "The Alchemist", 2, new ArrayList<>()), 2, true), checkoutRecord));
-        checkoutEntityData.add(new CheckoutEntity("2001", LocalDate.now(), LocalDate.now(), new BookCopy(new Book("123123123", "The Alchemist", 2, new ArrayList<>()), 2, true), checkoutRecord));
-        checkoutEntityData.add(new CheckoutEntity("2001", LocalDate.now(), LocalDate.now(), new BookCopy(new Book("123123123", "The Alchemist", 2, new ArrayList<>()), 2, true), checkoutRecord));
+        checkoutEntityData.add(new CheckoutEntity("2001", LocalDate.now(), LocalDate.now(), new BookCopy(new Book("123123123", "The Alchemist", 3, new ArrayList<>()), 2, true), checkoutRecord));
+        checkoutEntityData.add(new CheckoutEntity("2001", LocalDate.now(), LocalDate.now(), new BookCopy(new Book("123123123", "The Alchemist", 4, new ArrayList<>()), 2, true), checkoutRecord));
+        checkoutEntityData.add(new CheckoutEntity("2001", LocalDate.now(), LocalDate.now(), new BookCopy(new Book("123123123", "The Alchemist", 5, new ArrayList<>()), 2, true), checkoutRecord));
+        checkoutEntityData.add(new CheckoutEntity("2001", LocalDate.now(), LocalDate.now(), new BookCopy(new Book("123123123", "The Alchemist", 6, new ArrayList<>()), 2, true), checkoutRecord));
         // Add observable list data to the table
         memberTable.setItems(getMemberData());
         checkoutEntryTable.setItems(null);

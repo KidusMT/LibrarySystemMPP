@@ -15,8 +15,8 @@ public class CheckoutRecord implements Serializable {
 
     public CheckoutRecord(String checkoutId, LibraryMember checkedOutBy) {
         this.checkoutId = checkoutId;
-        this.checkedOutBy = new SimpleObjectProperty<LibraryMember>(checkedOutBy);
-        this.fines = new SimpleObjectProperty<List<Fine>>(new ArrayList<>());
+        this.checkedOutBy = new SimpleObjectProperty<>(checkedOutBy);
+        this.fines = new SimpleObjectProperty<>(new ArrayList<>());
     }
 
     public LibraryMember getCheckedOutBy() {
