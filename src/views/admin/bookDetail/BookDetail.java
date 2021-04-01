@@ -47,19 +47,16 @@ public class BookDetail implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 //        label.setText(book.getTitle());
-    }
-
-    @FXML
-    public void initialize() {
         title.setText(book.getTitle());
         isbn.setText(book.getIsbn());
         maxCheckoutLength.setValue(book.getMaxCheckoutLength() + " days");
         for (Author author : book.getAuthors()) {
             authorListView.getItems().add(author.getFirstName() + " " + author.getLastName());
         }
-        maxCheckoutLength.setItems(FXCollections.observableArrayList("3 days", "7 days"));
+        maxCheckoutLength.setItems(FXCollections.observableArrayList("7 days", "21 days"));
         authorForm();
     }
+
 
 
     public void createBookHandler(ActionEvent event) throws IOException {

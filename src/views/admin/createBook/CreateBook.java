@@ -40,7 +40,7 @@ public class CreateBook {
 
     @FXML
     public void initialize() {
-        maxCheckoutLength.setItems(FXCollections.observableArrayList("3 days", "7 days"));
+        maxCheckoutLength.setItems(FXCollections.observableArrayList("7 days", "21 days"));
         authorForm();
     }
 
