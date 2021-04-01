@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleObjectProperty;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CheckoutRecord implements Serializable {
@@ -12,10 +13,10 @@ public class CheckoutRecord implements Serializable {
     private ObjectProperty<LibraryMember> checkedOutBy;
     private ObjectProperty<List<Fine>> fines;
 
-    public CheckoutRecord(String checkoutId, LibraryMember checkedOutBy, List<Fine> fines) {
+    public CheckoutRecord(String checkoutId, LibraryMember checkedOutBy) {
         this.checkoutId = checkoutId;
         this.checkedOutBy = new SimpleObjectProperty<LibraryMember>(checkedOutBy);
-        this.fines = new SimpleObjectProperty<List<Fine>>(fines);
+        this.fines = new SimpleObjectProperty<List<Fine>>(new ArrayList<>());
     }
 
     public LibraryMember getCheckedOutBy() {
