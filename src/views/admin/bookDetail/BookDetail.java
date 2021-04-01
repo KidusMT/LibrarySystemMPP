@@ -1,9 +1,9 @@
 package views.admin.bookDetail;
 
-import controllers.BookController;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -14,12 +14,13 @@ import models.Book;
 import views.admin.Admin;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class BookDetail {
-    private  Book book;
+public class BookDetail implements Initializable {
     @FXML
     TextField title;
     @FXML
@@ -37,15 +38,24 @@ public class BookDetail {
     TextField city = new TextField();
     TextArea bio = new TextArea();
     TextField zipCode = new TextField();
+    private Book book;
     private List<Author> authorList = new ArrayList<>();
+    public BookDetail(Book book) {
+        this.book = book;
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+//        label.setText(book.getTitle());
+    }
 
     @FXML
     public void initialize() {
         title.setText(book.getTitle());
         isbn.setText(book.getIsbn());
-        maxCheckoutLength.setValue(book.getMaxCheckoutLength()+" days");
-        for(Author author: book.getAuthors()){
-            authorListView.getItems().add(author.getFirstName()+" "+author.getLastName());
+        maxCheckoutLength.setValue(book.getMaxCheckoutLength() + " days");
+        for (Author author : book.getAuthors()) {
+            authorListView.getItems().add(author.getFirstName() + " " + author.getLastName());
         }
         maxCheckoutLength.setItems(FXCollections.observableArrayList("3 days", "7 days"));
         authorForm();
@@ -126,4 +136,5 @@ public class BookDetail {
     public void setBook(Book book) {
         this.book = book;
     }
+
 }
