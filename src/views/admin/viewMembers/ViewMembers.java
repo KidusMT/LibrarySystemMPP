@@ -9,4 +9,7 @@ public class ViewMembers {
     public void navigateToBooksHandler(ActionEvent event) throws IOException {
         Admin.routeViewBooks();
     }
+    public void navigateToCreateMember(ActionEvent event) throws IOException{
+        Admin.routeToCreateMember();
+    }
 }
