@@ -26,8 +26,8 @@
                   </TableView>
                   <HBox alignment="BOTTOM_RIGHT" layoutX="3.8000000000000114" layoutY="444.0" prefHeight="68.0" prefWidth="330.0" spacing="10.0" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="444.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#handleNewPerson" text="New" />
-                        <Button mnemonicParsing="false" onAction="#handleEditPerson" text="Edit" />
+                        <Button mnemonicParsing="false" onAction="#handleNewRecord" text="New" />
+                        <Button mnemonicParsing="false" onAction="#handleEditRecord" text="Edit" />
                         <Button id="button-warning" mnemonicParsing="false" onAction="#handleDeletePerson" text="Delete" />
                      </children>
                      <padding>
@@ -49,8 +49,8 @@
                   </TableView>
                   <HBox alignment="BOTTOM_RIGHT" layoutX="3.8000000000000114" layoutY="444.0" prefHeight="68.0" prefWidth="449.0" spacing="10.0" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="444.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#handleNewPerson" text="New" />
-                        <Button mnemonicParsing="false" onAction="#handleEditPerson" text="Edit" />
+                        <Button mnemonicParsing="false" onAction="#handleNewEntry" text="New" />
+                        <Button mnemonicParsing="false" onAction="#handleUpdateEntry" text="Edit" />
                         <Button id="button-warning" mnemonicParsing="false" onAction="#handleDeletePerson" text="Delete" />
                      </children>
                      <padding>

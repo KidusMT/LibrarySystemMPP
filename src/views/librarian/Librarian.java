@@ -24,6 +24,14 @@ public class Librarian extends Application {
         route(FXMLLoader.load(Librarian.class.getResource("/views/librarian/viewCheckout/view-checkout.fxml")), "View checkout records");
     }
 
+    public static void routeToCreateCheckoutEntry() throws IOException {
+        route(FXMLLoader.load(Librarian.class.getResource("/views/librarian/createCheckoutEntry/create-checkout-entry.fxml")), "View checkout records");
+    }
+
+    public static void routeToUpdateCheckoutEntry() throws IOException {
+        route(FXMLLoader.load(Librarian.class.getResource("/views/librarian/updateCheckoutEntry/update-checkout-entry.fxml")), "View checkout records");
+    }
+
     private static void route(Parent contentRoot, String title) {
         stage.setTitle(title != null ? title : "Librarian");
         stage.setScene(new Scene(contentRoot));

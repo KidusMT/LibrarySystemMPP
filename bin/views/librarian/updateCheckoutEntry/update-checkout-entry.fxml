@@ -1,9 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx"
             fx:controller="views.librarian.updateCheckout.UpdateCheckout"
             prefHeight="400.0" prefWidth="600.0">
 
+    <children>
+        <VBox prefHeight="598.0" prefWidth="767.0" spacing="12.0" styleClass="card-background" stylesheets="@../../../common/styles/common.css" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <Label alignment="CENTER" prefHeight="50.0" prefWidth="510.0" text="Create Entries">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label text="Personal Information" />
+                <TextField fx:id="firstName" promptText="First name" />
+                <TextField fx:id="lastName" promptText="Last name" />
+                <TextField fx:id="telephoneNumber" promptText="Telephone number" />
+                <Label text="Address Information" />
+                <TextField fx:id="street" promptText="Street" />
+                <TextField fx:id="city" promptText="City" />
+                <TextField fx:id="state" promptText="State" />
+                <TextField fx:id="zipCode" promptText="Zip code" />
+                <Label prefHeight="28.0" prefWidth="460.0" />
+                <HBox alignment="BOTTOM_RIGHT" prefHeight="27.0" prefWidth="456.0" spacing="10.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#createCheckout" text="Create member" />
+                        <Button mnemonicParsing="false" onAction="#navigateToViewCheckoutRecords" text="Cancel" />
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+            </padding>
+        </VBox>
+    </children>
 </AnchorPane>

@@ -116,13 +116,8 @@ public class ViewCheckout {
      * details for a new person.
      */
     @FXML
-    private void handleNewPerson() throws IOException {
+    private void handleNewRecord() throws IOException {
         Librarian.routeToCreateCheckout();
-//        Person tempPerson = new Person();
-//        boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
-//        if (okClicked) {
-//            mainApp.getPersonData().add(tempPerson);
-//        }
     }
 
     /**
@@ -130,24 +125,18 @@ public class ViewCheckout {
      * details for the selected person.
      */
     @FXML
-    private void handleEditPerson() {
-//        Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
-//        if (selectedPerson != null) {
-//            boolean okClicked = mainApp.showPersonEditDialog(selectedPerson);
-//            if (okClicked) {
-//                showPersonDetails(selectedPerson);
-//            }
-//
-//        } else {
-//            // Nothing selected.
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.initOwner(mainApp.getPrimaryStage());
-//            alert.setTitle("No Selection");
-//            alert.setHeaderText("No Person Selected");
-//            alert.setContentText("Please select a person in the table.");
-//
-//            alert.showAndWait();
-//        }
+    private void handleEditRecord() throws IOException {
+        Librarian.routeToUpdateCheckout();
+    }
+
+    @FXML
+    private void handleNewEntry() throws IOException {
+        Librarian.routeToCreateCheckoutEntry();
+    }
+
+    @FXML
+    private void handleUpdateEntry() throws IOException {
+        Librarian.routeToUpdateCheckoutEntry();
     }
 
     public void navigateToLogin(ActionEvent event) throws IOException {
