@@ -1,7 +1,6 @@
 package views.admin.createBook;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -10,6 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import models.Address;
 import models.Author;
+import models.Book;
 import views.admin.Admin;
 
 import java.io.IOException;
@@ -18,8 +18,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class CreateBook {
-
-    private List<Author> authorList = new ArrayList<>();
 
     @FXML
     TextField title;
@@ -30,7 +28,6 @@ public class CreateBook {
     @FXML
     ListView<String> authorListView;
     Dialog<String> dialog = new Dialog<>();
-
     TextField firstName = new TextField();
     TextField lastName = new TextField();
     TextField telephoneNo = new TextField();
@@ -39,6 +36,7 @@ public class CreateBook {
     TextField city = new TextField();
     TextArea bio = new TextArea();
     TextField zipCode = new TextField();
+    private List<Author> authorList = new ArrayList<>();
 
     @FXML
     public void initialize() {
@@ -48,6 +46,9 @@ public class CreateBook {
 
 
     public void createBookHandler(ActionEvent event) throws IOException {
+        // TODO: Add validation
+        Book book = new Book(isbn.getText(), title.getText(), (int) maxCheckoutLength.getValue(), authorList);
+        // Add controller here
         Admin.routeViewBooks();
     }
 
@@ -100,17 +101,18 @@ public class CreateBook {
         ButtonType addButton = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
 
         VBox vBox = new VBox();
-        vBox.getChildren().addAll(formTitle, personalInformation, firstName, lastName,bio, telephoneNo, addressInformation, street, state, city, zipCode);
+        vBox.getChildren().addAll(formTitle, personalInformation, firstName, lastName, bio, telephoneNo, addressInformation, street, state, city, zipCode);
         vBox.setSpacing(10);
 
         dialog.getDialogPane().setContent(vBox);
         dialog.getDialogPane().getButtonTypes().addAll(addButton, new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE));
     }
 
+
     public void authorFormHandler() {
-        Address address = new Address(state.getText(),street.getText(),city.getText(),Double.parseDouble(zipCode.getText()));
-        Author author = new Author(firstName.getText(),lastName.getText(),telephoneNo.getText(),address,bio.getText());
+        Address address = new Address(state.getText(), street.getText(), city.getText(), Double.parseDouble(zipCode.getText()));
+        Author author = new Author(firstName.getText(), lastName.getText(), telephoneNo.getText(), address, bio.getText());
         authorList.add(author);
-        authorListView.getItems().add(""+author.getFirstName()+" "+author.getLastName());
+        authorListView.getItems().add("" + author.getFirstName() + " " + author.getLastName());
     }
 }
