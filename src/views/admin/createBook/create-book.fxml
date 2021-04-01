@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.admin.createBook.CreateBook">
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.admin.createBook.CreateBook">
    <children>
       <VBox layoutX="277.0" layoutY="110.0" prefHeight="406.0" prefWidth="507.0" spacing="12.0" styleClass="card-background" stylesheets="@../../../common/styles/common.css">
          <children>
@@ -33,7 +27,12 @@
                   <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Add Author" textFill="WHITE" />
                </children>
             </HBox>
-            <Button mnemonicParsing="false" onAction="#createBookHandler" text="Create Book" textFill="WHITE" />
+            <HBox alignment="BOTTOM_RIGHT" prefHeight="32.0" prefWidth="477.0" spacing="10.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#createBookHandler" text="Create Book" textFill="WHITE" />
+                  <Button mnemonicParsing="false" text="Cancel" onAction="#navigateToViewBooks"/>
+               </children>
+            </HBox>
          </children>
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />

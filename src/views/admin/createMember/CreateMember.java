@@ -43,4 +43,8 @@ public class CreateMember {
         memberController.newMember(member);
         Admin.routeToViewMembers();
     }
+    
+    public void navigateToViewMembers(ActionEvent event) throws IOException {
+        Admin.routeToViewMembers();
+    }
 }

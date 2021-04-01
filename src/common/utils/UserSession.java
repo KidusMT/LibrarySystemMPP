@@ -19,7 +19,11 @@ public final class UserSession {
         return instance;
     }
 
-    public static  UserSession getInstance() {
+    public static void destroySession() {
+        instance = null;
+    }
+
+    public static UserSession getInstance() {
         return instance;
     }
 
@@ -29,12 +33,6 @@ public final class UserSession {
 
     public String getEmail() {
         return email;
-    }
-
-    public static enum Role {
-        Admin,
-        User,
-        Both
     }
 
 }

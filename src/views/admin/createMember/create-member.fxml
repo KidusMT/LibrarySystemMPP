@@ -24,9 +24,10 @@
             <TextField fx:id="state" promptText="State" />
             <TextField fx:id="zipCode" promptText="Zip code" />
             <Label prefHeight="28.0" prefWidth="460.0" />
-            <HBox alignment="BOTTOM_RIGHT" prefHeight="27.0" prefWidth="456.0">
+            <HBox alignment="BOTTOM_RIGHT" prefHeight="27.0" prefWidth="456.0" spacing="10.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#createMember" text="Create member" />
+                  <Button mnemonicParsing="false" text="Cancel"  onAction="#navigateToViewMembers"/>
                </children>
             </HBox>
          </children>

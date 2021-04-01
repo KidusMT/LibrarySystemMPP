@@ -31,4 +31,8 @@ public class CreateBook {
         Admin.routeViewBooks();
     }
 
+    public void navigateToViewBooks(ActionEvent event) throws IOException {
+        Admin.routeViewBooks();
+    }
+
 }

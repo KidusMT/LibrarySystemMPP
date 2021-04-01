@@ -6,7 +6,7 @@ import models.Book;
 
 import java.util.List;
 
-public class BookDAO implements DAO<Book> {
+public final class BookDAO implements DAO<Book> {
     private FileStorage<Book> bookFileStorage;
 
     public BookDAO() {
