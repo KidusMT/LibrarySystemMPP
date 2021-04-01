@@ -2,7 +2,6 @@ package models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class User implements Serializable {
     private int id;
@@ -18,8 +17,8 @@ public class User implements Serializable {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        createdOn= LocalDate.now();
-        updatedOn= LocalDate.now();
+        createdOn = LocalDate.now();
+        updatedOn = LocalDate.now();
     }
 
     public int getId() {
