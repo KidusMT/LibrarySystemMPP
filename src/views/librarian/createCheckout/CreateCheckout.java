@@ -5,7 +5,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import models.Address;
-import models.CheckoutRecord;
 import models.LibraryMember;
 import views.librarian.Librarian;
 
