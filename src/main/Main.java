@@ -28,7 +28,7 @@ public class Main extends Application {
         primaryStage = stage;
         Parent root = FXMLLoader.load(getClass().getResource("../views/login/login.fxml"));
         primaryStage.setTitle("Project management system");
-        Scene scene = new Scene(root, 1080, 720);
+        Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("../common/styles/common.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
