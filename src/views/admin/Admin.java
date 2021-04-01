@@ -57,7 +57,7 @@ public class Admin extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/views/admin/viewMembers/view-members.fxml"));
         stage.setScene(new Scene(root, 960, 640));
         stage.setTitle("MIU Library System");
-        stage.getIcons().add(new Image(getClass().getResource("../views/login/miu_logo_app.png").toURI().toString()));
+        stage.getIcons().add(new Image(getClass().getResource("/views/login/miu_logo_app.png").toURI().toString()));
         stage.setFullScreenExitHint("");
         stage.show();
     }
