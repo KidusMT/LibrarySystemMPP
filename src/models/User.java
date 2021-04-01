@@ -1,28 +1,27 @@
 package models;
 
+import common.utils.Authorization;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 
 public class User implements Serializable {
-    private int id;
+    private String id;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
-    private LocalDate createdOn;
-    private LocalDate updatedOn;
+    private Authorization authorization;
 
     public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        createdOn= LocalDate.now();
-        updatedOn= LocalDate.now();
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -44,14 +43,6 @@ public class User implements Serializable {
         return password;
     }
 
-    public LocalDate getCreatedOn() {
-        return createdOn;
-    }
-
-    public LocalDate getUpdatedOn() {
-        return updatedOn;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -60,8 +51,10 @@ public class User implements Serializable {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", createdOn=" + createdOn +
-                ", updatedOn=" + updatedOn +
                 '}';
+    }
+
+    public Authorization getAuthorization() {
+        return authorization;
     }
 }

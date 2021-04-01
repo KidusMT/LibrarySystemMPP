@@ -4,37 +4,35 @@ public final class UserSession {
 
     private static UserSession instance;
     private String email;
-    private String role;
+    private Authorization authorization;
 
-    private UserSession(String email, Role role) {
+    private UserSession(String email, Authorization authorization) {
         this.email = email;
-        this.role = role.toString();
+        this.authorization = authorization;
     }
 
 
-    public static UserSession createInstance(String userName, Role role) {
+    public static UserSession createInstance(String userName, Authorization authorization) {
         if (instance == null) {
-            instance = new UserSession(userName, role);
+            instance = new UserSession(userName, authorization);
         }
         return instance;
     }
 
-    public static  UserSession getInstance() {
+    public static void destroySession() {
+        instance = null;
+    }
+
+    public static UserSession getInstance() {
         return instance;
     }
 
-    public String getRole() {
-        return role;
+    public Authorization getAuthorization() {
+        return authorization;
     }
 
     public String getEmail() {
         return email;
-    }
-
-    public static enum Role {
-        Admin,
-        User,
-        Both
     }
 
 }

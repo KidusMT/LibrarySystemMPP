@@ -47,14 +47,14 @@ public class Admin extends Application {
 
     private static void route(Parent contentRoot, String title) {
         stage.setTitle(title != null ? title : "Administrator");
-        stage.setScene(new Scene(contentRoot, 960, 640));
+        stage.setScene(new Scene(contentRoot, 1080, 720));
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("/views/admin/viewMembers/view-members.fxml"));
-        stage.setScene(new Scene(root, 960, 640));
+        stage.setScene(new Scene(root, 1080, 720));
         stage.setTitle("Administrator");
         stage.setFullScreenExitHint("");
         stage.show();

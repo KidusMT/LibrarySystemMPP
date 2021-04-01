@@ -1,10 +1,9 @@
-package views.login;
+package controllers;
 
 import common.utils.Authorization;
 import common.utils.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -13,10 +12,8 @@ import main.Main;
 import views.admin.Admin;
 import views.librarian.Librarian;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+public class LoginController {
 
-public class Login implements Initializable {
     @FXML
     Label errorLabel;
     @FXML
@@ -26,7 +23,7 @@ public class Login implements Initializable {
     private Admin admin;
     private Librarian librarian;
 
-    public Login() {
+    public LoginController() {
         admin = new Admin();
         librarian = new Librarian();
     }
@@ -52,11 +49,5 @@ public class Login implements Initializable {
         } else {
             errorLabel.setText("Incorrect Id/Password");
         }
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        usernameField.setText("");
-        passwordField.setText("");
     }
 }
