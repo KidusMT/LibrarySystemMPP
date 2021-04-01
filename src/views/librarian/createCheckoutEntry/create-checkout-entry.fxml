@@ -32,7 +32,7 @@
                 <HBox alignment="BOTTOM_RIGHT" prefHeight="27.0" prefWidth="456.0" spacing="10.0">
                     <children>
                         <Button mnemonicParsing="false" onAction="#createCheckout" text="Create member" />
-                        <Button mnemonicParsing="false" onAction="#navigateToViewCheckoutRecords" text="Cancel" />
+                        <Button id="button-warning" mnemonicParsing="false" onAction="#navigateToViewCheckoutRecords" text="Cancel" />
                     </children>
                 </HBox>
             </children>
