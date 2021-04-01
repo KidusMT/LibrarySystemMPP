@@ -1,10 +1,18 @@
 package main;
 
+import daos.MemberDAO;
+import daos.UserDAO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import models.Address;
+import models.LibraryMember;
+import models.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main extends Application {
 
@@ -23,6 +31,8 @@ public class Main extends Application {
         Scene scene = new Scene(root, 1080, 720);
         scene.getStylesheets().add(getClass().getResource("../common/styles/common.css").toExternalForm());
         primaryStage.setScene(scene);
+//        new UserDAO().create(new User("Anteneh","Ashenafi","anteneh845@gmail.com","Pass1234"));
+//        List<User> userList = new UserDAO().getAll();
         primaryStage.show();
     }
 }

@@ -37,7 +37,7 @@ public class FileStorage<T> {
         try {
             Path path = FileSystems.getDefault().getPath(OUTPUT_DIR, type.toString());
             outputStream = new ObjectOutputStream(Files.newOutputStream(path));
-            List<T> objects = listAll(StorageType.USER);
+            List<T> objects = listAll(type);
             if (objects == null)
                 objects = new ArrayList<>();
             objects.add(object);

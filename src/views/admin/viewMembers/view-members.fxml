@@ -11,6 +11,8 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="230.0" layoutY="175.0" mnemonicParsing="false" onAction="#navigateToBooksHandler" text="Go to book list" />
+      <Button layoutX="230.0" layoutY="175.0" mnemonicParsing="false" onAction="#navigateToCreateMember" text="Create member" />
+      <ButtonBar prefHeight="40.0" prefWidth="200.0" />
+      <Button layoutX="226.0" layoutY="231.0" mnemonicParsing="false" onAction="#getAllMembersHandler" text="Get all members" />
    </children>
 </AnchorPane>
