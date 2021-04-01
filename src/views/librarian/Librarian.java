@@ -32,7 +32,9 @@ public class Librarian extends Application {
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("/views/librarian/viewCheckouts/view-checkout.fxml"));
-        stage.setScene(new Scene(root, 960, 640));
+        Scene scene = new Scene(root, 960, 640);
+        scene.getStylesheets().add(getClass().getResource("/views/librarian/viewCheckouts/view_checkout.css").toExternalForm());
+        stage.setScene(scene);
         stage.setFullScreenExitHint("");
         stage.show();
     }
