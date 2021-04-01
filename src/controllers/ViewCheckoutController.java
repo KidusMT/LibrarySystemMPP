@@ -1,14 +1,20 @@
 package controllers;
 
+import common.utils.UserSession;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import main.Main;
 import models.*;
+import views.admin.Admin;
+import views.librarian.Librarian;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -143,5 +149,11 @@ public class ViewCheckoutController {
 //
 //            alert.showAndWait();
 //        }
+    }
+
+    public void navigateToLogin(ActionEvent event) throws IOException {
+//        UserSession.destroySession();
+        Librarian.stage.hide();
+        Main.primaryStage.show();
     }
 }

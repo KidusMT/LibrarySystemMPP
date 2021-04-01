@@ -30,16 +30,24 @@ public class LoginController {
         librarian = new Librarian();
     }
 
+    public void clearFields(){
+        usernameField.setText("");
+        passwordField.setText("");
+        errorLabel.setText("");
+    }
+
     @FXML
     public void loginButtonController(ActionEvent event) throws Exception {
         Stage stage = new Stage();
 
         if (usernameField.getText().equals("admin") && passwordField.getText().equals("admin")) {
             UserSession.createInstance("admin@gmail.com", UserSession.Role.Admin);
+            clearFields();
             admin.start(stage);
             Main.primaryStage.hide();
         } else if (usernameField.getText().equals("member") && passwordField.getText().equals("member")) {
             UserSession.createInstance("member@gmail.com", UserSession.Role.User);
+            clearFields();
             librarian.start(stage);
             Main.primaryStage.hide();
         } else if(usernameField.getText().isEmpty() && passwordField.getText().isEmpty()){

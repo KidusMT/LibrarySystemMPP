@@ -25,14 +25,14 @@ public class Librarian extends Application {
 
     private static void route(Parent contentRoot, String title) {
         stage.setTitle(title != null ? title : "Librarian");
-        stage.setScene(new Scene(contentRoot, 960, 640));
+        stage.setScene(new Scene(contentRoot));
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("/views/librarian/viewCheckouts/view-checkout.fxml"));
-        Scene scene = new Scene(root, 960, 640);
+        Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/views/librarian/viewCheckouts/view_checkout.css").toExternalForm());
         stage.setScene(scene);
         stage.setFullScreenExitHint("");
