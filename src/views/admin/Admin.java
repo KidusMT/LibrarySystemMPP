@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import main.Main;
 
@@ -55,7 +56,8 @@ public class Admin extends Application {
         stage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("/views/admin/viewMembers/view-members.fxml"));
         stage.setScene(new Scene(root, 960, 640));
-        stage.setTitle("Administrator");
+        stage.setTitle("MIU Library System");
+        stage.getIcons().add(new Image(getClass().getResource("../views/login/miu_logo_app.png").toURI().toString()));
         stage.setFullScreenExitHint("");
         stage.show();
     }

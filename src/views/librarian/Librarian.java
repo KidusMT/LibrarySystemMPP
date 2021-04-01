@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -33,6 +34,8 @@ public class Librarian extends Application {
         stage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("/views/librarian/viewCheckouts/view-checkout.fxml"));
         Scene scene = new Scene(root);
+        stage.setTitle("MIU Library System");
+        stage.getIcons().add(new Image(getClass().getResource("../views/login/miu_logo_app.png").toURI().toString()));
         scene.getStylesheets().add(getClass().getResource("/views/librarian/viewCheckouts/view_checkout.css").toExternalForm());
         scene.getStylesheets().add(getClass().getResource("/common/styles/common.css").toExternalForm());
         stage.setScene(scene);
