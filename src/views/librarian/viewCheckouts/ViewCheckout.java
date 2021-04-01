@@ -12,10 +12,11 @@ public class ViewCheckout {
 
     @FXML
     private TableView<Person> personTable;
-    @FXML
-    private TableColumn<Person, String> firstNameColumn;
-    @FXML
-    private TableColumn<Person, String> lastNameColumn;
+//    @FXML
+//    private TableColumn<Person, String> bookTitleColumn;
+//    @FXML
+//    private TableColumn<Person, String> checkoutDateColumn;
+//    private TableColumn<Person, String> Column;
 
     @FXML
     private Label firstNameLabel;
