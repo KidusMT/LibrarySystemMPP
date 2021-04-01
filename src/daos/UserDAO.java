@@ -14,7 +14,7 @@ public class UserDAO implements DAO<User> {
     }
 
     @Override
-    public User get(int id) {
+    public User get(String id) {
         List<User> userList = getAll();
         User user = userList.stream().filter(u -> id == u.getId())
                 .findAny()

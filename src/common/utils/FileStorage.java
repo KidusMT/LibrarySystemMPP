@@ -32,6 +32,26 @@ public class FileStorage<T> {
         return objects;
     }
 
+    public Object list(StorageType storageType){
+        ObjectInputStream inputStream = null;
+        Object objects = new Object();
+        try {
+            Path path = FileSystems.getDefault().getPath(OUTPUT_DIR, storageType.toString());
+            inputStream = new ObjectInputStream(Files.newInputStream(path));
+            objects = inputStream.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+        return objects;
+
+    }
     public void save(StorageType type, T object) {
         ObjectOutputStream outputStream = null;
         try {

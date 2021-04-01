@@ -14,7 +14,7 @@ public class BookDAO implements DAO<Book> {
     }
 
     @Override
-    public Book get(int id) {
+    public Book get(String id) {
         List<Book> bookList = getAll();
         Book book = bookList.stream().filter(b -> b.getIsbn().equals(id)).findAny()
                 .orElse(null);

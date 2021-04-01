@@ -31,8 +31,6 @@ public class Main extends Application {
         Scene scene = new Scene(root, 1080, 720);
         scene.getStylesheets().add(getClass().getResource("../common/styles/common.css").toExternalForm());
         primaryStage.setScene(scene);
-//        new UserDAO().create(new User("Anteneh","Ashenafi","anteneh845@gmail.com","Pass1234"));
-//        List<User> userList = new UserDAO().getAll();
         primaryStage.show();
     }
 }

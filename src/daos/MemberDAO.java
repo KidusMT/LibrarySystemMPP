@@ -4,6 +4,7 @@ import common.interfaces.DAO;
 import common.utils.FileStorage;
 import models.LibraryMember;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class MemberDAO implements DAO<LibraryMember> {
@@ -14,7 +15,7 @@ public class MemberDAO implements DAO<LibraryMember> {
     }
 
     @Override
-    public LibraryMember get(int id) {
+    public LibraryMember get(String id) {
         return null;
     }
 
@@ -22,6 +23,11 @@ public class MemberDAO implements DAO<LibraryMember> {
     public List<LibraryMember> getAll() {
         List<LibraryMember> memberList = memberFileStorage.listAll(FileStorage.StorageType.MEMBER);
         return memberList;
+    }
+
+    public void listMembers(){
+        HashMap<String, LibraryMember> libraryMemberHashMap = (HashMap<String, LibraryMember>) memberFileStorage.list(FileStorage.StorageType.MEMBER);
+        System.out.println(libraryMemberHashMap.isEmpty());
     }
 
     @Override

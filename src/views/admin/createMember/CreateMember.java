@@ -1,6 +1,7 @@
 package views.admin.createMember;
 
-import controllers.MemberController;
+import controllers.ControllerInterface;
+import controllers.SystemController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -35,10 +36,11 @@ public class CreateMember {
 
     public void createMember(ActionEvent event) throws IOException {
         // TODO: add validation
-        MemberController memberController = new MemberController();
+        ControllerInterface memberController = new SystemController();
+//        MemberController memberController = new MemberController();
         Address address = new Address(state.getText(), street.getText(), city.getText(), Double.parseDouble(zipCode.getText()));
         LibraryMember member = new LibraryMember("1", firstName.getText(), lastName.getText(), telephoneNumber.getText(), address);
-        memberController.createMember(member);
+        memberController.newMember(member);
         Admin.routeToViewMembers();
     }
 }
