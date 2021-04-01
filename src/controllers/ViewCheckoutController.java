@@ -118,7 +118,8 @@ public class ViewCheckoutController {
      * details for a new person.
      */
     @FXML
-    private void handleNewPerson() {
+    private void handleNewPerson() throws IOException {
+        Librarian.routeToCreateCheckout();
 //        Person tempPerson = new Person();
 //        boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
 //        if (okClicked) {

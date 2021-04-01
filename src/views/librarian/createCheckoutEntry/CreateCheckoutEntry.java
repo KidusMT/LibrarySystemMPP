@@ -1,11 +1,11 @@
-package views.librarian.createCheckout;
+package views.librarian.createCheckoutEntry;
 
 import javafx.event.ActionEvent;
 import views.librarian.Librarian;
 
 import java.io.IOException;
 
-public class CreateCheckout {
+public class CreateCheckoutEntry {
     public void createCheckout(ActionEvent event) {
     }
 
