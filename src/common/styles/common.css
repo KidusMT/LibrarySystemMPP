@@ -13,3 +13,6 @@
     -fx-background-color: #0C39FF;
     -fx-text-fill: #FFF;
 }
+.card-background{
+    -fx-background-color: #fff;
+}
