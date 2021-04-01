@@ -34,6 +34,7 @@ public class Librarian extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/views/librarian/viewCheckouts/view-checkout.fxml"));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/views/librarian/viewCheckouts/view_checkout.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/common/styles/common.css").toExternalForm());
         stage.setScene(scene);
         stage.setFullScreenExitHint("");
         stage.show();
