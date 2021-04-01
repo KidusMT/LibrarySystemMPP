@@ -8,7 +8,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Librarian extends Application {
+public class
+Librarian extends Application {
     public static Stage stage;
 
     public static void routeToCreateCheckout() throws IOException {
@@ -25,14 +26,14 @@ public class Librarian extends Application {
 
     private static void route(Parent contentRoot, String title) {
         stage.setTitle(title != null ? title : "Librarian");
-        stage.setScene(new Scene(contentRoot, 960, 640));
+        stage.setScene(new Scene(contentRoot, 1080, 720));
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("/views/librarian/viewCheckouts/view-checkout.fxml"));
-        stage.setScene(new Scene(root, 960, 640));
+        stage.setScene(new Scene(root, 1080, 720));
         stage.setFullScreenExitHint("");
         stage.show();
     }

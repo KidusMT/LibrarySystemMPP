@@ -6,7 +6,7 @@ public interface DAO<E> {
 
     List<E> getAll();
 
-    E create(E entity);
+    void create(E entity);
 
     E update(E entity);
 

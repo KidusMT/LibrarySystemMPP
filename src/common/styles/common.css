@@ -1,3 +1,9 @@
 .button {
-    -fx-background-color: #4860ff;
+    -fx-background-color: #323b7c;
+    -fx-text-fill: #fff;
+
+}
+
+.card-background {
+    -fx-background-color: #fff;
 }

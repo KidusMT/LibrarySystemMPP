@@ -4,13 +4,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.admin.viewBooks.ViewBooks">
    <children>
-      <Label layoutX="208.0" layoutY="116.0" prefHeight="42.0" prefWidth="185.0" text="View book list">
+      <Label layoutX="24.0" layoutY="27.0" prefHeight="42.0" prefWidth="185.0" text="Book list">
          <font>
-            <Font size="20.0" />
+            <Font name="Calibri Light" size="20.0" />
          </font>
       </Label>
+      <Button layoutX="486.0" layoutY="36.0" mnemonicParsing="false" onAction="#createBook" stylesheets="@../../../common/styles/common.css" text="Create book" />
    </children>
 </AnchorPane>
