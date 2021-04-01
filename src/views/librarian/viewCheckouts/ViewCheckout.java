@@ -1,4 +1,4 @@
-package controllers;
+package views.librarian.viewCheckouts;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -12,7 +12,7 @@ import models.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class ViewCheckoutController {
+public class ViewCheckout {
     private final ObservableList<CheckoutRecord> memberData = FXCollections.observableArrayList();
     private ObservableList<CheckoutEntity> checkoutEntityData = FXCollections.observableArrayList();
     @FXML
@@ -32,8 +32,6 @@ public class ViewCheckoutController {
     private TableColumn<CheckoutEntity, String> dueDateColumn;
 
     public void initialize() {
-//        UserSession userSession = UserSession.getInstance();
-//        userLabel.setText("Hi @" + userSession.getEmail());
         preJava8();
         checkoutEntityData = FXCollections.observableArrayList();
         memberData.add(new CheckoutRecord("1001", new LibraryMember("100","Hans", "Muster", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557)), new ArrayList<>()));
@@ -45,7 +43,7 @@ public class ViewCheckoutController {
         memberData.add(new CheckoutRecord("1007", new LibraryMember("106","Anna", "Best", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557)), new ArrayList<>()));
         memberData.add(new CheckoutRecord("1008", new LibraryMember("107","Stefan", "Meier", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557)), new ArrayList<>()));
         memberData.add(new CheckoutRecord("1009", new LibraryMember("108","Martin", "Mueller", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557)), new ArrayList<>()));
-                                                // String entryId, LocalDate date, LocalDate due_date, BookCopy bookCopy, CheckoutRecord checkoutRecord
+        // String entryId, LocalDate date, LocalDate due_date, BookCopy bookCopy, CheckoutRecord checkoutRecord
         CheckoutRecord checkoutRecord = new CheckoutRecord("1001", new LibraryMember("100","Hans", "Muster", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557)), new ArrayList<>());
         checkoutEntityData.add(new CheckoutEntity("2001", LocalDate.now(), LocalDate.now(), new BookCopy(new Book("123123123", "The Alchemist", 2, new ArrayList<>()),2,true), checkoutRecord));
         checkoutEntityData.add(new CheckoutEntity("2001", LocalDate.now(), LocalDate.now(), new BookCopy(new Book("123123123", "The Alchemist", 2, new ArrayList<>()),2,true), checkoutRecord));
@@ -71,8 +69,8 @@ public class ViewCheckoutController {
     }
 
     private void preJava8() {
-//        firstNameColumn.setCellValueFactory(param -> param.getValue().getCheckedOutBy().getFirstName());
-//        lastNameColumn.setCellValueFactory(param -> param.getValue().getCheckedOutBy().getLastName());
+        firstNameColumn.setCellValueFactory(param -> new SimpleObjectProperty(param.getValue().getCheckedOutBy().getFirstName()));
+        lastNameColumn.setCellValueFactory(param ->  new SimpleObjectProperty(param.getValue().getCheckedOutBy().getLastName()));
 
         bookTitleColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getBookCopy().getBook().getTitle()));
         checkoutDateColumn.setCellValueFactory(param -> new SimpleObjectProperty(param.getValue().getDate()));
