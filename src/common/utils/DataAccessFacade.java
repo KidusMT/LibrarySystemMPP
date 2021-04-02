@@ -1,6 +1,7 @@
 package common.utils;
 
 import models.Book;
+import models.CheckoutRecord;
 import models.LibraryMember;
 import models.User;
 
@@ -27,6 +28,13 @@ public class DataAccessFacade implements DataAccess {
         HashMap<String, User> users = new HashMap<String, User>();
         userList.forEach(user -> users.put(user.getId(), user));
         saveToStorage(StorageType.USERS, users);
+    }
+
+    // CHECKOUT RECORDS
+    static void loadCheckoutRecordMap(List<CheckoutRecord> checkoutRecordList) {
+        HashMap<String, CheckoutRecord> recordHashMap = new HashMap<String, CheckoutRecord>();
+        checkoutRecordList.forEach(checkoutRecord -> recordHashMap.put(checkoutRecord.getCheckoutId(), checkoutRecord));
+        saveToStorage(StorageType.CHECKOUT_RECORD, recordHashMap);
     }
 
     static void loadMemberMap(List<LibraryMember> memberList) {
@@ -142,7 +150,7 @@ public class DataAccessFacade implements DataAccess {
     }
 
     enum StorageType {
-        BOOKS, MEMBERS, USERS;
+        BOOKS, MEMBERS, USERS, CHECKOUT_RECORD, CHECKOUT_ENTITY
     }
 
     final static class Pair<S, T> implements Serializable {
