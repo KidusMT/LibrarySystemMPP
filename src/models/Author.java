@@ -12,6 +12,11 @@ final public class Author extends Person implements Serializable {
         this.bio = bio;
     }
 
+    @Override
+    public String toString() {
+        return getFirstName() + " " + getLastName();
+    }
+
     public String getBio() {
         return bio;
     }
