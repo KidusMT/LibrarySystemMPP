@@ -1,5 +1,6 @@
 package controllers;
 
+import common.utils.Authorization;
 import daos.UserDAO;
 import models.User;
 
@@ -12,7 +13,7 @@ public class UserController {
 
     public User authenticateUser(String userId,String password){
         // TODO: implement
-        return new User("","","","");
+        return new User("","", Authorization.LIBRARIAN);
     }
 
 

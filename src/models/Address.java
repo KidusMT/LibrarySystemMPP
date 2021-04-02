@@ -3,6 +3,8 @@ package models;
 import java.io.Serializable;
 
 public class Address implements Serializable {
+    private static final long serialVersionUID = 7508488940058530471L;
+
     private String state;
     private String street;
     private String city;
