@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import home.Main;
@@ -120,15 +121,6 @@ public class ViewCheckout {
         Librarian.routeToCreateCheckout();
     }
 
-    /**
-     * Called when the user clicks the edit button. Opens a dialog to edit
-     * details for the selected person.
-     */
-    @FXML
-    private void handleEditRecord() throws IOException {
-        Librarian.routeToUpdateCheckout();
-    }
-
     @FXML
     private void handleNewEntry() throws IOException {
         Librarian.routeToCreateCheckoutEntry();
@@ -136,7 +128,24 @@ public class ViewCheckout {
 
     @FXML
     private void handleUpdateEntry() throws IOException {
-        Librarian.routeToUpdateCheckoutEntry();
+        CheckoutEntity checkoutEntity = checkoutEntryTable.getSelectionModel().getSelectedItem();
+        if (checkoutEntity != null) {
+//            boolean okClicked = mainApp.showPersonEditDialog(checkoutEntity);
+//            if (okClicked) {
+            Librarian.routeToUpdateCheckoutEntry();
+//                showPersonDetails(checkoutEntity);
+//            }
+
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(Librarian.stage);
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Person Selected");
+            alert.setContentText("Please select a person in the table.");
+
+            alert.showAndWait();
+        }
     }
 
     public void navigateToLogin(ActionEvent event) throws IOException {
