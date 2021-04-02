@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import main.Main;
+import home.Main;
 import models.Book;
 import views.admin.bookDetail.BookSingleton;
 import java.io.IOException;

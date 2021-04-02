@@ -40,17 +40,17 @@ public class ViewCheckout {
 //        userLabel.setText("Hi @" + userSession.getEmail());
         preJava8();
         checkoutEntityData = FXCollections.observableArrayList();
-        memberData.add(new CheckoutRecord("1001", new LibraryMember("100", "Hans", "Muster", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", "52557"))));
-        memberData.add(new CheckoutRecord("1002", new LibraryMember("101", "Ruth", "Mueller", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", "52557"))));
-        memberData.add(new CheckoutRecord("1003", new LibraryMember("102", "Heinz", "Kurz", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", "52557"))));
-        memberData.add(new CheckoutRecord("1004", new LibraryMember("103", "Cornelia", "Meier", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", "52557"))));
-        memberData.add(new CheckoutRecord("1005", new LibraryMember("104", "Werner", "Meyer", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", "52557"))));
-        memberData.add(new CheckoutRecord("1006", new LibraryMember("105", "Lydia", "Kunz", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", "52557"))));
-        memberData.add(new CheckoutRecord("1007", new LibraryMember("106", "Anna", "Best", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", "52557"))));
-        memberData.add(new CheckoutRecord("1008", new LibraryMember("107", "Stefan", "Meier", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", "52557"))));
-        memberData.add(new CheckoutRecord("1009", new LibraryMember("108", "Martin", "Mueller", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", "52557"))));
+        memberData.add(new CheckoutRecord("1001", new LibraryMember("100", "Hans", "Muster", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
+        memberData.add(new CheckoutRecord("1002", new LibraryMember("101", "Ruth", "Mueller", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
+        memberData.add(new CheckoutRecord("1003", new LibraryMember("102", "Heinz", "Kurz", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
+        memberData.add(new CheckoutRecord("1004", new LibraryMember("103", "Cornelia", "Meier", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
+        memberData.add(new CheckoutRecord("1005", new LibraryMember("104", "Werner", "Meyer", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
+        memberData.add(new CheckoutRecord("1006", new LibraryMember("105", "Lydia", "Kunz", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
+        memberData.add(new CheckoutRecord("1007", new LibraryMember("106", "Anna", "Best", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
+        memberData.add(new CheckoutRecord("1008", new LibraryMember("107", "Stefan", "Meier", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
+        memberData.add(new CheckoutRecord("1009", new LibraryMember("108", "Martin", "Mueller", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
         // String entryId, LocalDate date, LocalDate due_date, BookCopy bookCopy, CheckoutRecord checkoutRecord
-        CheckoutRecord checkoutRecord = new CheckoutRecord("1001", new LibraryMember("100", "Hans", "Muster", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", "52557")));
+        CheckoutRecord checkoutRecord = new CheckoutRecord("1001", new LibraryMember("100", "Hans", "Muster", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557)));
         checkoutEntityData.add(new CheckoutEntity("2001", LocalDate.now(), LocalDate.now(), new BookCopy(new Book("123123123", "The Alchemist", 2, new ArrayList<>()), 2, true), checkoutRecord));
         checkoutEntityData.add(new CheckoutEntity("2001", LocalDate.now(), LocalDate.now(), new BookCopy(new Book("123123123", "The Alchemist", 3, new ArrayList<>()), 2, true), checkoutRecord));
         checkoutEntityData.add(new CheckoutEntity("2001", LocalDate.now(), LocalDate.now(), new BookCopy(new Book("123123123", "The Alchemist", 4, new ArrayList<>()), 2, true), checkoutRecord));

@@ -10,5 +10,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="library" name="lib1" level="project" />
     <orderEntry type="library" name="lib" level="application" />
+    <orderEntry type="library" name="javafx-swt" level="project" />
   </component>
 </module>

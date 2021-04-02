@@ -1,0 +1,36 @@
+.button {
+    -fx-background-color: #333;
+    -fx-text-fill: #fff;
+}
+
+.button:hover {
+    -fx-background-color: #fff;
+    -fx-border-color: #333;
+    -fx-text-fill: #333;
+}
+
+.button:pressed {
+    -fx-background-color: #eeeeee;
+    -fx-text-fill: #FFF;
+}
+.card-background{
+    -fx-background-color: #fff;
+}
+
+
+/* for warming and deletion*/
+#button-warning {
+    -fx-background-color: #FFF;
+    -fx-border-color: #D7545A;
+    -fx-text-fill: #DC3545;
+}
+
+#button-warning:hover {
+    -fx-background-color: #D7545A;
+    -fx-text-fill: #FFF;
+}
+
+#button-warning:pressed {
+    -fx-background-color: #D7545A;
+    -fx-text-fill: #FFF;
+}

@@ -14,7 +14,7 @@ final public class Author extends Person implements Serializable {
 
     @Override
     public String toString() {
-        return getFirstName() + " " + getLastName();
+        return getFirstName().get() + " " + getLastName().get();
     }
 
     public String getBio() {
