@@ -60,11 +60,15 @@ public class SystemController {
         List<Book> books = new ArrayList<>();
         DataAccess da = new DataAccessFacade();
         HashMap<String, Book> b = da.readBooksMap();
-        Set<String> keys = b.keySet();
-        for (String k : keys) {
-            Book lb = b.get(k);
-            books.add(lb);
+        // handle NPE here
+        if(b!=null){
+            Set<String> keys = b.keySet();
+            for (String k : keys) {
+                Book lb = b.get(k);
+                books.add(lb);
+            }
         }
+
         return books;
     }
 
