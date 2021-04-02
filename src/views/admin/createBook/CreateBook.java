@@ -5,10 +5,18 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Window;
 import models.Address;
 import models.Author;
 import views.admin.Admin;
@@ -78,9 +86,7 @@ public class CreateBook {
         dialog.setHeight(450);
         dialog.getDialogPane().setPadding(new Insets(20));
         dialog.setTitle("Add Author");
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent() && isAuthorFormValid())
-            authorFormHandler();
+        dialog.showAndWait();
     }
 
     public void authorForm() {
@@ -115,14 +121,21 @@ public class CreateBook {
         zipCode.setPromptText("Zip code");
         zipCode.setMinWidth(350);
 
-        ButtonType addButton = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
-
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.BOTTOM_RIGHT);
+        Button addButton = new Button("Add Author");
+        addButton.setOnAction(e -> {
+            if (isAuthorFormValid()) {
+                authorFormHandler();
+            }
+        });
+        hBox.getChildren().add(addButton);
         VBox vBox = new VBox();
-        vBox.getChildren().addAll(formTitle, personalInformation, firstName, lastName, bio, telephoneNo, addressInformation, street, state, city, zipCode, authorFormError);
+        vBox.getChildren().addAll(formTitle, personalInformation, firstName, lastName, bio, telephoneNo, addressInformation, street, state, city, zipCode, authorFormError, hBox);
         vBox.setSpacing(10);
 
         dialog.getDialogPane().setContent(vBox);
-        dialog.getDialogPane().getButtonTypes().addAll(addButton, new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE));
+        dialog.getDialogPane().getButtonTypes().addAll(new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE));
     }
 
     public boolean isAuthorFormValid() {
@@ -143,11 +156,23 @@ public class CreateBook {
     }
 
     public void authorFormHandler() {
-        if (isAuthorFormValid()) {
-            Address address = new Address(state.getText(), street.getText(), city.getText(), Integer.parseInt(zipCode.getText()));
-            Author author = new Author(firstName.getText(), lastName.getText(), telephoneNo.getText(), address, bio.getText());
-            authorList.add(author);
-            authorListView.getItems().add("" + author.getFirstName() + " " + author.getLastName());
-        }
+        Address address = new Address(state.getText(), street.getText(), city.getText(), Integer.parseInt(zipCode.getText()));
+        Author author = new Author(firstName.getText(), lastName.getText(), telephoneNo.getText(), address, bio.getText());
+        authorList.add(author);
+        authorListView.getItems().add("" + author.getFirstName() + " " + author.getLastName());
+        clearFields();
+        Window window = dialog.getDialogPane().getScene().getWindow();
+        window.setOnCloseRequest(event -> window.hide());
+    }
+
+    public void clearFields() {
+        firstName.setText("");
+        lastName.setText("");
+        telephoneNo.setText("");
+        bio.setText("");
+        street.setText("");
+        city.setText("");
+        state.setText("");
+        zipCode.setText("");
     }
 }
