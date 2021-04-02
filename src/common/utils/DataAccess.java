@@ -19,5 +19,7 @@ public interface DataAccess {
 
 
     public void loadMembers(List<LibraryMember> memberList); 
+    public void loadBooks(HashMap<String,Book> bookList);
 	public void clearMembers();
+	public void clearBooks();
 }
