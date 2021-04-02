@@ -70,11 +70,7 @@ public class BookController {
  	}
  	
  	// add book copy 
- 	public int addBookCopy(String isbn) {
- 		Book book = getBook(isbn);
- 		if(book == null) {
- 			return -1;
- 		}
- 		return 1;
+ 	public void addBookCopy(Book book) {
+    	book.addCopy();
  	}
 }
