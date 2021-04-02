@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import views.admin.Admin;
 
 import java.io.IOException;
+import java.util.Random;
 
 public class CreateMember {
 
@@ -39,7 +40,8 @@ public class CreateMember {
     public void createMember(ActionEvent event) throws IOException {
         if (isMemberFormValid()) {
             MemberController memberController = new MemberController();
-            memberController.addNewMember("1", firstName.getText(), lastName.getText(), telephoneNumber.getText(), state.getText(), street.getText(), city.getText(), Integer.parseInt(zipCode.getText()));
+            int memberId =new Random().nextInt(1000-1) + 1;
+            memberController.addNewMember(""+memberId, firstName.getText(), lastName.getText(), telephoneNumber.getText(), state.getText(), street.getText(), city.getText(), Integer.parseInt(zipCode.getText()));
             Admin.routeToViewMembers();
         }
     }

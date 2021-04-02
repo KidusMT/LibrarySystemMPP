@@ -50,8 +50,8 @@ public class CreateCheckoutEntry {
         bookList.setItems(FXCollections.observableArrayList("The Alchemist", "Quantum Computer", "Theory of Consciousness"));
 
         dateBorrowed.setValue(LocalDate.now());
-        firstName.setText(checkoutRecord.getCheckedOutBy().getFirstName().get());
-        lastName.setText(checkoutRecord.getCheckedOutBy().getLastName().get());
+        firstName.setText(checkoutRecord.getCheckedOutBy().getFirstName());
+        lastName.setText(checkoutRecord.getCheckedOutBy().getLastName());
         firstName.setDisable(true);
         lastName.setDisable(true);
     }

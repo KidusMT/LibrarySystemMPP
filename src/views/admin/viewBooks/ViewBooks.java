@@ -12,7 +12,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import home.Main;
+import main.Main;
 import models.Author;
 import models.Book;
 import models.BookCopy;

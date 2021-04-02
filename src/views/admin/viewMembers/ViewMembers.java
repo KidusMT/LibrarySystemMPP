@@ -9,7 +9,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import home.Main;
+import main.Main;
 import models.LibraryMember;
 import views.admin.Admin;
 
@@ -63,7 +63,7 @@ public class ViewMembers implements Initializable {
             populateTable(memberController.getAllMembers());
         else {
             for (LibraryMember member : allMembers())
-                if (member.getFirstName().get().contains(searchString) || member.getLastName().get().contains(searchString) || member.getMemberId().equals(searchString))
+                if (member.getFirstName().contains(searchString) || member.getLastName().contains(searchString) || member.getMemberId().equals(searchString))
                     members.add(member);
 
             populateTable(members);

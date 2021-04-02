@@ -1,8 +1,6 @@
 package views.librarian.viewCheckout;
 
-import home.Main;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import main.Main;
 import models.*;
 import views.librarian.Librarian;
 
@@ -78,12 +77,19 @@ public class ViewCheckout {
     }
 
     private void preJava8() {
-        firstNameColumn.setCellValueFactory(param -> param.getValue().getCheckedOutBy().getFirstName());
-        lastNameColumn.setCellValueFactory(param -> param.getValue().getCheckedOutBy().getLastName());
+//        firstNameColumn.setCellValueFactory(param -> param.getValue().getCheckedOutBy().getFirstName());
+//        lastNameColumn.setCellValueFactory(param -> param.getValue().getCheckedOutBy().getLastName());
 
-        bookTitleColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getBookCopy().getBook().getTitle()));
-        checkoutDateColumn.setCellValueFactory(param -> new SimpleObjectProperty(param.getValue().getDate()));
-        dueDateColumn.setCellValueFactory(param -> new SimpleObjectProperty(param.getValue().getDue_date()));
+        firstNameColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getCheckedOutBy().getFirstName()));
+        lastNameColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getCheckedOutBy().getLastName()));
+        bookTitleColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getBookCopy().getBook().getTitle()));
+        checkoutDateColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getDate().toString()));
+        checkoutDateColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getDue_date().toString()));
+
+
+//        bookTitleColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getBookCopy().getBook().getTitle()));
+//        checkoutDateColumn.setCellValueFactory(param -> new SimpleObjectProperty(param.getValue().getDate()));
+//        dueDateColumn.setCellValueFactory(param -> new SimpleObjectProperty(param.getValue().getDue_date()));
     }
 
     public ObservableList<CheckoutRecord> getMemberData() {
