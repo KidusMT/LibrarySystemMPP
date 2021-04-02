@@ -1,13 +1,13 @@
 package views.admin.viewMembers;
 
 import common.utils.UserSession;
+import controllers.ControllerInterface;
 import controllers.MemberController;
+import controllers.SystemController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.Main;
 import models.Author;
@@ -17,9 +17,7 @@ import views.admin.Admin;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ViewMembers implements Initializable {
     @FXML private TableView tableView;
@@ -27,6 +25,7 @@ public class ViewMembers implements Initializable {
     @FXML private TableColumn fNameCol;
     @FXML private TableColumn lNameCol;
     @FXML private TableColumn telephoneCol;
+    @FXML private TextField searchText;
     private MemberController memberController = new MemberController();
 
     public void navigateToBooksHandler() throws IOException {
@@ -45,6 +44,15 @@ public class ViewMembers implements Initializable {
         UserSession.destroySession();
         Admin.stage.hide();
         Main.primaryStage.show();
+    }
+    public void searchMemberHandler(ActionEvent event){
+        String searchString = searchText.getText();
+
+        List<LibraryMember> members = new ArrayList<>();
+        for(LibraryMember member : allMembers()){
+            if(member.getFirstName().equals(searchString) || member.getLastName().equals(searchString) || member.getMemberId().equals(searchString)) members.add(member);
+        }
+        populateTable(members);
     }
 
     @Override
@@ -72,8 +80,10 @@ public class ViewMembers implements Initializable {
         });
     }
     private List<LibraryMember> allMembers(){
-        List<LibraryMember> members = Arrays.asList(new LibraryMember("121","John","Doe","641 123 123",null),
-                    new LibraryMember("121","Jane","Doe","641 123 456",null));
-        return members;
+//        List<LibraryMember> members = Arrays.asList(new LibraryMember("121","John","Doe","641 123 123",null),
+//                    new LibraryMember("121","Jane","Doe","641 123 456",null));
+
+        ControllerInterface memberController = new SystemController();
+        return memberController.getAllMembers();
     }
 }

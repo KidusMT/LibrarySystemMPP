@@ -63,12 +63,12 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
                <children>
-                  <TextField>
+                  <TextField fx:id="searchText">
                      <HBox.margin>
                         <Insets left="10.0" top="10.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button mnemonicParsing="false" text="Search">
+                  <Button fx:id="searchButton" mnemonicParsing="false" text="Search" onAction="#searchMemberHandler">
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
