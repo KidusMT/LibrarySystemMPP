@@ -1,49 +1,42 @@
 package views.librarian.createCheckoutEntry;
 
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import models.Address;
-import models.LibraryMember;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import views.librarian.Librarian;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class CreateCheckoutEntry {
 
-//    @FXML
-//    private ComboBox membersList;
+    @FXML
+    private TextField firstName;
+    @FXML
+    private TextField lastName;
+    @FXML
+    private DatePicker dateBorrowed;
+    @FXML
+    private DatePicker dueDate;
+
+    public static final LocalDate LOCAL_DATE(String dateString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate localDate = LocalDate.parse(dateString, formatter);
+        return localDate;
+    }
 
     @FXML
     public void initialize() {
-//        membersList.setItems(FXCollections.observableArrayList(7, 21));
-//
-//        List<LibraryMember> libraryMembers = new ArrayList<>();
-//        libraryMembers.add(new LibraryMember("100", "Hans", "Muster", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557)));
-//        libraryMembers.add(new LibraryMember("101", "Ruth", "Mueller", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557)));
-//        libraryMembers.add(new LibraryMember("102", "Heinz", "Kurz", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557)));
-//        libraryMembers.add(new LibraryMember("103", "Cornelia", "Meier", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557)));
-//        libraryMembers.add(new LibraryMember("104", "Werner", "Meyer", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557)));
-//        libraryMembers.add(new LibraryMember("105", "Lydia", "Kunz", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557)));
-//        libraryMembers.add(new LibraryMember("106", "Anna", "Best", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557)));
-//        libraryMembers.add(new LibraryMember("107", "Stefan", "Meier", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557)));
-//        libraryMembers.add(new LibraryMember("108", "Martin", "Mueller", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557)));
-//
-//        List<String> names = new ArrayList<>();
-//        for (LibraryMember libMem : libraryMembers) {
-//            names.add(String.format("%s %s", libMem.getFirstName(), libMem.getLastName()));
-//        }
-//
-//        membersList.setItems(FXCollections.observableArrayList(names));
-    }
-
-    public void createCheckout(ActionEvent event) {
+        dateBorrowed.setValue(LocalDate.now());
     }
 
     public void navigateToViewCheckoutRecords(ActionEvent event) throws IOException {
         Librarian.routeToViewCheckouts();
+    }
+
+    public void createCheckoutEntity(ActionEvent event) {
+        System.out.println("Creating checkout entity");
     }
 }
