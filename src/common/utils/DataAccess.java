@@ -24,12 +24,19 @@ public interface DataAccess {
 
     void saveNewCheckoutEntity(CheckoutEntity entity);
 
-
     void loadMembers(List<LibraryMember> memberList);
 
     void loadBooks(HashMap<String, Book> bookList);
 
+    void loadCheckoutRecords(HashMap<String, CheckoutRecord> recordHashMap);
+
+    void loadCheckoutEntities(HashMap<String, CheckoutEntity> entityHashMap);
+
     void clearMembers();
+
+    void clearCheckoutRecords();
+
+    void clearCheckoutEntities();
 
     void clearBooks();
 }

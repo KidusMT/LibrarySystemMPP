@@ -3,7 +3,6 @@ package controllers;
 import common.utils.DataAccess;
 import common.utils.DataAccessFacade;
 import daos.CheckoutRecordDAO;
-import models.Book;
 import models.CheckoutRecord;
 import models.LibraryMember;
 
@@ -14,8 +13,8 @@ import java.util.Set;
 
 public class CheckoutRecordController {
 
-    private CheckoutRecordDAO checkoutRecordDAO;
     private final DataAccess dataAccess;
+    private CheckoutRecordDAO checkoutRecordDAO;
 
     public CheckoutRecordController() {
         dataAccess = new DataAccessFacade();
@@ -32,7 +31,7 @@ public class CheckoutRecordController {
         List<CheckoutRecord> records = new ArrayList<>();
         HashMap<String, CheckoutRecord> recordMap = dataAccess.readCheckoutRecordMap();
         // handling NPE
-        if(recordMap!=null){
+        if (recordMap != null) {
             Set<String> keys = recordMap.keySet();
             for (String k : keys) {
                 CheckoutRecord lb = recordMap.get(k);

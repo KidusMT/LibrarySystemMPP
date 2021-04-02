@@ -1,11 +1,14 @@
 package views.librarian.createCheckout;
 
+import controllers.BookController;
+import controllers.CheckoutRecordController;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import models.Address;
 import models.LibraryMember;
+import views.admin.Admin;
 import views.librarian.Librarian;
 
 import java.io.IOException;
@@ -40,7 +43,12 @@ public class CreateCheckout {
         membersList.setItems(FXCollections.observableArrayList(names));
     }
 
-    public void createCheckout(ActionEvent event) {
+    public void createCheckout(ActionEvent event) throws IOException {
+//        if (isRecordValid()) {
+//            CheckoutRecordController recordController = new CheckoutRecordController();
+//            recordController.newCheckoutRecord(isbn.getText(), title.getText(), (int) maxCheckoutLength.getValue(), authorList);
+//            Librarian.routeToViewCheckouts();
+//        }
     }
 
     public void navigateToViewCheckoutRecords(ActionEvent event) throws IOException {
