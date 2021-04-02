@@ -66,6 +66,10 @@ public class BookDetail implements Initializable {
         Admin.routeViewBooks();
     }
 
+    public void cancelBook(ActionEvent event) throws IOException {
+        Admin.routeViewBooks();
+    }
+
     public void navigateToViewBooks(ActionEvent event) throws IOException {
         Admin.routeViewBooks();
     }

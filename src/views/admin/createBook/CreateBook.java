@@ -1,5 +1,6 @@
 package views.admin.createBook;
 
+import controllers.SystemController;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -47,7 +48,9 @@ public class CreateBook {
 
     public void createBookHandler(ActionEvent event) throws IOException {
         // TODO: Add validation
-        Book book = new Book(isbn.getText(), title.getText(), (int) maxCheckoutLength.getValue(), authorList);
+//        Book book = new Book(isbn.getText(), title.getText(), (int) maxCheckoutLength.getValue(), authorList);
+        SystemController systemController = new SystemController();
+        systemController.newBook(isbn.getText(),title.getText(),(int) maxCheckoutLength.getValue(), authorList);
         // Add controller here
         Admin.routeViewBooks();
     }
