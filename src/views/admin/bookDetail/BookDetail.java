@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import models.Author;
 import models.Book;
 import views.admin.Admin;
@@ -38,7 +39,10 @@ public class BookDetail implements Initializable {
         maxCheckoutLength.setText(book.getMaxCheckoutLength() + " days");
         noOfBookCopies.setText("" + book.getCopies().length);
         for (Author author : book.getAuthors()) {
-            authorList.getChildren().add(new Label(author.getFirstName() + " " + author.getLastName() + ", " + author.getAddress().getCity() + " " + author.getAddress().getState()));
+            Label name = new Label(author.getFirstName() + " " + author.getLastName() + ", " + author.getAddress().getCity() + " " + author.getAddress().getState());
+            name.setStyle("-fx-font-weight: bold");
+            authorList.getChildren().add(name);
+            authorList.getChildren().add(new Label(author.getBio()));
         }
     }
 
