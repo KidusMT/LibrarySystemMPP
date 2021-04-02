@@ -84,6 +84,7 @@ public class MemberController {
  			if(k.equals(memberId)) {
  			  members.remove(memberId);
  			  da.clearMembers();
+ 			  break;
  			}
  		}
  		

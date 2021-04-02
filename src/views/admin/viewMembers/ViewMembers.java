@@ -6,13 +6,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import main.Main;
 import models.LibraryMember;
 import views.admin.Admin;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -34,8 +37,11 @@ public class ViewMembers implements Initializable {
     private TableColumn addressCol;
     @FXML
     private TextField searchText;
+    @FXML
+    private HBox actionBox;
 
     private MemberController memberController = new MemberController();
+    private LibraryMember selectedMember;
 
     public void navigateToBooksHandler() throws IOException {
         Admin.routeViewBooks();
@@ -69,10 +75,19 @@ public class ViewMembers implements Initializable {
             populateTable(members);
         }
     }
+    public void editMemberHandler(ActionEvent event){
+    }
+    public void deleteMemberHandler(ActionEvent event){
+        memberController.deleteMember(selectedMember.getMemberId());
+        populateTable(memberController.getAllMembers());
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        actionBox.setVisible(false);
+        actionBox.setMaxHeight(0);
         populateTable(memberController.getAllMembers());
+
     }
 
     public void populateTable(List<LibraryMember> memberList) {
@@ -82,6 +97,18 @@ public class ViewMembers implements Initializable {
         telephoneCol.setCellValueFactory(new PropertyValueFactory<LibraryMember, String>("telephone"));
         addressCol.setCellValueFactory(new PropertyValueFactory<LibraryMember, String>("address"));
         tableView.getItems().setAll(memberList);
+        tableView.setRowFactory(tv -> {
+            TableRow<LibraryMember> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if ((! row.isEmpty()) ) {
+                     selectedMember = row.getItem();
+                    System.out.println(selectedMember);
+                    actionBox.setFillHeight(true);
+                    actionBox.setVisible(true);
+                }
+            });
+            return row ;
+        });
     }
 
     private List<LibraryMember> allMembers() {
