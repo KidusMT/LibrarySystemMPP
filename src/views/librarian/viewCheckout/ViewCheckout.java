@@ -12,16 +12,18 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import main.Main;
-import models.*;
+import models.CheckoutEntity;
+import models.LibraryMember;
 import views.librarian.Librarian;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
 public class ViewCheckout {
     private final ObservableList<LibraryMember> memberData = FXCollections.observableArrayList();
+    CheckoutEntityController entityController;
+    MemberController memberController;
     private ObservableList<CheckoutEntity> checkoutEntityData = FXCollections.observableArrayList();
     @FXML
     private TableView<LibraryMember> memberTable;
@@ -29,7 +31,6 @@ public class ViewCheckout {
     private TableColumn<LibraryMember, String> firstNameColumn;
     @FXML
     private TableColumn<LibraryMember, String> lastNameColumn;
-
     @FXML
     private TableView<CheckoutEntity> checkoutEntryTable;
     @FXML
@@ -38,9 +39,6 @@ public class ViewCheckout {
     private TableColumn<CheckoutEntity, String> checkoutDateColumn;
     @FXML
     private TableColumn<CheckoutEntity, String> dueDateColumn;
-
-    CheckoutEntityController entityController;
-    MemberController memberController;
 
     public void initialize() {
         entityController = new CheckoutEntityController();
@@ -62,10 +60,11 @@ public class ViewCheckout {
 
     private void showCheckoutEntitiesTable(LibraryMember checkoutRecord) {
         if (checkoutRecord != null) {
+            checkoutEntityData = FXCollections.observableArrayList();
             checkoutEntityData.addAll(entityController.getCheckoutEntries(checkoutRecord.getMemberId()));
             checkoutEntryTable.setItems(getCheckoutEntityData());
         } else {
-//            checkoutEntryTable.getItems().clear();
+            checkoutEntryTable.setItems(checkoutEntityData);
         }
     }
 
