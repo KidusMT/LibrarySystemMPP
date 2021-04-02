@@ -90,6 +90,16 @@ public class DataAccessFacade implements DataAccess {
         saveToStorage(StorageType.BOOKS, bookList);
     }
 
+    @Override
+    public void loadCheckoutRecords(HashMap<String, CheckoutRecord> recordHashMap) {
+        saveToStorage(StorageType.CHECKOUT_RECORD, recordHashMap);
+    }
+
+    @Override
+    public void loadCheckoutEntities(HashMap<String, CheckoutEntity> entityHashMap) {
+        saveToStorage(StorageType.CHECKOUT_ENTITY, entityHashMap);
+    }
+
     //implement: other save operations
     public void clearMembers() {
         try {
@@ -99,7 +109,8 @@ public class DataAccessFacade implements DataAccess {
         }
     }
 
-    public void clearCheckoutRecord() {
+    @Override
+    public void clearCheckoutRecords() {
         try {
             new FileOutputStream(StorageType.CHECKOUT_RECORD.toString()).close();
         } catch (IOException e) {
@@ -107,7 +118,8 @@ public class DataAccessFacade implements DataAccess {
         }
     }
 
-    public void clearCheckoutEntity() {
+    @Override
+    public void clearCheckoutEntities() {
         try {
             new FileOutputStream(StorageType.CHECKOUT_ENTITY.toString()).close();
         } catch (IOException e) {
@@ -138,7 +150,6 @@ public class DataAccessFacade implements DataAccess {
 
     /////load methods - these place test data into the storage area
     ///// - used just once at startup
-
     @Override
     public void saveNewCheckoutRecord(CheckoutRecord record) {
         HashMap<String, CheckoutRecord> hashMap = readCheckoutRecordMap();
