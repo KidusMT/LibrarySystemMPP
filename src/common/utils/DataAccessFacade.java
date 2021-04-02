@@ -1,9 +1,6 @@
 package common.utils;
 
-import models.Book;
-import models.CheckoutRecord;
-import models.LibraryMember;
-import models.User;
+import models.*;
 
 import java.io.*;
 import java.nio.file.FileSystems;
@@ -35,6 +32,13 @@ public class DataAccessFacade implements DataAccess {
         HashMap<String, CheckoutRecord> recordHashMap = new HashMap<String, CheckoutRecord>();
         checkoutRecordList.forEach(checkoutRecord -> recordHashMap.put(checkoutRecord.getCheckoutId(), checkoutRecord));
         saveToStorage(StorageType.CHECKOUT_RECORD, recordHashMap);
+    }
+
+    // CHECKOUT ENTITY
+    static void loadCheckoutEntityMap(List<CheckoutEntity> checkoutEntityList) {
+        HashMap<String, CheckoutEntity> entityHashMap = new HashMap<String, CheckoutEntity>();
+        checkoutEntityList.forEach(checkoutEntity -> entityHashMap.put(checkoutEntity.getEntryId(), checkoutEntity));
+        saveToStorage(StorageType.CHECKOUT_ENTITY, entityHashMap);
     }
 
     static void loadMemberMap(List<LibraryMember> memberList) {
@@ -95,6 +99,22 @@ public class DataAccessFacade implements DataAccess {
         }
     }
 
+    public void clearCheckoutRecord() {
+        try {
+            new FileOutputStream(StorageType.CHECKOUT_RECORD.toString()).close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clearCheckoutEntity() {
+        try {
+            new FileOutputStream(StorageType.CHECKOUT_ENTITY.toString()).close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void clearBooks() {
         try {
             new FileOutputStream(StorageType.BOOKS.toString()).close();
@@ -120,11 +140,40 @@ public class DataAccessFacade implements DataAccess {
     ///// - used just once at startup
 
     @Override
+    public void saveNewCheckoutRecord(CheckoutRecord record) {
+        HashMap<String, CheckoutRecord> hashMap = readCheckoutRecordMap();
+        String isbn = record.getCheckoutId();
+        hashMap.put(isbn, record);
+        saveToStorage(StorageType.CHECKOUT_RECORD, hashMap);
+    }
+
+    @Override
+    public void saveNewCheckoutEntity(CheckoutEntity entity) {
+        HashMap<String, CheckoutEntity> hashMap = readCheckoutEntityMap();
+        String isbn = entity.getEntryId();
+        hashMap.put(isbn, entity);
+        saveToStorage(StorageType.CHECKOUT_ENTITY, hashMap);
+    }
+
+    @Override
     public void saveNewBook(Book book) {
         HashMap<String, Book> hashMap = readBooksMap();
         String isbn = book.getIsbn();
         hashMap.put(isbn, book);
         saveToStorage(StorageType.BOOKS, hashMap);
+    }
+    @SuppressWarnings("unchecked")
+    public HashMap<String, CheckoutRecord> readCheckoutRecordMap() {
+        //Returns a Map with name/value pairs being
+        //   isbn -> Book
+        return (HashMap<String, CheckoutRecord>) readFromStorage(StorageType.CHECKOUT_RECORD);
+    }
+
+    @SuppressWarnings("unchecked")
+    public HashMap<String, CheckoutEntity> readCheckoutEntityMap() {
+        //Returns a Map with name/value pairs being
+        //   isbn -> Book
+        return (HashMap<String, CheckoutEntity>) readFromStorage(StorageType.CHECKOUT_ENTITY);
     }
 
     @SuppressWarnings("unchecked")

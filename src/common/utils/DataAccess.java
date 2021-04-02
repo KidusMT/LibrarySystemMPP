@@ -1,13 +1,16 @@
 package common.utils;
 
 import models.*;
-import models.User;
 
 import java.util.HashMap;
 import java.util.List;
 
 public interface DataAccess {
     HashMap<String, Book> readBooksMap();
+
+    HashMap<String, CheckoutRecord> readCheckoutRecordMap();
+
+    HashMap<String, CheckoutEntity> readCheckoutEntityMap();
 
     HashMap<String, User> readUserMap();
 
@@ -17,9 +20,16 @@ public interface DataAccess {
 
     void saveNewBook(Book book);
 
+    void saveNewCheckoutRecord(CheckoutRecord record);
 
-    public void loadMembers(List<LibraryMember> memberList); 
-    public void loadBooks(HashMap<String,Book> bookList);
-	public void clearMembers();
-	public void clearBooks();
+    void saveNewCheckoutEntity(CheckoutEntity entity);
+
+
+    void loadMembers(List<LibraryMember> memberList);
+
+    void loadBooks(HashMap<String, Book> bookList);
+
+    void clearMembers();
+
+    void clearBooks();
 }
