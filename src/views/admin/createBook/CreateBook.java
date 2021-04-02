@@ -113,7 +113,7 @@ public class CreateBook {
 
 
     public void authorFormHandler() {
-        Address address = new Address(state.getText(), street.getText(), city.getText(), Double.parseDouble(zipCode.getText()));
+        Address address = new Address(state.getText(), street.getText(), city.getText(), Integer.parseInt(zipCode.getText()));
         Author author = new Author(firstName.getText(), lastName.getText(), telephoneNo.getText(), address, bio.getText());
         authorList.add(author);
         authorListView.getItems().add("" + author.getFirstName() + " " + author.getLastName());
