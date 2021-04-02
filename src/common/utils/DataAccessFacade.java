@@ -1,6 +1,7 @@
 package common.utils;
 import models.*;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -18,17 +19,38 @@ public class DataAccessFacade implements DataAccess {
 		BOOKS, MEMBERS, USERS;
 	}
 	
-	public static final String OUTPUT_DIR = System.getProperty("user.dir") + "\\src\\storage";
+	public static final String OUTPUT_DIR = System.getProperty("user.dir") + "//src//storage";
 	public static final String DATE_PATTERN = "MM/dd/yyyy";
 	
 	//implement: other save operations
+	public void clearMembers() {		
+		try {
+			new FileOutputStream("StorageType.MEMBERS").close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+	}
+	
+	public void loadMembers(List<LibraryMember> memberList) {
+		loadMemberMap(memberList);
+	}
+	
+	
 	public void saveNewMember(LibraryMember member) {
 		HashMap<String, LibraryMember> mems = readMemberMap();
 		String memberId = member.getMemberId();
 		mems.put(memberId, member);
 		saveToStorage(StorageType.MEMBERS, mems);	
 	}
-	
+
+	@Override
+	public void saveNewBook(Book book) {
+		HashMap<String, Book> hashMap = readBooksMap();
+		String isbn = book.getIsbn();
+		hashMap.put(isbn, book);
+		saveToStorage(StorageType.BOOKS, hashMap);
+	}
+
 	@SuppressWarnings("unchecked")
 	public  HashMap<String,Book> readBooksMap() {
 		//Returns a Map with name/value pairs being

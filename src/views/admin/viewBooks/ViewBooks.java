@@ -1,6 +1,8 @@
 package views.admin.viewBooks;
 
+import common.utils.DataAccess;
 import common.utils.UserSession;
+import controllers.SystemController;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -57,7 +59,9 @@ public class ViewBooks implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        populateTable(allBooks());
+        SystemController systemController = new SystemController();
+        List<Book> bookList = systemController.getAllBooks();
+        populateTable(bookList);
     }
     public void populateTable(List<Book> bookList){
         isbnCol.setCellValueFactory(new PropertyValueFactory<Book,String >("isbn"));

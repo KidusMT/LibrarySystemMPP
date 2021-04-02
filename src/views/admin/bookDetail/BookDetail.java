@@ -38,14 +38,11 @@ public class BookDetail implements Initializable {
     TextField city = new TextField();
     TextArea bio = new TextArea();
     TextField zipCode = new TextField();
-    private Book book;
     private List<Author> authorList = new ArrayList<>();
-    public BookDetail(Book book) {
-        this.book = book;
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Book book = BookSingleton.getInstance().getBook();
 //        label.setText(book.getTitle());
         title.setText(book.getTitle());
         isbn.setText(book.getIsbn());
@@ -58,11 +55,15 @@ public class BookDetail implements Initializable {
     }
 
 
-
     public void createBookHandler(ActionEvent event) throws IOException {
         // TODO: Add validation
         Book book = new Book(isbn.getText(), title.getText(), (int) maxCheckoutLength.getValue(), authorList);
         // Add controller here
+        Admin.routeViewBooks();
+    }
+
+    public void cancelBook(ActionEvent event) throws IOException {
+        BookSingleton.destroySession();
         Admin.routeViewBooks();
     }
 
@@ -124,14 +125,10 @@ public class BookDetail implements Initializable {
 
 
     public void authorFormHandler() {
-        Address address = new Address(state.getText(), street.getText(), city.getText(), Double.parseDouble(zipCode.getText()));
+        Address address = new Address(state.getText(), street.getText(), city.getText(), Integer.parseInt(zipCode.getText()));
         Author author = new Author(firstName.getText(), lastName.getText(), telephoneNo.getText(), address, bio.getText());
         authorList.add(author);
         authorListView.getItems().add("" + author.getFirstName() + " " + author.getLastName());
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
     }
 
 }

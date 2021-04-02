@@ -1,5 +1,7 @@
 package views.admin.createBook;
 
+import controllers.BookController;
+import controllers.SystemController;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,14 +42,16 @@ public class CreateBook {
 
     @FXML
     public void initialize() {
-        maxCheckoutLength.setItems(FXCollections.observableArrayList("7 days", "21 days"));
+        maxCheckoutLength.setItems(FXCollections.observableArrayList(7, 21));
         authorForm();
     }
 
 
     public void createBookHandler(ActionEvent event) throws IOException {
         // TODO: Add validation
-        Book book = new Book(isbn.getText(), title.getText(), (int) maxCheckoutLength.getValue(), authorList);
+//        Book book = new Book(isbn.getText(), title.getText(), (int) maxCheckoutLength.getValue(), authorList);
+        BookController bookController = new BookController();
+        bookController.newBook(isbn.getText(),title.getText(),(int) maxCheckoutLength.getValue(), authorList);
         // Add controller here
         Admin.routeViewBooks();
     }
@@ -110,7 +114,7 @@ public class CreateBook {
 
 
     public void authorFormHandler() {
-        Address address = new Address(state.getText(), street.getText(), city.getText(), Double.parseDouble(zipCode.getText()));
+        Address address = new Address(state.getText(), street.getText(), city.getText(), Integer.parseInt(zipCode.getText()));
         Author author = new Author(firstName.getText(), lastName.getText(), telephoneNo.getText(), address, bio.getText());
         authorList.add(author);
         authorListView.getItems().add("" + author.getFirstName() + " " + author.getLastName());
