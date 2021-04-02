@@ -49,7 +49,8 @@ public class ViewMembers implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        populateTable(allMembers());
+    	MemberController m = new MemberController();
+        populateTable(m.getAllMembers());
     }
     public void populateTable(List<LibraryMember> memberList){
         idCol.setCellValueFactory(new PropertyValueFactory<Book,String >("memberId"));

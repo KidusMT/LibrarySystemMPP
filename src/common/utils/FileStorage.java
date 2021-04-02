@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileStorage<T> {
-    public static final String OUTPUT_DIR = System.getProperty("user.dir") + "\\src\\storage";
+    public static final String OUTPUT_DIR = System.getProperty("user.dir") + "//src//storage";
 
     public List<T> listAll(StorageType type) {
         ObjectInputStream inputStream = null;
