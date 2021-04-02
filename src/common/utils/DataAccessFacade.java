@@ -154,16 +154,20 @@ public class DataAccessFacade implements DataAccess {
     public void saveNewCheckoutRecord(CheckoutRecord record) {
         HashMap<String, CheckoutRecord> hashMap = readCheckoutRecordMap();
         String isbn = record.getCheckoutId();
-        hashMap.put(isbn, record);
-        saveToStorage(StorageType.CHECKOUT_RECORD, hashMap);
+        if(hashMap!=null){
+            hashMap.put(isbn, record);
+            saveToStorage(StorageType.CHECKOUT_RECORD, hashMap);
+        }
     }
 
     @Override
     public void saveNewCheckoutEntity(CheckoutEntity entity) {
         HashMap<String, CheckoutEntity> hashMap = readCheckoutEntityMap();
         String isbn = entity.getEntryId();
-        hashMap.put(isbn, entity);
-        saveToStorage(StorageType.CHECKOUT_ENTITY, hashMap);
+        if(hashMap!=null) {
+            hashMap.put(isbn, entity);
+            saveToStorage(StorageType.CHECKOUT_ENTITY, hashMap);
+        }
     }
 
     @Override
