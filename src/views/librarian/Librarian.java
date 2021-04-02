@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import models.CheckoutEntity;
 import models.CheckoutRecord;
+import models.LibraryMember;
 import views.librarian.createCheckoutEntry.CreateCheckoutEntry;
 import views.librarian.updateCheckoutEntry.UpdateCheckoutEntry;
 
@@ -28,8 +29,8 @@ public class Librarian extends Application {
         route(FXMLLoader.load(Librarian.class.getResource("/views/librarian/viewCheckout/view-checkout.fxml")), "View checkout records");
     }
 
-    public static void routeToCreateCheckoutEntry(CheckoutRecord checkoutEntity) throws IOException {
-        CreateCheckoutEntry.newInstance(checkoutEntity);
+    public static void routeToCreateCheckoutEntry(LibraryMember libraryMember) throws IOException {
+        CreateCheckoutEntry.newInstance(libraryMember);
         route(FXMLLoader.load(Librarian.class.getResource("/views/librarian/createCheckoutEntry/create-checkout-entry.fxml")), "View checkout records");
     }
 

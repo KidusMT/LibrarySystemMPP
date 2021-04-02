@@ -1,5 +1,7 @@
 package views.librarian.viewCheckout;
 
+import controllers.CheckoutEntityController;
+import controllers.MemberController;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,14 +21,14 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public class ViewCheckout {
-    private final ObservableList<CheckoutRecord> memberData = FXCollections.observableArrayList();
+    private final ObservableList<LibraryMember> memberData = FXCollections.observableArrayList();
     private ObservableList<CheckoutEntity> checkoutEntityData = FXCollections.observableArrayList();
     @FXML
-    private TableView<CheckoutRecord> memberTable;
+    private TableView<LibraryMember> memberTable;
     @FXML
-    private TableColumn<CheckoutRecord, String> firstNameColumn;
+    private TableColumn<LibraryMember, String> firstNameColumn;
     @FXML
-    private TableColumn<CheckoutRecord, String> lastNameColumn;
+    private TableColumn<LibraryMember, String> lastNameColumn;
 
     @FXML
     private TableView<CheckoutEntity> checkoutEntryTable;
@@ -37,28 +39,16 @@ public class ViewCheckout {
     @FXML
     private TableColumn<CheckoutEntity, String> dueDateColumn;
 
+    CheckoutEntityController entityController;
+    MemberController memberController;
+
     public void initialize() {
-//        UserSession userSession = UserSession.getInstance();
-//        userLabel.setText("Hi @" + userSession.getEmail());
+        entityController = new CheckoutEntityController();
+        memberController = new MemberController();
+
         preJava8();
         checkoutEntityData = FXCollections.observableArrayList();
-        memberData.add(new CheckoutRecord("1001", new LibraryMember("100", "Hans", "Muster", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
-        memberData.add(new CheckoutRecord("1002", new LibraryMember("101", "Ruth", "Mueller", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
-        memberData.add(new CheckoutRecord("1003", new LibraryMember("102", "Heinz", "Kurz", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
-        memberData.add(new CheckoutRecord("1004", new LibraryMember("103", "Cornelia", "Meier", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
-        memberData.add(new CheckoutRecord("1005", new LibraryMember("104", "Werner", "Meyer", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
-        memberData.add(new CheckoutRecord("1006", new LibraryMember("105", "Lydia", "Kunz", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
-        memberData.add(new CheckoutRecord("1007", new LibraryMember("106", "Anna", "Best", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
-        memberData.add(new CheckoutRecord("1008", new LibraryMember("107", "Stefan", "Meier", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
-        memberData.add(new CheckoutRecord("1009", new LibraryMember("108", "Martin", "Mueller", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
-
-        // String entryId, LocalDate date, LocalDate due_date, BookCopy bookCopy, CheckoutRecord checkoutRecord
-        CheckoutRecord checkoutRecord = new CheckoutRecord("1001", new LibraryMember("100", "Hans", "Muster", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557)));
-        checkoutEntityData.add(new CheckoutEntity("2001", LocalDate.now(), LocalDate.now(), new BookCopy(new Book("123123123", "The Alchemist", 2, new ArrayList<>()), 2, true), checkoutRecord));
-        checkoutEntityData.add(new CheckoutEntity("2001", LocalDate.now(), LocalDate.now(), new BookCopy(new Book("123123123", "The Alchemist", 3, new ArrayList<>()), 2, true), checkoutRecord));
-        checkoutEntityData.add(new CheckoutEntity("2001", LocalDate.now(), LocalDate.now(), new BookCopy(new Book("123123123", "The Alchemist", 4, new ArrayList<>()), 2, true), checkoutRecord));
-        checkoutEntityData.add(new CheckoutEntity("2001", LocalDate.now(), LocalDate.now(), new BookCopy(new Book("123123123", "The Alchemist", 5, new ArrayList<>()), 2, true), checkoutRecord));
-        checkoutEntityData.add(new CheckoutEntity("2001", LocalDate.now(), LocalDate.now(), new BookCopy(new Book("123123123", "The Alchemist", 6, new ArrayList<>()), 2, true), checkoutRecord));
+        memberData.addAll(memberController.getAllMembers());
 
         // Add observable list data to the table
         memberTable.setItems(getMemberData());
@@ -70,8 +60,9 @@ public class ViewCheckout {
                 .addListener((observable, oldValue, newValue) -> showCheckoutEntitiesTable(newValue));
     }
 
-    private void showCheckoutEntitiesTable(CheckoutRecord checkoutRecord) {
+    private void showCheckoutEntitiesTable(LibraryMember checkoutRecord) {
         if (checkoutRecord != null) {
+            checkoutEntityData.addAll(entityController.getCheckoutEntries(checkoutRecord.getMemberId()));
             checkoutEntryTable.setItems(getCheckoutEntityData());
         } else {
 //            checkoutEntryTable.getItems().clear();
@@ -82,8 +73,8 @@ public class ViewCheckout {
 //        firstNameColumn.setCellValueFactory(param -> param.getValue().getCheckedOutBy().getFirstName());
 //        lastNameColumn.setCellValueFactory(param -> param.getValue().getCheckedOutBy().getLastName());
 
-        firstNameColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getCheckedOutBy().getFirstName()));
-        lastNameColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getCheckedOutBy().getLastName()));
+        firstNameColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getFirstName()));
+        lastNameColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getLastName()));
         bookTitleColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getBookCopy().getBook().getTitle()));
         checkoutDateColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getDate().toString()));
         checkoutDateColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getDue_date().toString()));
@@ -94,7 +85,7 @@ public class ViewCheckout {
 //        dueDateColumn.setCellValueFactory(param -> new SimpleObjectProperty(param.getValue().getDue_date()));
     }
 
-    public ObservableList<CheckoutRecord> getMemberData() {
+    public ObservableList<LibraryMember> getMemberData() {
         return memberData;
     }
 
@@ -147,9 +138,9 @@ public class ViewCheckout {
 
     @FXML
     private void handleNewEntry() throws IOException {
-        CheckoutRecord checkoutEntity = memberTable.getSelectionModel().getSelectedItem();
-        if (checkoutEntity != null) {
-            Librarian.routeToCreateCheckoutEntry(checkoutEntity);
+        LibraryMember libraryMember = memberTable.getSelectionModel().getSelectedItem();
+        if (libraryMember != null) {
+            Librarian.routeToCreateCheckoutEntry(libraryMember);
         } else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);

@@ -8,14 +8,23 @@ public class CheckoutEntity implements Serializable {
     private LocalDate date;
     private LocalDate dueDate;
     private BookCopy bookCopy;
-    private CheckoutRecord checkoutRecord;
+    private String memberId;
 
-    public CheckoutEntity(String entryId, LocalDate date, LocalDate dueDate, BookCopy bookCopy, CheckoutRecord checkoutRecord) {
+
+    public CheckoutEntity(String entryId, String mId, LocalDate date, LocalDate dueDate, BookCopy bookCopy) {
         this.entryId = entryId;
         this.date = date;
         this.dueDate = dueDate;
         this.bookCopy = bookCopy;
-        this.checkoutRecord = checkoutRecord;
+        this.memberId = mId;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public String getMemberId() {
+        return memberId;
     }
 
     public BookCopy getBookCopy() {
@@ -34,11 +43,6 @@ public class CheckoutEntity implements Serializable {
 
     public LocalDate getDue_date() {
         return dueDate;
-    }
-
-
-    public CheckoutRecord getCheckoutRecord() {
-        return checkoutRecord;
     }
 
 }
