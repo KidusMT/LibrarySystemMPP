@@ -14,8 +14,8 @@ import javafx.scene.layout.HBox;
 import main.Main;
 import models.LibraryMember;
 import views.admin.Admin;
+import views.admin.updateMember.MemberSingleton;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -75,9 +75,12 @@ public class ViewMembers implements Initializable {
             populateTable(members);
         }
     }
-    public void editMemberHandler(ActionEvent event){
+
+    public void editMemberHandler(ActionEvent event) throws IOException {
+        Admin.routeToUpdateMember();
     }
-    public void deleteMemberHandler(ActionEvent event){
+
+    public void deleteMemberHandler(ActionEvent event) {
         memberController.deleteMember(selectedMember.getMemberId());
         populateTable(memberController.getAllMembers());
     }
@@ -100,14 +103,19 @@ public class ViewMembers implements Initializable {
         tableView.setRowFactory(tv -> {
             TableRow<LibraryMember> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                if ((! row.isEmpty()) ) {
-                     selectedMember = row.getItem();
-                    System.out.println(selectedMember);
+                if ((!row.isEmpty())) {
+                    selectedMember = row.getItem();
+                    if (MemberSingleton.getInstance() == null)
+                        MemberSingleton.createInstance(selectedMember);
+                    else {
+                        MemberSingleton.destroySession();
+                        MemberSingleton.createInstance(selectedMember);
+                    }
                     actionBox.setFillHeight(true);
                     actionBox.setVisible(true);
                 }
             });
-            return row ;
+            return row;
         });
     }
 
