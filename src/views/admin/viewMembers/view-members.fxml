@@ -20,7 +20,20 @@
                         <Insets left="17.0" top="5.0" />
                      </HBox.margin>
                   </ImageView>
-                  <Region prefHeight="50.0" prefWidth="675.0" />
+                  <Region prefHeight="50.0" prefWidth="600.0" />
+                  <ImageView fx:id="checkoutImage" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets top="20.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../../../common/images/checkout.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="checkoutButton" mnemonicParsing="false" onAction="#navigateToCheckout" style="-fx-background-color: #333;" text="Checkout" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets right="10.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
                   <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../common/images/books.png" />

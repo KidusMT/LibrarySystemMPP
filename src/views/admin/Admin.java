@@ -12,7 +12,6 @@ import java.io.IOException;
 
 public class Admin extends Application {
     public static Stage stage;
-    private Main main;
 
     public static void routeViewBooks() throws IOException {
         route(FXMLLoader.load(Admin.class.getResource("/views/admin/viewBooks/view-books.fxml")), "View book list");

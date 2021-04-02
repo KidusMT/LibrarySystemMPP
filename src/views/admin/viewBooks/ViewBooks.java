@@ -1,5 +1,6 @@
 package views.admin.viewBooks;
 
+import common.utils.Authorization;
 import common.utils.UserSession;
 import controllers.BookController;
 import controllers.SystemController;
@@ -7,16 +8,15 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import main.Main;
 import models.Author;
 import models.Book;
 import models.BookCopy;
 import views.admin.Admin;
+import views.librarian.Librarian;
 
 import java.io.IOException;
 import java.net.URL;
@@ -39,6 +39,12 @@ public class ViewBooks implements Initializable {
     private TableColumn<Book, Integer> availableCol;
     @FXML
     private TextField searchText;
+    @FXML
+    private Button checkoutButton;
+    @FXML
+    private ImageView checkoutImage;
+
+
     private BookController bookController;
 
     public ViewBooks() {
@@ -55,6 +61,11 @@ public class ViewBooks implements Initializable {
 
     public void navigateToCreateBook(ActionEvent event) throws IOException {
         Admin.routeToCreateBook();
+    }
+
+    public void navigateToCheckout(ActionEvent event) throws Exception {
+        Admin.stage.hide();
+        new Librarian().start(Admin.stage);
     }
 
     public void navigateToLogin(ActionEvent event) throws IOException {
@@ -79,6 +90,11 @@ public class ViewBooks implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        UserSession user = UserSession.getInstance();
+        if (user.getAuthorization().equals(Authorization.ADMIN)) {
+            checkoutButton.setVisible(false);
+            checkoutImage.setVisible(false);
+        }
         SystemController systemController = new SystemController();
         List<Book> bookList = systemController.getAllBooks();
         populateTable(bookList);

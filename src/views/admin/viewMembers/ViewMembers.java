@@ -1,20 +1,20 @@
 package views.admin.viewMembers;
 
+import common.utils.Authorization;
 import common.utils.UserSession;
 import controllers.MemberController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import main.Main;
 import models.LibraryMember;
 import views.admin.Admin;
 import views.admin.updateMember.MemberSingleton;
+import views.librarian.Librarian;
 
 import java.io.IOException;
 import java.net.URL;
@@ -40,6 +40,11 @@ public class ViewMembers implements Initializable {
     @FXML
     private HBox actionBox;
 
+    @FXML
+    private Button checkoutButton;
+    @FXML
+    private ImageView checkoutImage;
+
     private MemberController memberController = new MemberController();
     private LibraryMember selectedMember;
 
@@ -62,6 +67,10 @@ public class ViewMembers implements Initializable {
         Main.primaryStage.show();
     }
 
+    public void navigateToCheckout(ActionEvent event) throws Exception {
+        Admin.stage.hide();
+        new Librarian().start(Admin.stage);
+    }
     public void searchMemberHandler(ActionEvent event) {
         String searchString = searchText.getText();
         List<LibraryMember> members = new ArrayList<>();
@@ -87,6 +96,11 @@ public class ViewMembers implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        UserSession user= UserSession.getInstance();
+        if(user.getAuthorization().equals(Authorization.ADMIN)){
+            checkoutButton.setVisible(false);
+            checkoutImage.setVisible(false);
+        }
         actionBox.setVisible(false);
         actionBox.setMaxHeight(0);
         populateTable(memberController.getAllMembers());
