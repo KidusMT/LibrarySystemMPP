@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import main.Main;
 import models.Author;
 import models.Book;
+import models.LibraryMember;
 import models.User;
 import views.admin.Admin;
 
@@ -41,9 +42,12 @@ public class ViewBooks implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        populateTable(allBooks());
+    }
+    public void populateTable(List<Book> bookList){
         isbnCol.setCellValueFactory(new PropertyValueFactory<Book,String >("isbn"));
         titleCol.setCellValueFactory(new PropertyValueFactory<Book,String>("title"));
-        tableView.getItems().setAll(bookList());
+        tableView.getItems().setAll(bookList);
         tableView.setRowFactory(tv->{
             TableRow<Book> tableRow = new TableRow<>();
             tableRow.setOnMouseClicked(event ->{
@@ -57,7 +61,7 @@ public class ViewBooks implements Initializable {
             return tableRow;
         });
     }
-    private List<Book> bookList(){
+    private List<Book> allBooks(){
         List<Book> books = Arrays.asList(new Book("123","War and Peace",21,Arrays.asList(new Author("Leo","Tolstoy",null,null,null))),
                                         new Book("234","Crime and Punishment",21,Arrays.asList(new Author("Leo","Tolstoy",null,null,null))));
         return books;
