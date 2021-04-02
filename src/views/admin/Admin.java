@@ -52,7 +52,7 @@ public class Admin extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("/views/admin/viewMembers/view-members.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/admin/viewBooks/view-books.fxml"));
         stage.setScene(new Scene(root, 1080, 720));
         stage.setTitle("Administrator");
         stage.setFullScreenExitHint("");
