@@ -3,6 +3,6 @@ bin
 .project
 .idea
 Project4_Students.iml
-.settings
-classes/*
+.settings/
 classes
+classes/*
