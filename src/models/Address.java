@@ -1,9 +1,6 @@
 package models;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 import java.io.Serializable;
 
@@ -13,16 +10,16 @@ public class Address implements Serializable {
     private StringProperty state;
     private StringProperty street;
     private StringProperty city;
-    private DoubleProperty zipCode;
+    private SimpleIntegerProperty zipCode;
 
     public Address(String state, String street, String city, int zipCode) {
         this.state = new SimpleStringProperty(state);
         this.street = new SimpleStringProperty(street);
         this.city = new SimpleStringProperty(city);
-        this.zipCode = new SimpleDoubleProperty(zipCode);
+        this.zipCode = new SimpleIntegerProperty(zipCode);
     }
 
-    public DoubleProperty getZipCode() {
+    public SimpleIntegerProperty getZipCode() {
         return zipCode;
     }
 
