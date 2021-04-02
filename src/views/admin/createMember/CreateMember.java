@@ -1,13 +1,11 @@
 package views.admin.createMember;
 
-import controllers.ControllerInterface;
 import controllers.MemberController;
-import controllers.SystemController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import models.Address;
-import models.LibraryMember;
+import javafx.scene.paint.Color;
 import views.admin.Admin;
 
 import java.io.IOException;
@@ -16,6 +14,9 @@ public class CreateMember {
 
     @FXML
     TextField firstName;
+
+    @FXML
+    Label memberFormError;
 
     @FXML
     TextField lastName;
@@ -36,16 +37,30 @@ public class CreateMember {
     TextField zipCode;
 
     public void createMember(ActionEvent event) throws IOException {
-        // TODO: add validation
-    	MemberController memberController = new MemberController();
-//        MemberController memberController = new MemberController();
-//        Address address = new Address(state.getText(), street.getText(), city.getText(), Double.parseDouble(zipCode.getText()));
-//        LibraryMember member = new LibraryMember("1", firstName.getText(), lastName.getText(), telephoneNumber.getText(), address);
-        memberController.addNewMember("1", firstName.getText(), lastName.getText(), telephoneNumber.getText(), 
-        		state.getText(), street.getText(), city.getText(), Integer.parseInt(zipCode.getText()));
-        Admin.routeToViewMembers();
+        if (isMemberFormValid()) {
+            MemberController memberController = new MemberController();
+            memberController.addNewMember("1", firstName.getText(), lastName.getText(), telephoneNumber.getText(), state.getText(), street.getText(), city.getText(), Integer.parseInt(zipCode.getText()));
+            Admin.routeToViewMembers();
+        }
     }
-    
+
+    public boolean isMemberFormValid() {
+        memberFormError.setTextFill(Color.RED);
+        if (firstName.getText().trim().isEmpty() || lastName.getText().trim().isEmpty() || telephoneNumber.getText().trim().isEmpty()
+            || state.getText().trim().isEmpty() || city.getText().trim().isEmpty() || street.getText().trim().isEmpty() || zipCode.getText().isEmpty()) {
+            memberFormError.setText("Please fill out all fields");
+            return false;
+        } else {
+            try {
+                int zip = Integer.parseInt(zipCode.getText());
+            } catch (NumberFormatException ex) {
+                memberFormError.setText("Please input number for Zip code");
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void navigateToViewMembers(ActionEvent event) throws IOException {
         Admin.routeToViewMembers();
     }

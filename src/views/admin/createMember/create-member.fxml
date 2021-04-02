@@ -9,10 +9,18 @@
    <children>
       <VBox layoutX="291.0" layoutY="82.0" prefHeight="515.0" prefWidth="476.0" spacing="12.0" styleClass="card-background" stylesheets="@../../../common/styles/common.css">
          <children>
-            <Label alignment="CENTER" prefHeight="50.0" prefWidth="510.0" text="Create Member">
+            <Label alignment="CENTER" prefHeight="47.0" prefWidth="446.0" text="Create Member">
                <font>
                   <Font size="18.0" />
                </font>
+               <VBox.margin>
+                  <Insets top="-2.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="memberFormError" prefHeight="30.0" prefWidth="446.0">
+               <VBox.margin>
+                  <Insets top="-29.0" />
+               </VBox.margin>
             </Label>
             <Label text="Personal Information" />
             <TextField fx:id="firstName" promptText="First name" />
@@ -27,7 +35,7 @@
             <HBox alignment="BOTTOM_RIGHT" prefHeight="27.0" prefWidth="456.0" spacing="10.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#createMember" text="Create member" />
-                  <Button mnemonicParsing="false" text="Cancel"  onAction="#navigateToViewMembers"/>
+                  <Button mnemonicParsing="false" onAction="#navigateToViewMembers" text="Cancel" />
                </children>
             </HBox>
          </children>
