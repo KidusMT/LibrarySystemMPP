@@ -11,9 +11,10 @@ import models.User;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 
-public class SystemController implements ControllerInterface {
+public class SystemController {
     public static UserSession currentAuth = null;
 
     public void login(String id, String password) throws LoginException {
@@ -41,7 +42,7 @@ public class SystemController implements ControllerInterface {
         List<LibraryMember> membersList = new ArrayList<>();
         DataAccess da = new DataAccessFacade();
         HashMap<String, LibraryMember> members = da.readMemberMap();
-        List<String> keys = allMemberIds();
+        Set<String> keys = members.keySet();
         for (String k : keys) {
             LibraryMember lb = members.get(k);
             membersList.add(lb);
@@ -59,7 +60,7 @@ public class SystemController implements ControllerInterface {
         List<Book> books = new ArrayList<>();
         DataAccess da = new DataAccessFacade();
         HashMap<String, Book> b = da.readBooksMap();
-        List<String> keys = allBookIds();
+        Set<String> keys = b.keySet();
         for (String k : keys) {
             Book lb = b.get(k);
             books.add(lb);
@@ -68,7 +69,7 @@ public class SystemController implements ControllerInterface {
     }
 
 
-    @Override
+    /*@Override
     public List<String> allMemberIds() {
         DataAccess da = new DataAccessFacade();
         List<String> retval = new ArrayList<>();
@@ -82,7 +83,7 @@ public class SystemController implements ControllerInterface {
         List<String> retval = new ArrayList<>();
         retval.addAll(da.readBooksMap().keySet());
         return retval;
-    }
+    } */
 
 
 }
