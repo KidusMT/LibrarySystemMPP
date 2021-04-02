@@ -76,6 +76,6 @@ public class FileStorage<T> {
 
 
     public enum StorageType {
-        BOOK, MEMBER, USER;
+        BOOK, MEMBER, USER, CHECKOUT_RECORD, CHECKOUT_ENTITY
     }
 }

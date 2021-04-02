@@ -1,8 +1,6 @@
 package common.utils;
 
-import models.Book;
-import models.LibraryMember;
-import models.User;
+import models.*;
 
 import java.io.*;
 import java.nio.file.FileSystems;
@@ -27,6 +25,20 @@ public class DataAccessFacade implements DataAccess {
         HashMap<String, User> users = new HashMap<String, User>();
         userList.forEach(user -> users.put(user.getId(), user));
         saveToStorage(StorageType.USERS, users);
+    }
+
+    // CHECKOUT RECORDS
+    static void loadCheckoutRecordMap(List<CheckoutRecord> checkoutRecordList) {
+        HashMap<String, CheckoutRecord> recordHashMap = new HashMap<String, CheckoutRecord>();
+        checkoutRecordList.forEach(checkoutRecord -> recordHashMap.put(checkoutRecord.getCheckoutId(), checkoutRecord));
+        saveToStorage(StorageType.CHECKOUT_RECORD, recordHashMap);
+    }
+
+    // CHECKOUT ENTITY
+    static void loadCheckoutEntityMap(List<CheckoutEntity> checkoutEntityList) {
+        HashMap<String, CheckoutEntity> entityHashMap = new HashMap<String, CheckoutEntity>();
+        checkoutEntityList.forEach(checkoutEntity -> entityHashMap.put(checkoutEntity.getEntryId(), checkoutEntity));
+        saveToStorage(StorageType.CHECKOUT_ENTITY, entityHashMap);
     }
 
     static void loadMemberMap(List<LibraryMember> memberList) {
@@ -78,10 +90,38 @@ public class DataAccessFacade implements DataAccess {
         saveToStorage(StorageType.BOOKS, bookList);
     }
 
+    @Override
+    public void loadCheckoutRecords(HashMap<String, CheckoutRecord> recordHashMap) {
+        saveToStorage(StorageType.CHECKOUT_RECORD, recordHashMap);
+    }
+
+    @Override
+    public void loadCheckoutEntities(HashMap<String, CheckoutEntity> entityHashMap) {
+        saveToStorage(StorageType.CHECKOUT_ENTITY, entityHashMap);
+    }
+
     //implement: other save operations
     public void clearMembers() {
         try {
             new FileOutputStream("StorageType.MEMBERS").close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void clearCheckoutRecords() {
+        try {
+            new FileOutputStream(StorageType.CHECKOUT_RECORD.toString()).close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void clearCheckoutEntities() {
+        try {
+            new FileOutputStream(StorageType.CHECKOUT_ENTITY.toString()).close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -110,6 +150,25 @@ public class DataAccessFacade implements DataAccess {
 
     /////load methods - these place test data into the storage area
     ///// - used just once at startup
+    @Override
+    public void saveNewCheckoutRecord(CheckoutRecord record) {
+        HashMap<String, CheckoutRecord> hashMap = readCheckoutRecordMap();
+        String isbn = record.getCheckoutId();
+        if(hashMap!=null){
+            hashMap.put(isbn, record);
+            saveToStorage(StorageType.CHECKOUT_RECORD, hashMap);
+        }
+    }
+
+    @Override
+    public void saveNewCheckoutEntity(CheckoutEntity entity) {
+        HashMap<String, CheckoutEntity> hashMap = readCheckoutEntityMap();
+        String isbn = entity.getEntryId();
+        if(hashMap!=null) {
+            hashMap.put(isbn, entity);
+            saveToStorage(StorageType.CHECKOUT_ENTITY, hashMap);
+        }
+    }
 
     @Override
     public void saveNewBook(Book book) {
@@ -117,6 +176,19 @@ public class DataAccessFacade implements DataAccess {
         String isbn = book.getIsbn();
         hashMap.put(isbn, book);
         saveToStorage(StorageType.BOOKS, hashMap);
+    }
+    @SuppressWarnings("unchecked")
+    public HashMap<String, CheckoutRecord> readCheckoutRecordMap() {
+        //Returns a Map with name/value pairs being
+        //   isbn -> Book
+        return (HashMap<String, CheckoutRecord>) readFromStorage(StorageType.CHECKOUT_RECORD);
+    }
+
+    @SuppressWarnings("unchecked")
+    public HashMap<String, CheckoutEntity> readCheckoutEntityMap() {
+        //Returns a Map with name/value pairs being
+        //   isbn -> Book
+        return (HashMap<String, CheckoutEntity>) readFromStorage(StorageType.CHECKOUT_ENTITY);
     }
 
     @SuppressWarnings("unchecked")
@@ -142,7 +214,7 @@ public class DataAccessFacade implements DataAccess {
     }
 
     enum StorageType {
-        BOOKS, MEMBERS, USERS;
+        BOOKS, MEMBERS, USERS, CHECKOUT_RECORD, CHECKOUT_ENTITY
     }
 
     final static class Pair<S, T> implements Serializable {

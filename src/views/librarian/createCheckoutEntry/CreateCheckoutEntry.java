@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import models.CheckoutRecord;
 import views.librarian.Librarian;
@@ -26,6 +27,11 @@ public class CreateCheckoutEntry {
 
     @FXML
     private ComboBox bookList;
+
+    @FXML
+    private TextField bookISBN;
+    @FXML
+    private Label errorMessage;
 
     private static CheckoutRecord checkoutRecord;
 
@@ -56,5 +62,11 @@ public class CreateCheckoutEntry {
 
     public void createCheckoutEntity(ActionEvent event) {
         System.out.println("Creating checkout entity");
+    }
+
+    public void findBook(ActionEvent event) {
+        String isbn = bookISBN.getText().trim();
+        System.out.println(isbn);
+        errorMessage.setText(isbn+" couldn't be found.");
     }
 }

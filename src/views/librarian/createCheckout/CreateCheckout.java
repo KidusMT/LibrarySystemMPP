@@ -1,5 +1,6 @@
 package views.librarian.createCheckout;
 
+import controllers.CheckoutRecordController;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,9 +12,11 @@ import views.librarian.Librarian;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class CreateCheckout {
 
+    List<LibraryMember> libraryMembers = new ArrayList<>();
     @FXML
     private ComboBox membersList;
 
@@ -21,7 +24,7 @@ public class CreateCheckout {
     public void initialize() {
         membersList.setItems(FXCollections.observableArrayList(7, 21));
 
-        List<LibraryMember> libraryMembers = new ArrayList<>();
+
         libraryMembers.add(new LibraryMember("100", "Hans", "Muster", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557)));
         libraryMembers.add(new LibraryMember("101", "Ruth", "Mueller", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557)));
         libraryMembers.add(new LibraryMember("102", "Heinz", "Kurz", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557)));
@@ -40,7 +43,27 @@ public class CreateCheckout {
         membersList.setItems(FXCollections.observableArrayList(names));
     }
 
-    public void createCheckout(ActionEvent event) {
+    public void createCheckout(ActionEvent event) throws IOException {
+        //        if (isRecordValid()) {
+        String output = membersList.getSelectionModel().getSelectedItem().toString();
+        System.out.println(output);
+        LibraryMember selectedLibraryMember = null;
+        for (int i = 0; i < libraryMembers.size(); i++) {
+            if (output.equals(libraryMembers.get(i).getFirstName() + " " + libraryMembers.get(i).getLastName())) {
+                selectedLibraryMember = libraryMembers.get(i);
+                break;
+            }
+        }
+        if (selectedLibraryMember != null) {
+            CheckoutRecordController recordController = new CheckoutRecordController();
+            int recordId = new Random().nextInt(1000 - 1) + 1;
+            recordController.newCheckoutRecord(String.valueOf(recordId), selectedLibraryMember);
+            Librarian.routeToCreateCheckout();
+        } else {
+            // show error message saying that there is no selection for library member
+            System.out.println("=====> didn't get the selected user");
+        }
+//        }
     }
 
     public void navigateToViewCheckoutRecords(ActionEvent event) throws IOException {

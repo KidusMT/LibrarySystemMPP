@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import models.CheckoutEntity;
 import views.librarian.Librarian;
@@ -23,6 +24,10 @@ public class UpdateCheckoutEntry {
     private DatePicker dateBorrowed;
     @FXML
     private DatePicker dueDate;
+    @FXML
+    private TextField bookISBN;
+    @FXML
+    private Label errorMessage;
 
     @FXML
     private ComboBox bookList;
@@ -51,5 +56,11 @@ public class UpdateCheckoutEntry {
 
     public void updateCheckoutEntity(ActionEvent event) {
 
+    }
+
+    public void findBook(ActionEvent event) {
+        String isbn = bookISBN.getText().trim();
+        System.out.println(isbn);
+        errorMessage.setText(isbn+" couldn't be found.");
     }
 }

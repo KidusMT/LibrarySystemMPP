@@ -19,8 +19,10 @@ import java.util.ResourceBundle;
 public class BookDetail implements Initializable {
     @FXML
     Label title;
+
     @FXML
     Label isbn;
+
     @FXML
     Label noOfBookCopies;
 
