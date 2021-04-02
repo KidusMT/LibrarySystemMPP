@@ -20,7 +20,7 @@ public class Main extends Application {
         primaryStage = stage;
         Parent root = FXMLLoader.load(getClass().getResource("../views/login/login.fxml"));
         primaryStage.setTitle("MIU Library System");
-        primaryStage.getIcons().add(new Image(getClass().getResource("../views/login/miu_logo_app.png").toURI().toString()));
+        primaryStage.getIcons().add(new Image(getClass().getResource("../common/images/miu_logo_app.png").toURI().toString()));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("../common/styles/common.css").toExternalForm());
         primaryStage.setScene(scene);

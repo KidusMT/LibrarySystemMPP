@@ -42,8 +42,8 @@ public class Librarian extends Application {
         stage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("/views/librarian/viewCheckout/view-checkout.fxml"));
         Scene scene = new Scene(root);
-        stage.setTitle("MIU Library System");
-        stage.getIcons().add(new Image(getClass().getResource("/views/login/miu_logo_app.png").toURI().toString()));
+        stage.setTitle("MIU Library System");//../../common/images/miu_logo.png
+        stage.getIcons().add(new Image(getClass().getResource("../../common/images/miu_logo_app.png").toURI().toString()));
         scene.getStylesheets().add(getClass().getResource("/views/librarian/viewCheckout/view_checkout.css").toExternalForm());
         scene.getStylesheets().add(getClass().getResource("/common/styles/common.css").toExternalForm());
         stage.setScene(scene);

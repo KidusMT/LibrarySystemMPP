@@ -18,7 +18,7 @@
             <children>
                 <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="138.0" layoutY="151.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@miu_logo.png" />
+                        <Image url="@../../common/images/miu_logo.png" />
                     </image>
                 </ImageView>
                 <Label alignment="CENTER" layoutX="68.0" layoutY="280.0" prefHeight="23.0" prefWidth="242.0" text="MIU Library System" textFill="WHITE">

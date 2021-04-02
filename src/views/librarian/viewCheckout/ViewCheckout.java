@@ -1,5 +1,6 @@
 package views.librarian.viewCheckout;
 
+import home.Main;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -7,15 +8,16 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import home.Main;
 import models.*;
 import views.librarian.Librarian;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class ViewCheckout {
     private final ObservableList<CheckoutRecord> memberData = FXCollections.observableArrayList();
@@ -99,16 +101,30 @@ public class ViewCheckout {
     private void handleDeletePerson() {
         int selectedIndex = memberTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
-            memberTable.getItems().remove(selectedIndex);
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(Librarian.stage);
+            alert.setTitle("Delete");
+            alert.setHeaderText("Delete Selection");
+            alert.setContentText("Are you sure you want to delete this record from the table?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (!result.isPresent()) {
+                // alert is exited, no button has been pressed.
+            } else if (result.get() == ButtonType.OK) {
+                //oke button is pressed
+                memberTable.getItems().remove(selectedIndex);
+            } else if (result.get() == ButtonType.CANCEL) {
+                // cancel button is pressed
+            }
         } else {
-            // Nothing selected.
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.initOwner(mainApp.getPrimaryStage());
-//            alert.setTitle("No Selection");
-//            alert.setHeaderText("No Person Selected");
-//            alert.setContentText("Please select a person in the table.");
-//
-//            alert.showAndWait();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(Librarian.stage);
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Person Selected");
+            alert.setContentText("Please select a person in the table.");
+
+            alert.showAndWait();
         }
     }
 
@@ -130,12 +146,7 @@ public class ViewCheckout {
     private void handleUpdateEntry() throws IOException {
         CheckoutEntity checkoutEntity = checkoutEntryTable.getSelectionModel().getSelectedItem();
         if (checkoutEntity != null) {
-//            boolean okClicked = mainApp.showPersonEditDialog(checkoutEntity);
-//            if (okClicked) {
             Librarian.routeToUpdateCheckoutEntry();
-//                showPersonDetails(checkoutEntity);
-//            }
-
         } else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);
