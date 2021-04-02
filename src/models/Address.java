@@ -8,7 +8,7 @@ public class Address implements Serializable {
     private String state;
     private String street;
     private String city;
-    private double zipCode;
+    private int zipCode;
 
     public Address(String state, String street, String city, int zipCode) {
         this.state = state;
@@ -17,7 +17,7 @@ public class Address implements Serializable {
         this.zipCode = zipCode;
     }
 
-    public double getZipCode() {
+    public int getZipCode() {
         return zipCode;
     }
 
@@ -35,6 +35,6 @@ public class Address implements Serializable {
 
     @Override
     public String toString() {
-        return street+", "+city+", "+state;
+        return street + ", " + city + ", " + state;
     }
 }

@@ -15,7 +15,8 @@ import models.*;
  * 
  *
  */
-public class TestData {
+public class
+TestData {
 	
 	
 	public static void main(String[] args) {

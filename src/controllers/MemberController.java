@@ -33,11 +33,15 @@ public class MemberController {
  		List<LibraryMember> membersList = new ArrayList<>();
  		DataAccess da = new DataAccessFacade();
  		HashMap<String, LibraryMember> members = da.readMemberMap();
- 		Set<String> keys = members.keySet();
- 		for(String k : keys) {
- 			  LibraryMember lb = members.get(k);
- 			  membersList.add(lb);	  
- 		} 
+ 		// handle NPE here as well
+		if(members!=null){
+			Set<String> keys = members.keySet();
+			for(String k : keys) {
+				LibraryMember lb = members.get(k);
+				membersList.add(lb);
+			}
+		}
+
  		return membersList;
  	}
  	
