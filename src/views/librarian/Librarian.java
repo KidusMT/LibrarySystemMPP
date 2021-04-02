@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import models.CheckoutEntity;
 
 import java.io.IOException;
 
@@ -28,7 +29,7 @@ public class Librarian extends Application {
         route(FXMLLoader.load(Librarian.class.getResource("/views/librarian/createCheckoutEntry/create-checkout-entry.fxml")), "View checkout records");
     }
 
-    public static void routeToUpdateCheckoutEntry() throws IOException {
+    public static void routeToUpdateCheckoutEntry(CheckoutEntity checkoutEntity) throws IOException {
         route(FXMLLoader.load(Librarian.class.getResource("/views/librarian/updateCheckoutEntry/update-checkout-entry.fxml")), "View checkout records");
     }
 

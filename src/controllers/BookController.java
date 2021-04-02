@@ -32,11 +32,15 @@ public class BookController {
     public List<Book> getAllBooks() {
         List<Book> books = new ArrayList<>();
         HashMap<String, Book> b = dataAccess.readBooksMap();
-        Set<String> keys = b.keySet();
-        for (String k : keys) {
-            Book lb = b.get(k);
-            books.add(lb);
+        // handling NPE
+        if(b!=null){
+            Set<String> keys = b.keySet();
+            for (String k : keys) {
+                Book lb = b.get(k);
+                books.add(lb);
+            }
         }
+
         return books;
     }
 

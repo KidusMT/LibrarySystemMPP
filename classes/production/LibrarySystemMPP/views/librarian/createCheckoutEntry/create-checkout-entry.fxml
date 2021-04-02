@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="views.librarian.createCheckout.CreateCheckout"
+            fx:controller="views.librarian.createCheckoutEntry.CreateCheckoutEntry"
             prefHeight="400.0" prefWidth="600.0">
 
     <children>

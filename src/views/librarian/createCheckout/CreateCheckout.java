@@ -15,10 +15,12 @@ import java.util.List;
 public class CreateCheckout {
 
     @FXML
-    ComboBox membersList;
+    private ComboBox membersList;
 
     @FXML
     public void initialize() {
+        membersList.setItems(FXCollections.observableArrayList(7, 21));
+
         List<LibraryMember> libraryMembers = new ArrayList<>();
         libraryMembers.add(new LibraryMember("100", "Hans", "Muster", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557)));
         libraryMembers.add(new LibraryMember("101", "Ruth", "Mueller", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557)));
@@ -32,7 +34,7 @@ public class CreateCheckout {
 
         List<String> names = new ArrayList<>();
         for (LibraryMember libMem : libraryMembers) {
-            names.add(String.format("%s %s", libMem.getFirstName().get(), libMem.getLastName().get()));
+            names.add(String.format("%s %s", libMem.getFirstName(), libMem.getLastName()));
         }
 
         membersList.setItems(FXCollections.observableArrayList(names));

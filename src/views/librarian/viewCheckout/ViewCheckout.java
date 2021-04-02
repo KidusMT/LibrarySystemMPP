@@ -139,14 +139,26 @@ public class ViewCheckout {
 
     @FXML
     private void handleNewEntry() throws IOException {
-        Librarian.routeToCreateCheckoutEntry();
+        CheckoutRecord checkoutRecord = memberTable.getSelectionModel().getSelectedItem();
+        if (checkoutRecord != null) {
+            Librarian.routeToCreateCheckoutEntry();
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(Librarian.stage);
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Checkout Record Selected");
+            alert.setContentText("Please select a Record in the table first.");
+
+            alert.showAndWait();
+        }
     }
 
     @FXML
     private void handleUpdateEntry() throws IOException {
         CheckoutEntity checkoutEntity = checkoutEntryTable.getSelectionModel().getSelectedItem();
         if (checkoutEntity != null) {
-            Librarian.routeToUpdateCheckoutEntry();
+            Librarian.routeToUpdateCheckoutEntry(checkoutEntity);
         } else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);

@@ -17,7 +17,7 @@ public class Person implements Serializable {
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
         this.telephone = new SimpleStringProperty(telephoneNo);
-        this.address = new SimpleObjectProperty<Address>(address);
+        this.address = new SimpleObjectProperty<>(address);
     }
 
     public StringProperty getFirstName() {
@@ -32,14 +32,14 @@ public class Person implements Serializable {
     public Address getAddress() {
         return address.get();
     }
-    public void setFirstName(StringProperty firstName) {
-        this.firstName = firstName;
+    public void setFirstName(String firstName) {
+        this.firstName.set(firstName);
     }
-    public void setLastName(StringProperty lastName) {
-        this.lastName = lastName;
+    public void setLastName(String lastName) {
+        this.lastName.set(lastName);
     }
-    public void setTelephone(StringProperty telephone) {
-        this.telephone = telephone;
+    public void setTelephone(String telephone) {
+        this.telephone.set(telephone);
     }
     public void setAddress(Address address) {
         this.address.set(address);
