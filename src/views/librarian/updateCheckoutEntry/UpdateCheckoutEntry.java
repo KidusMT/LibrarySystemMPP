@@ -38,8 +38,8 @@ public class UpdateCheckoutEntry {
 
         dateBorrowed.setValue(LocalDate.now());
         if (checkoutEntity != null) {
-            firstName.setText(checkoutEntity.getCheckoutRecord().getCheckedOutBy().getFirstName().get());
-            lastName.setText(checkoutEntity.getCheckoutRecord().getCheckedOutBy().getLastName().get());
+            firstName.setText(checkoutEntity.getCheckoutRecord().getCheckedOutBy().getFirstName());
+            lastName.setText(checkoutEntity.getCheckoutRecord().getCheckedOutBy().getLastName());
             firstName.setDisable(true);
             lastName.setDisable(true);
         }

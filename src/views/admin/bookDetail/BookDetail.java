@@ -38,7 +38,7 @@ public class BookDetail implements Initializable {
         maxCheckoutLength.setText(book.getMaxCheckoutLength() + " days");
         noOfBookCopies.setText("" + book.getCopies().length);
         for (Author author : book.getAuthors()) {
-            authorList.getChildren().add(new Label(author.getFirstName().get() + " " + author.getLastName() .get()+ ", " + author.getAddress().getCity().get() + " " + author.getAddress().getState().get()));
+            authorList.getChildren().add(new Label(author.getFirstName() + " " + author.getLastName() + ", " + author.getAddress().getCity() + " " + author.getAddress().getState()));
         }
     }
 

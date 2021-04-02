@@ -1,53 +1,40 @@
 package models;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CheckoutRecord implements Serializable {
-    private String checkoutId;
-    private ObjectProperty<LibraryMember> checkedOutBy;
-    private ObjectProperty<List<Fine>> fines;
+    private final String checkoutId;
+    private final LibraryMember checkedOutBy;
+    private final List<Fine> fines;
 
     public CheckoutRecord(String checkoutId, LibraryMember checkedOutBy) {
         this.checkoutId = checkoutId;
-        this.checkedOutBy = new SimpleObjectProperty<>(checkedOutBy);
-        this.fines = new SimpleObjectProperty<>(new ArrayList<>());
+        this.checkedOutBy = checkedOutBy;
+        this.fines = new ArrayList<>();
     }
 
     public LibraryMember getCheckedOutBy() {
-        return checkedOutBy.get();
+        return checkedOutBy;
     }
 
     public LibraryMember checkedOutByProperty() {
-        return checkedOutBy.get();
+        return checkedOutBy;
     }
 
-    public void setCheckedOutBy(LibraryMember checkedOutBy) {
-        this.checkedOutBy.set(checkedOutBy);
-    }
 
     public List<Fine> finesProperty() {
-        return fines.get();
+        return fines;
     }
 
     public String getCheckoutId() {
         return checkoutId;
     }
 
-    public void setCheckoutId(String checkoutId) {
-        this.checkoutId = checkoutId;
-    }
 
     public List<Fine> getFines() {
-        return fines.get();
+        return fines;
     }
 
-    public void setFines(List<Fine> fines) {
-        this.fines.set(fines);
-    }
 }
