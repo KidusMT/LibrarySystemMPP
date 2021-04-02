@@ -7,10 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.Main;
 import models.Book;
-import models.LibraryMember;
 import views.admin.bookDetail.BookSingleton;
-import views.admin.memberDetail.MemberDetail;
-
 import java.io.IOException;
 
 public class Admin extends Application {
@@ -29,14 +26,6 @@ public class Admin extends Application {
 
     public static void routeToViewMembers() throws IOException {
         route(FXMLLoader.load(Admin.class.getResource("/views/admin/viewMembers/view-members.fxml")), "Members list");
-    }
-
-    public static void routeToMemberDetail(LibraryMember member) throws IOException {
-        FXMLLoader loader = new FXMLLoader(Admin.class.getResource("/views/admin/memberDetail/member-detail.fxml"));
-        MemberDetail memberDetail = new MemberDetail(member);
-        loader.setController(memberDetail);
-        route(loader.load(), "Member detail");
-//        route(FXMLLoader.load(Admin.class.getResource("/views/admin/memberDetail/member-detail.fxml")), "Member detail");
     }
 
     public static void routeToCreateBook() throws IOException {

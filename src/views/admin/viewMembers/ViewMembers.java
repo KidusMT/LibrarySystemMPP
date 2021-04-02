@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.Main;
+import models.Address;
 import models.Author;
 import models.Book;
 import models.LibraryMember;
@@ -25,7 +26,9 @@ public class ViewMembers implements Initializable {
     @FXML private TableColumn fNameCol;
     @FXML private TableColumn lNameCol;
     @FXML private TableColumn telephoneCol;
+    @FXML private TableColumn addressCol;
     @FXML private TextField searchText;
+
     private MemberController memberController = new MemberController();
 
     public void navigateToBooksHandler() throws IOException {
@@ -61,29 +64,14 @@ public class ViewMembers implements Initializable {
         populateTable(m.getAllMembers());
     }
     public void populateTable(List<LibraryMember> memberList){
-        idCol.setCellValueFactory(new PropertyValueFactory<Book,String >("memberId"));
-        fNameCol.setCellValueFactory(new PropertyValueFactory<Book,String>("firstName"));
-        lNameCol.setCellValueFactory(new PropertyValueFactory<Book,String>("lastName"));
-        telephoneCol.setCellValueFactory(new PropertyValueFactory<Book,String>("telephone"));
+        idCol.setCellValueFactory(new PropertyValueFactory<LibraryMember,String >("memberId"));
+        fNameCol.setCellValueFactory(new PropertyValueFactory<LibraryMember,String>("firstName"));
+        lNameCol.setCellValueFactory(new PropertyValueFactory<LibraryMember,String>("lastName"));
+        telephoneCol.setCellValueFactory(new PropertyValueFactory<LibraryMember,String>("telephone"));
+        addressCol.setCellValueFactory(new PropertyValueFactory<LibraryMember,String>("address"));
         tableView.getItems().setAll(memberList);
-        tableView.setRowFactory(tv->{
-            TableRow<LibraryMember> tableRow = new TableRow<>();
-            tableRow.setOnMouseClicked(event ->{
-                LibraryMember rowData = tableRow.getItem();
-                System.out.println(rowData.getFirstName());
-                try {
-                    Admin.routeToMemberDetail(rowData);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-            return tableRow;
-        });
     }
     private List<LibraryMember> allMembers(){
-//        List<LibraryMember> members = Arrays.asList(new LibraryMember("121","John","Doe","641 123 123",null),
-//                    new LibraryMember("121","Jane","Doe","641 123 456",null));
-
         MemberController memberController = new MemberController();
         return memberController.getAllMembers();
     }
