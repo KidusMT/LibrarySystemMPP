@@ -1,7 +1,9 @@
 package views.librarian.createCheckoutEntry;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import models.CheckoutRecord;
@@ -22,6 +24,9 @@ public class CreateCheckoutEntry {
     @FXML
     private DatePicker dueDate;
 
+    @FXML
+    private ComboBox bookList;
+
     private static CheckoutRecord checkoutRecord;
 
     public static void newInstance(CheckoutRecord record){
@@ -36,6 +41,8 @@ public class CreateCheckoutEntry {
 
     @FXML
     public void initialize() {
+        bookList.setItems(FXCollections.observableArrayList("The Alchemist", "Quantum Computer", "Theory of Consciousness"));
+
         dateBorrowed.setValue(LocalDate.now());
         firstName.setText(checkoutRecord.getCheckedOutBy().getFirstName().get());
         lastName.setText(checkoutRecord.getCheckedOutBy().getLastName().get());

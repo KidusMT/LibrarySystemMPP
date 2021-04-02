@@ -1,7 +1,9 @@
 package views.librarian.updateCheckoutEntry;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import models.CheckoutEntity;
@@ -22,6 +24,9 @@ public class UpdateCheckoutEntry {
     @FXML
     private DatePicker dueDate;
 
+    @FXML
+    private ComboBox bookList;
+
     public static void createInstance(CheckoutEntity entity) {
         checkoutEntity = entity;
     }
@@ -29,6 +34,8 @@ public class UpdateCheckoutEntry {
     //    String entryId, LocalDate date, java.time.LocalDate due_date, BookCopy bookCopy, CheckoutRecord checkoutRecord
     @FXML
     public void initialize() {
+        bookList.setItems(FXCollections.observableArrayList("The Alchemist", "Quantum Computer", "Theory of Consciousness"));
+
         dateBorrowed.setValue(LocalDate.now());
         if (checkoutEntity != null) {
             firstName.setText(checkoutEntity.getCheckoutRecord().getCheckedOutBy().getFirstName().get());

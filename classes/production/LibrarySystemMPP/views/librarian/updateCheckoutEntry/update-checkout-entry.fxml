@@ -29,7 +29,7 @@
                 <TextField fx:id="firstName" promptText="First name" />
                 <Label text="Last name" textFill="#7b7b7b" />
                 <TextField fx:id="lastName" promptText="Last name" />
-                <ComboBox fx:id="membersList" prefHeight="25.0" prefWidth="497.0" promptText="-- SELECT BOOK TO BORROW --" />
+                <ComboBox fx:id="bookList" prefHeight="25.0" prefWidth="497.0" promptText="-- SELECT BOOK TO BORROW --" />
                 <Label text="Borrowed date" textFill="#7b7b7b" />
                 <DatePicker fx:id="dateBorrowed" prefHeight="26.0" prefWidth="493.0" />
                 <Label text="Due date" textFill="#7b7b7b" />
