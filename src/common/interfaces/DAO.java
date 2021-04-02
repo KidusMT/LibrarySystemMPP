@@ -2,11 +2,11 @@ package common.interfaces;
 import java.util.List;
 
 public interface DAO<E> {
-    E get(int id);
+    E get(String id);
 
     List<E> getAll();
 
-    E create(E entity);
+    void create(E entity);
 
     E update(E entity);
 

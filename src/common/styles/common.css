@@ -1,17 +1,20 @@
 .button {
-    -fx-background-color: #FFF;
-    -fx-border-color: #355ECE;
-    -fx-text-fill: #0C3988;
+    -fx-background-color: #333;
+    -fx-text-fill: #fff;
 }
 
 .button:hover {
-    -fx-background-color: #355ECE;
-    -fx-text-fill: #FFF;
+    -fx-background-color: #fff;
+    -fx-border-color: #333;
+    -fx-text-fill: #333;
 }
 
 .button:pressed {
-    -fx-background-color: #0C39FF;
+    -fx-background-color: #eeeeee;
     -fx-text-fill: #FFF;
+}
+.card-background{
+    -fx-background-color: #fff;
 }
 
 

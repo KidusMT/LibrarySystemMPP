@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileStorage<T> {
-    public static final String OUTPUT_DIR = System.getProperty("user.dir") + "\\src\\storage";
+    public static final String OUTPUT_DIR = System.getProperty("user.dir") + "//src//storage";
 
     public List<T> listAll(StorageType type) {
         ObjectInputStream inputStream = null;
@@ -32,12 +32,32 @@ public class FileStorage<T> {
         return objects;
     }
 
+    public Object list(StorageType storageType){
+        ObjectInputStream inputStream = null;
+        Object objects = new Object();
+        try {
+            Path path = FileSystems.getDefault().getPath(OUTPUT_DIR, storageType.toString());
+            inputStream = new ObjectInputStream(Files.newInputStream(path));
+            objects = inputStream.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+        return objects;
+
+    }
     public void save(StorageType type, T object) {
         ObjectOutputStream outputStream = null;
         try {
             Path path = FileSystems.getDefault().getPath(OUTPUT_DIR, type.toString());
             outputStream = new ObjectOutputStream(Files.newOutputStream(path));
-            List<T> objects = listAll(StorageType.USER);
+            List<T> objects = listAll(type);
             if (objects == null)
                 objects = new ArrayList<>();
             objects.add(object);

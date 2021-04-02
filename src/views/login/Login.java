@@ -1,4 +1,6 @@
 package views.login;
+
+import common.utils.Authorization;
 import common.utils.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,12 +42,12 @@ public class Login {
         Stage stage = new Stage();
 
         if (usernameField.getText().equals("admin") && passwordField.getText().equals("admin")) {
-            UserSession.createInstance("admin@gmail.com", UserSession.Role.Admin);
+            UserSession.createInstance("admin@gmail.com", Authorization.ADMIN);
             clearFields();
             admin.start(stage);
             Main.primaryStage.hide();
         } else if (usernameField.getText().equals("member") && passwordField.getText().equals("member")) {
-            UserSession.createInstance("member@gmail.com", UserSession.Role.User);
+            UserSession.createInstance("member@gmail.com", Authorization.LIBRARIAN);
             clearFields();
             librarian.start(stage);
             Main.primaryStage.hide();

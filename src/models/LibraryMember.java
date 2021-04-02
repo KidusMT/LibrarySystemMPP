@@ -3,25 +3,22 @@ package models;
 import java.io.Serializable;
 
 final public class LibraryMember extends Person implements Serializable {
-	private String memberId;
-	
-	public LibraryMember(String memberId, String fname, String lname, String tel, Address add) {
-		super(fname,lname, tel, add);
-		this.memberId = memberId;		
-	}
-	
-	
-	public String getMemberId() {
-		return memberId;
-	}
+    private static final long serialVersionUID = -2226197306790714013L;
+    private String memberId;
 
-	
-	
-	@Override
-	public String toString() {
-		return "Member Info: " + "ID: " + memberId + ", name: " + getFirstName() + " " + getLastName() + 
-				", " + getTelephone() + " " + getAddress();
-	}
 
-	private static final long serialVersionUID = -2226197306790714013L;
+    public LibraryMember(String memberId, String firstName, String lastName, String telephoneNo, Address address) {
+        super(firstName, lastName, telephoneNo, address);
+        this.memberId = memberId;
+    }
+
+    public String getMemberId() {
+        return memberId;
+    }
+
+    @Override
+    public String toString() {
+        return "Member Info: " + "ID: " + memberId + ", name: " + getFirstName() + " " + getLastName() +
+                ", " + getTelephone() + " " + getAddress();
+    }
 }

@@ -4,10 +4,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import home.Main;
-
+import main.Main;
+import models.Book;
+import views.admin.bookDetail.BookSingleton;
 import java.io.IOException;
 
 public class Admin extends Application {
@@ -18,16 +18,14 @@ public class Admin extends Application {
         route(FXMLLoader.load(Admin.class.getResource("/views/admin/viewBooks/view-books.fxml")), "View book list");
     }
 
-    public static void routeToBookDetail() throws IOException {
+    public static void routeToBookDetail(Book book) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Admin.class.getResource("/views/admin/bookDetail/book-detail.fxml"));
+        BookSingleton.createInstance(book);
         route(FXMLLoader.load(Admin.class.getResource("/views/admin/bookDetail/book-detail.fxml")), "Book detail");
     }
 
     public static void routeToViewMembers() throws IOException {
         route(FXMLLoader.load(Admin.class.getResource("/views/admin/viewMembers/view-members.fxml")), "Members list");
-    }
-
-    public static void routeToMemberDetail() throws IOException {
-        route(FXMLLoader.load(Admin.class.getResource("/views/admin/memberDetail/member-detail.fxml")), "Member detail");
     }
 
     public static void routeToCreateBook() throws IOException {
@@ -48,16 +46,15 @@ public class Admin extends Application {
 
     private static void route(Parent contentRoot, String title) {
         stage.setTitle(title != null ? title : "Administrator");
-        stage.setScene(new Scene(contentRoot, 960, 640));
+        stage.setScene(new Scene(contentRoot, 1080, 720));
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("/views/admin/viewMembers/view-members.fxml"));
-        stage.setScene(new Scene(root, 960, 640));
-        stage.setTitle("MIU Library System");
-        stage.getIcons().add(new Image(getClass().getResource("/views/login/miu_logo_app.png").toURI().toString()));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/admin/viewBooks/view-books.fxml"));
+        stage.setScene(new Scene(root, 1080, 720));
+        stage.setTitle("Administrator");
         stage.setFullScreenExitHint("");
         stage.show();
     }

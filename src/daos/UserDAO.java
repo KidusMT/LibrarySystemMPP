@@ -14,7 +14,7 @@ public class UserDAO implements DAO<User> {
     }
 
     @Override
-    public User get(int id) {
+    public User get(String id) {
         List<User> userList = getAll();
         User user = userList.stream().filter(u -> id == u.getId())
                 .findAny()
@@ -28,18 +28,9 @@ public class UserDAO implements DAO<User> {
         return userList;
     }
 
-    public User getByEmail(String email) {
-        List<User> userList = getAll();
-        User user = userList.stream().filter(u -> email.equals(u.getEmail()))
-                .findAny()
-                .orElse(null);
-        return user;
-    }
-
     @Override
-    public User create(User entity) {
+    public void create(User entity) {
         userFileStorage.save(FileStorage.StorageType.USER, entity);
-        return getByEmail(entity.getEmail());
     }
 
     @Override
