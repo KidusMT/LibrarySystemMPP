@@ -84,7 +84,7 @@ public class ViewMembers implements Initializable {
 //        List<LibraryMember> members = Arrays.asList(new LibraryMember("121","John","Doe","641 123 123",null),
 //                    new LibraryMember("121","Jane","Doe","641 123 456",null));
 
-        ControllerInterface memberController = new SystemController();
+        MemberController memberController = new MemberController();
         return memberController.getAllMembers();
     }
 }
