@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import main.Main;
 import models.Book;
 import models.LibraryMember;
-import views.admin.bookDetail.BookDetail;
+import views.admin.bookDetail.BookSingleton;
 import views.admin.memberDetail.MemberDetail;
 
 import java.io.IOException;
@@ -23,10 +23,8 @@ public class Admin extends Application {
 
     public static void routeToBookDetail(Book book) throws IOException {
         FXMLLoader loader = new FXMLLoader(Admin.class.getResource("/views/admin/bookDetail/book-detail.fxml"));
-        BookDetail bookDetail = new BookDetail(book);
-        loader.setController(bookDetail);
-        route(loader.load(),"Book detail");
-//        route(loader.load(Admin.class.getResource("/views/admin/bookDetail/book-detail.fxml")), "Book detail");
+        BookSingleton.createInstance(book);
+        route(FXMLLoader.load(Admin.class.getResource("/views/admin/bookDetail/book-detail.fxml")), "Book detail");
     }
 
     public static void routeToViewMembers() throws IOException {
@@ -37,7 +35,7 @@ public class Admin extends Application {
         FXMLLoader loader = new FXMLLoader(Admin.class.getResource("/views/admin/memberDetail/member-detail.fxml"));
         MemberDetail memberDetail = new MemberDetail(member);
         loader.setController(memberDetail);
-        route(loader.load(),"Member detail");
+        route(loader.load(), "Member detail");
 //        route(FXMLLoader.load(Admin.class.getResource("/views/admin/memberDetail/member-detail.fxml")), "Member detail");
     }
 

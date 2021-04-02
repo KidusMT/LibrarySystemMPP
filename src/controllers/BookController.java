@@ -34,8 +34,10 @@ public class BookController {
     
     // add new book with 1 copy #NEW
  	public void newBook(String isbn, String title, int maxCheckoutLength, List<Author> authors) {
- 		Book b = new Book(isbn, title, maxCheckoutLength, authors);		
- 	}
+ 		Book book = new Book(isbn, title, maxCheckoutLength, authors);
+		DataAccess da = new DataAccessFacade();
+		da.saveNewBook(book);
+	}
  	
  	// retrieve all books #NEW
  	public List<Book> getAllBooks() {
