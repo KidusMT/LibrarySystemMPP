@@ -139,9 +139,9 @@ public class ViewCheckout {
 
     @FXML
     private void handleNewEntry() throws IOException {
-        CheckoutRecord checkoutRecord = memberTable.getSelectionModel().getSelectedItem();
-        if (checkoutRecord != null) {
-            Librarian.routeToCreateCheckoutEntry();
+        CheckoutRecord checkoutEntity = memberTable.getSelectionModel().getSelectedItem();
+        if (checkoutEntity != null) {
+            Librarian.routeToCreateCheckoutEntry(checkoutEntity);
         } else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);

@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import models.CheckoutRecord;
 import views.librarian.Librarian;
 
 import java.io.IOException;
@@ -21,6 +22,12 @@ public class CreateCheckoutEntry {
     @FXML
     private DatePicker dueDate;
 
+    private static CheckoutRecord checkoutRecord;
+
+    public static void newInstance(CheckoutRecord record){
+        checkoutRecord = record;
+    }
+
     public static final LocalDate LOCAL_DATE(String dateString) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate localDate = LocalDate.parse(dateString, formatter);
@@ -30,6 +37,10 @@ public class CreateCheckoutEntry {
     @FXML
     public void initialize() {
         dateBorrowed.setValue(LocalDate.now());
+        firstName.setText(checkoutRecord.getCheckedOutBy().getFirstName().get());
+        lastName.setText(checkoutRecord.getCheckedOutBy().getLastName().get());
+        firstName.setDisable(true);
+        lastName.setDisable(true);
     }
 
     public void navigateToViewCheckoutRecords(ActionEvent event) throws IOException {

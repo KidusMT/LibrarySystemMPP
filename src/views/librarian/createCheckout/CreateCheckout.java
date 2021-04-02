@@ -34,7 +34,7 @@ public class CreateCheckout {
 
         List<String> names = new ArrayList<>();
         for (LibraryMember libMem : libraryMembers) {
-            names.add(String.format("%s %s", libMem.getFirstName(), libMem.getLastName()));
+            names.add(String.format("%s %s", libMem.getFirstName().get(), libMem.getLastName().get()));
         }
 
         membersList.setItems(FXCollections.observableArrayList(names));
