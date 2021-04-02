@@ -8,11 +8,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import models.LibraryMember;
-import views.admin.Admin;
+import views.View;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 public class UpdateMember implements Initializable {
@@ -45,7 +44,7 @@ public class UpdateMember implements Initializable {
         if (isMemberFormValid()) {
             MemberController memberController = new MemberController();
             memberController.editMember(""+member.getMemberId(), firstName.getText(), lastName.getText(), telephoneNumber.getText(), state.getText(), street.getText(), city.getText(), Integer.parseInt(zipCode.getText()));
-            Admin.routeToViewMembers();
+            View.routeToViewMembers();
         }
     }
 
@@ -67,7 +66,7 @@ public class UpdateMember implements Initializable {
     }
 
     public void navigateToViewMembers(ActionEvent event) throws IOException {
-        Admin.routeToViewMembers();
+        View.routeToViewMembers();
     }
 
     @Override

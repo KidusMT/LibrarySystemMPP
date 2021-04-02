@@ -9,9 +9,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.Main;
-import views.admin.Admin;
-import views.librarian.Librarian;
-import views.superAdmin.SuperAdmin;
+import views.View;
 
 public class Login {
 
@@ -21,14 +19,10 @@ public class Login {
     private TextField usernameField;
     @FXML
     private PasswordField passwordField;
-    private Admin admin;
-    private Librarian librarian;
-    private SuperAdmin superAdmin;
+    private View view;
 
     public Login() {
-        admin = new Admin();
-        librarian = new Librarian();
-        superAdmin=new SuperAdmin();
+        view = new View();
     }
 
     public void clearFields() {
@@ -44,17 +38,17 @@ public class Login {
         if (usernameField.getText().equals("admin") && passwordField.getText().equals("admin")) {
             UserSession.createInstance("Administrator", Authorization.ADMIN);
             clearFields();
-            admin.start(stage);
+            view.start(stage);
             Main.primaryStage.hide();
         } else if (usernameField.getText().equals("member") && passwordField.getText().equals("member")) {
             UserSession.createInstance("Librarian", Authorization.LIBRARIAN);
             clearFields();
-            librarian.start(stage);
+            view.start(stage);
             Main.primaryStage.hide();
         } else if (usernameField.getText().equals("super") && passwordField.getText().equals("super")) {
             UserSession.createInstance("SuperAdministrator",Authorization.BOTH);
             clearFields();
-            admin.start(stage);
+            view.start(stage);
             Main.primaryStage.hide();
 
         } else if (usernameField.getText().isEmpty() && passwordField.getText().isEmpty()) {

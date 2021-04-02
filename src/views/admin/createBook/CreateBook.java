@@ -19,12 +19,11 @@ import javafx.scene.text.Font;
 import javafx.stage.Window;
 import models.Address;
 import models.Author;
-import views.admin.Admin;
+import views.View;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class CreateBook {
 
@@ -61,7 +60,7 @@ public class CreateBook {
         if (isBookValid()) {
             BookController bookController = new BookController();
             bookController.newBook(isbn.getText(), title.getText(), (int) maxCheckoutLength.getValue(), authorList);
-            Admin.routeViewBooks();
+            View.routeViewBooks();
         }
     }
 
@@ -78,7 +77,7 @@ public class CreateBook {
     }
 
     public void navigateToViewBooks(ActionEvent event) throws IOException {
-        Admin.routeViewBooks();
+        View.routeViewBooks();
     }
 
     public void addAuthorDialog(ActionEvent event) {

@@ -12,7 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import main.Main;
 import models.LibraryMember;
-import views.admin.Admin;
+import views.View;
 import views.admin.updateMember.MemberSingleton;
 import views.librarian.Librarian;
 
@@ -49,7 +49,7 @@ public class ViewMembers implements Initializable {
     private LibraryMember selectedMember;
 
     public void navigateToBooksHandler() throws IOException {
-        Admin.routeViewBooks();
+        View.routeViewBooks();
     }
 
     public void navigateToMembersHandler(ActionEvent event) {
@@ -58,18 +58,17 @@ public class ViewMembers implements Initializable {
     }
 
     public void navigateToCreateMember(ActionEvent event) throws IOException {
-        Admin.routeToCreateMember();
+        View.routeToCreateMember();
     }
 
     public void navigateToLogin(ActionEvent event) throws IOException {
         UserSession.destroySession();
-        Admin.stage.hide();
+        View.stage.hide();
         Main.primaryStage.show();
     }
 
     public void navigateToCheckout(ActionEvent event) throws Exception {
-        Admin.stage.hide();
-        new Librarian().start(Admin.stage);
+        View.routeToViewCheckouts();
     }
     public void searchMemberHandler(ActionEvent event) {
         String searchString = searchText.getText();
@@ -86,7 +85,7 @@ public class ViewMembers implements Initializable {
     }
 
     public void editMemberHandler(ActionEvent event) throws IOException {
-        Admin.routeToUpdateMember();
+        View.routeToUpdateMember();
     }
 
     public void deleteMemberHandler(ActionEvent event) {

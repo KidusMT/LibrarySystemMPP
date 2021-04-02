@@ -15,8 +15,7 @@ import main.Main;
 import models.Author;
 import models.Book;
 import models.BookCopy;
-import views.admin.Admin;
-import views.librarian.Librarian;
+import views.View;
 
 import java.io.IOException;
 import java.net.URL;
@@ -52,25 +51,24 @@ public class ViewBooks implements Initializable {
     }
 
     public void navigateToMembersHandler(ActionEvent event) throws IOException {
-        Admin.routeToViewMembers();
+        View.routeToViewMembers();
     }
 
     public void navigateToBooksHandler(ActionEvent event) throws IOException {
-        Admin.routeViewBooks();
+        View.routeViewBooks();
     }
 
     public void navigateToCreateBook(ActionEvent event) throws IOException {
-        Admin.routeToCreateBook();
+        View.routeToCreateBook();
     }
 
     public void navigateToCheckout(ActionEvent event) throws Exception {
-        Admin.stage.hide();
-        new Librarian().start(Admin.stage);
+        View.routeToViewCheckouts();
     }
 
     public void navigateToLogin(ActionEvent event) throws IOException {
         UserSession.destroySession();
-        Admin.stage.hide();
+        View.stage.hide();
         Main.primaryStage.show();
     }
 
@@ -119,7 +117,7 @@ public class ViewBooks implements Initializable {
             tableRow.setOnMouseClicked(event -> {
                 Book rowData = tableRow.getItem();
                 try {
-                    Admin.routeToBookDetail(rowData);
+                    View.routeToBookDetail(rowData);
                 } catch (IOException e) {
                 }
             });

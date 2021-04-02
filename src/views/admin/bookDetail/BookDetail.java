@@ -5,12 +5,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import models.Author;
 import models.Book;
-import views.admin.Admin;
+import views.View;
 
 import java.io.IOException;
 import java.net.URL;
@@ -50,7 +48,7 @@ public class BookDetail implements Initializable {
 
     public void cancelBook(ActionEvent event) throws IOException {
         BookSingleton.destroySession();
-        Admin.routeViewBooks();
+        View.routeViewBooks();
     }
 
     public void addBookCopyHandler(ActionEvent event) {
