@@ -49,11 +49,14 @@ public class ViewMembers implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        populateTable(allMembers());
+    }
+    public void populateTable(List<LibraryMember> memberList){
         idCol.setCellValueFactory(new PropertyValueFactory<Book,String >("memberId"));
         fNameCol.setCellValueFactory(new PropertyValueFactory<Book,String>("firstName"));
         lNameCol.setCellValueFactory(new PropertyValueFactory<Book,String>("lastName"));
         telephoneCol.setCellValueFactory(new PropertyValueFactory<Book,String>("telephone"));
-        tableView.getItems().setAll(memberList());
+        tableView.getItems().setAll(memberList);
         tableView.setRowFactory(tv->{
             TableRow<LibraryMember> tableRow = new TableRow<>();
             tableRow.setOnMouseClicked(event ->{
@@ -68,7 +71,7 @@ public class ViewMembers implements Initializable {
             return tableRow;
         });
     }
-    private List<LibraryMember> memberList(){
+    private List<LibraryMember> allMembers(){
         List<LibraryMember> members = Arrays.asList(new LibraryMember("121","John","Doe","641 123 123",null),
                     new LibraryMember("121","Jane","Doe","641 123 456",null));
         return members;
