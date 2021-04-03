@@ -40,7 +40,7 @@ public class Login {
             clearFields();
             view.start(stage);
             Main.primaryStage.hide();
-        } else if (usernameField.getText().equals("member") && passwordField.getText().equals("member")) {
+        } else if (usernameField.getText().equals("library") && passwordField.getText().equals("library")) {
             UserSession.createInstance("Librarian", Authorization.LIBRARIAN);
             clearFields();
             view.start(stage);
