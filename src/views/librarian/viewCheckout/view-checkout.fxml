@@ -115,10 +115,6 @@
                            <padding>
                               <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                            </padding></Button>
-                        <Button id="button-warning" mnemonicParsing="false" style="-fx-background-color: #333;" text="Delete" textFill="WHITE">
-                           <padding>
-                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                           </padding></Button>
                         <Button mnemonicParsing="false" onAction="#printEntryHandler" style="-fx-background-color: #333;" text="Print Entry" textFill="WHITE" />
                         <Button mnemonicParsing="false" onAction="#showOverDueBooks" style="-fx-background-color: #333;" text="Get Overdue books" textFill="WHITE" />
                      </children>
