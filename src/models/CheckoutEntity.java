@@ -9,8 +9,7 @@ public class CheckoutEntity implements Serializable {
     private LocalDate dueDate;
     private BookCopy bookCopy;
     private String memberId;
-
-
+    private static final long serialVersionUID = 5543070115257205802L;
     public CheckoutEntity(String entryId, String mId, LocalDate date, LocalDate dueDate, BookCopy bookCopy) {
         this.entryId = entryId;
         this.date = date;
@@ -31,7 +30,6 @@ public class CheckoutEntity implements Serializable {
         return bookCopy;
     }
 
-
     public String getEntryId() {
         return entryId;
     }
@@ -39,10 +37,4 @@ public class CheckoutEntity implements Serializable {
     public LocalDate getDate() {
         return date;
     }
-
-
-    public LocalDate getDue_date() {
-        return dueDate;
-    }
-
 }

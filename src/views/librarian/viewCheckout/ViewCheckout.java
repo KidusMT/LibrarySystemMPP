@@ -2,6 +2,7 @@ package views.librarian.viewCheckout;
 
 import common.utils.Authorization;
 import common.utils.UserSession;
+import controllers.BookController;
 import controllers.CheckoutEntityController;
 import controllers.MemberController;
 import javafx.beans.property.SimpleObjectProperty;
@@ -12,11 +13,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import main.Main;
+import models.Book;
 import models.CheckoutEntity;
 import models.LibraryMember;
 import views.View;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ViewCheckout {
     private final ObservableList<LibraryMember> memberData = FXCollections.observableArrayList();
@@ -59,8 +63,13 @@ public class ViewCheckout {
     public void navigateToCheckout(ActionEvent event) throws IOException {
         View.routeToViewCheckouts();
     }
-
+    BookController bookController;
+    List<Book> bookListDb = new ArrayList<>();
+    @FXML
     public void initialize() {
+        bookController = new BookController();
+        bookListDb = bookController.getAllBooks();
+
         UserSession userSession = UserSession.getInstance();
         if(userSession.getAuthorization().equals(Authorization.LIBRARIAN)){
             memberButton.setVisible(false);
@@ -102,7 +111,7 @@ public class ViewCheckout {
         lastNameColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getLastName()));
         bookTitleColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getBookCopy().getBook().getTitle()));
         checkoutDateColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getDate().toString()));
-        dueDateColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getDue_date().toString()));
+        dueDateColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getDueDate().toString()));
     }
 
     public void printEntryHandler(ActionEvent event){
@@ -124,7 +133,7 @@ public class ViewCheckout {
     private void handleNewEntry() throws IOException {
         LibraryMember libraryMember = memberTable.getSelectionModel().getSelectedItem();
         if (libraryMember != null) {
-            View.routeToCreateCheckoutEntry(libraryMember);
+            View.routeToCreateCheckoutEntry(libraryMember, entityController, bookListDb);
         } else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -141,7 +150,7 @@ public class ViewCheckout {
     private void handleUpdateEntry() throws IOException {
         CheckoutEntity checkoutEntity = checkoutEntryTable.getSelectionModel().getSelectedItem();
         if (checkoutEntity != null) {
-            View.routeToUpdateCheckoutEntry(checkoutEntity);
+            View.routeToUpdateCheckoutEntry(checkoutEntity, entityController, bookListDb);
         } else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);

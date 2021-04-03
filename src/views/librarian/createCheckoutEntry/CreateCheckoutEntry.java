@@ -27,10 +27,8 @@ public class CreateCheckoutEntry {
     String selectedBook = "";
     Book selectedBookCombo = null;
     BookCopy selectedBookCopyCombo = null;
-    CheckoutEntityController entityController;
-    BookController bookController;
+    private static CheckoutEntityController entityController;
     List<String> books = new ArrayList<>();
-    List<Book> bookListDb = new ArrayList<>();
     @FXML
     private TextField firstName;
     @FXML
@@ -43,16 +41,16 @@ public class CreateCheckoutEntry {
     private ComboBox bookList;
     @FXML
     private Label errorMessage;
-
-    public static void newInstance(LibraryMember record) {
+    private static List<Book> bookListDb;
+    public static void newInstance(LibraryMember record, CheckoutEntityController eController, List<Book> bookList) {
+        bookListDb = bookList;
+        entityController = eController;
         libraryMember = record;
     }
 
     @FXML
     public void initialize() {
         entityController = new CheckoutEntityController();
-        bookController = new BookController();
-        bookListDb = bookController.getAllBooks();
 
         for (int i = 0; i < bookListDb.size(); i++) {
             books.add(bookListDb.get(i).getTitle());
