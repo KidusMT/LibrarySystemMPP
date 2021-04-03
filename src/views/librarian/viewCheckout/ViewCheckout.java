@@ -17,7 +17,6 @@ import models.LibraryMember;
 import views.View;
 
 import java.io.IOException;
-import java.util.Optional;
 
 public class ViewCheckout {
     private final ObservableList<LibraryMember> memberData = FXCollections.observableArrayList();
