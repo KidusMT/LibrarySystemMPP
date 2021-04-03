@@ -44,13 +44,19 @@ public class UpdateCheckoutEntry {
 
     @FXML
     public void initialize() {
+        int selectedBook = 0;
         for (int i = 0; i < bookListDb.size(); i++) {
+            if(checkoutEntity.getBookCopy().getBook().getIsbn().equals(bookListDb.get(i).getIsbn())){
+                selectedBook = i;
+            }
             books.add(bookListDb.get(i).getTitle());
         }
 
         bookList.setItems(FXCollections.observableArrayList(books));
         dateBorrowed.setValue(checkoutEntity.getDate());
         dueDate.setValue(checkoutEntity.getDueDate());
+
+        bookList.getSelectionModel().select(selectedBook);
 
         if (checkoutEntity != null) {
             firstName.setDisable(true);
