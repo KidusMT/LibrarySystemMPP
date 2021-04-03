@@ -1,9 +1,13 @@
 package common.utils;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import models.*;
+
+import static common.utils.DataAccessFacade.saveToStorage;
 
 /**
  * This class loads data into the data repository and also
@@ -22,12 +26,25 @@ TestData {
 	public static void main(String[] args) {
 		TestData td = new TestData();
 		td.bookData();
-		td.libraryMemberData();
+//		td.libraryMemberData();
 		td.userData();
 		DataAccess da = new DataAccessFacade();
-		System.out.println(da.readBooksMap());
-		System.out.println(da.readUserMap());
-		System.out.println(da.readMemberMap());
+//		td.allCheckoutRecords;
+//		HashMap<String, CheckoutEntity> hashMap = new HashMap<>();
+//		CheckoutEntity ce = new CheckoutEntity("1001", "100", LocalDate.now(), LocalDate.now(),
+//				new BookCopy(new Book("23-11451", "The Big Fish", 21,
+//						Arrays.asList(new Author("Joe", "Thomas", "641-445-2123",
+//				new Address("51 S. George", "Georgetown", "MI", 65434),
+//								"A happy man is he."))), 3, true));
+//		hashMap.put(ce.getEntryId(), ce);
+//		saveToStorage(DataAccessFacade.StorageType.CHECKOUT_ENTITY, hashMap);
+
+//		da.saveNewCheckoutRecord();
+		System.out.println("----> "+da.readCheckoutEntityMap());
+//		System.out.println(da.readCheckoutRecordMap());
+//		System.out.println(da.readBooksMap());
+//		System.out.println(da.readUserMap());
+//		System.out.println(da.readMemberMap());
 	}
 	///create books
 	public void bookData() {
@@ -66,7 +83,6 @@ TestData {
 	
 	List<Address> addresses = new ArrayList<Address>() {
 		{
-			add(new Address("101 S. Main", "Fairfield", "IA", 52556));
 			add(new Address("51 S. George", "Georgetown", "MI", 65434));
 			add(new Address("23 Headley Ave", "Seville", "Georgia", 41234));
 			add(new Address("1 N. Baton", "Baton Rouge", "LA", 33556));
@@ -94,6 +110,20 @@ TestData {
 			add(new Book("28-12331", "Antartica", 7, Arrays.asList(allAuthors.get(2))));
 			add(new Book("99-22223", "Thinking Java", 21, Arrays.asList(allAuthors.get(3))));
 			add(new Book("48-56882", "Jimmy's First Day of School", 7, Arrays.asList(allAuthors.get(4))));		
+		}
+	};
+
+	List<CheckoutRecord> allCheckoutRecords = new ArrayList<CheckoutRecord>() {
+		{
+			add(new CheckoutRecord("1001", new LibraryMember("100", "Hans", "Muster", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
+			add(new CheckoutRecord("1002", new LibraryMember("101", "Ruth", "Mueller", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
+			add(new CheckoutRecord("1003", new LibraryMember("102", "Heinz", "Kurz", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
+			add(new CheckoutRecord("1004", new LibraryMember("103", "Cornelia", "Meier", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
+			add(new CheckoutRecord("1005", new LibraryMember("104", "Werner", "Meyer", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
+			add(new CheckoutRecord("1006", new LibraryMember("105", "Lydia", "Kunz", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
+			add(new CheckoutRecord("1007", new LibraryMember("106", "Anna", "Best", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
+			add(new CheckoutRecord("1008", new LibraryMember("107", "Stefan", "Meier", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
+			add(new CheckoutRecord("1009", new LibraryMember("108", "Martin", "Mueller", "123124135", new Address("1000 N. 4th St.", "Fairfield", "IA", 52557))));
 		}
 	};
 	
