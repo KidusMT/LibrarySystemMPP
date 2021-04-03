@@ -2,6 +2,7 @@ package views.login;
 
 import common.utils.Authorization;
 import common.utils.UserSession;
+import controllers.UserController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -9,6 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.Main;
+import models.User;
 import views.View;
 
 public class Login {
@@ -16,7 +18,7 @@ public class Login {
     @FXML
     Label errorLabel;
     @FXML
-    private TextField usernameField;
+    private TextField userIdField;
     @FXML
     private PasswordField passwordField;
     private View view;
@@ -26,7 +28,7 @@ public class Login {
     }
 
     public void clearFields() {
-        usernameField.setText("");
+        userIdField.setText("");
         passwordField.setText("");
         errorLabel.setText("");
     }
@@ -34,32 +36,41 @@ public class Login {
     @FXML
     public void loginButtonController(ActionEvent event) throws Exception {
         Stage stage = new Stage();
+        UserController userController = new UserController();
+        if (isLoginFormValid()) {
+            User user = userController.authenticateUser(userIdField.getText(), passwordField.getText());
+            if (user == null) {
+                errorLabel.setText("Incorrect Id/Password");
+            } else if (user.getAuthorization().equals(Authorization.ADMIN)) {
+                UserSession.createInstance("Administrator", Authorization.ADMIN);
+                clearFields();
+                view.start(stage);
+                Main.primaryStage.hide();
+            } else if (user.getAuthorization().equals(Authorization.LIBRARIAN)) {
+                UserSession.createInstance("Librarian", Authorization.LIBRARIAN);
+                clearFields();
+                view.start(stage);
+                Main.primaryStage.hide();
+            } else if (user.getAuthorization().equals(Authorization.BOTH)) {
+                UserSession.createInstance("SuperAdministrator", Authorization.BOTH);
+                clearFields();
+                view.start(stage);
+                Main.primaryStage.hide();
+            }
+        }
+    }
 
-        if (usernameField.getText().equals("admin") && passwordField.getText().equals("admin")) {
-            UserSession.createInstance("Administrator", Authorization.ADMIN);
-            clearFields();
-            view.start(stage);
-            Main.primaryStage.hide();
-        } else if (usernameField.getText().equals("library") && passwordField.getText().equals("library")) {
-            UserSession.createInstance("Librarian", Authorization.LIBRARIAN);
-            clearFields();
-            view.start(stage);
-            Main.primaryStage.hide();
-        } else if (usernameField.getText().equals("super") && passwordField.getText().equals("super")) {
-            UserSession.createInstance("SuperAdministrator",Authorization.BOTH);
-            clearFields();
-            view.start(stage);
-            Main.primaryStage.hide();
-
-        } else if (usernameField.getText().isEmpty() && passwordField.getText().isEmpty()) {
+    public boolean isLoginFormValid() {
+        if (userIdField.getText().isEmpty() && passwordField.getText().isEmpty()) {
             errorLabel.setText("Please, enter a non-empty username and password.");
-        } else if (usernameField.getText().isEmpty()) {
+            return false;
+        } else if (userIdField.getText().isEmpty()) {
             errorLabel.setText("Please, enter a non-empty username.");
+            return false;
         } else if (passwordField.getText().isEmpty()) {
             errorLabel.setText("Please, enter a non-empty password.");
-        } else {
-            errorLabel.setText("Incorrect Id/Password");
+            return false;
         }
-
+        return true;
     }
 }

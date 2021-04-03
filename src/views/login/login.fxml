@@ -29,7 +29,7 @@
         </AnchorPane>
         <Pane layoutX="382.0" layoutY="-1.0" prefHeight="515.0" prefWidth="404.0">
             <children>
-                <TextField id="usernameField" fx:id="usernameField" layoutX="29.0" layoutY="188.0" prefHeight="34.0" prefWidth="348.0" promptText="username" />
+                <TextField id="usernameField" fx:id="userIdField" layoutX="29.0" layoutY="188.0" prefHeight="34.0" prefWidth="348.0" promptText="username" />
                 <PasswordField id="passwordField" fx:id="passwordField" layoutX="30.0" layoutY="256.0" prefHeight="34.0" prefWidth="348.0" promptText="Password" stylesheets="@login.css" />
                 <Button id="loginBtn" defaultButton="true" layoutX="240.0" layoutY="320.0" mnemonicParsing="false" onAction="#loginButtonController" prefHeight="34.0" prefWidth="137.0" stylesheets="@login.css" text="Sign in" />
                 <Separator layoutX="24.0" layoutY="393.0" prefHeight="2.0" prefWidth="348.0" />
