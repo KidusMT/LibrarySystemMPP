@@ -4,7 +4,10 @@ import controllers.CheckoutEntityController;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import models.Book;
 import models.CheckoutEntity;
 import models.LibraryMember;
@@ -23,6 +26,7 @@ public class UpdateCheckoutEntry {
     private static List<Book> bookListDb;
     private static CheckoutEntityController entityController;
     private static LibraryMember libraryMember;
+    private final double fineAmt = 0;
     List<String> books = new ArrayList<>();
     @FXML
     private TextField firstName;
@@ -41,7 +45,6 @@ public class UpdateCheckoutEntry {
     @FXML
     private ComboBox bookList;
     private long overdueDays = 0;
-    private final double fineAmt = 0;
     @FXML
     private CheckBox paid;
 
@@ -77,7 +80,7 @@ public class UpdateCheckoutEntry {
         firstName.setText(libraryMember.getFirstName());
         lastName.setText(libraryMember.getLastName());
 
-        if(checkoutEntity.getReturnDate()!=null){
+        if (checkoutEntity.getReturnDate() != null) {
             returnDate.setValue(checkoutEntity.getReturnDate());
         }
         // fine amount
@@ -107,7 +110,9 @@ public class UpdateCheckoutEntry {
             }
         }
 
-        paid.setIndeterminate(overdueDays <= 0);
+        if (checkoutEntity.getPaidDate() == null)
+            paid.setIndeterminate(overdueDays <= 0);
+        else paid.setSelected(true);
 
         returnDate.valueProperty().addListener((ov, oldValue, newValue) -> {
             if (newValue.isAfter(dueDate.getValue())) {
@@ -122,6 +127,11 @@ public class UpdateCheckoutEntry {
                 overdue.setText(String.format("$%s day", 0));
             }
         });
+
+        // disable combo selection if the user entered wrong
+        bookList.setDisable(true);
+//        bookList.setEditable(true);
+//        bookList.getEditor().setEditable(false);
     }
 
     public void navigateToViewCheckoutRecords(ActionEvent event) throws IOException {
