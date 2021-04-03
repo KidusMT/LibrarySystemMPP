@@ -19,7 +19,7 @@
                </HBox.margin>
             </ImageView>
             <Region prefHeight="60.0" prefWidth="606.0" />
-            <ImageView fx:id="checkOutImage" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="checkoutImage" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                <HBox.margin>
                   <Insets top="17.0" />
                </HBox.margin>

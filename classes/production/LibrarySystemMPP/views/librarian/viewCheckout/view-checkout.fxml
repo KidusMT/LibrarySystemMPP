@@ -6,60 +6,140 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="514.0" prefWidth="786.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.librarian.viewCheckout.ViewCheckout">
-   <children>
-      <SplitPane dividerPositions="0.43333333333333335" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <items>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
-                  <TableView fx:id="memberTable" layoutX="-12.0" layoutY="27.0" prefHeight="438.0" prefWidth="330.0" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
-                     <columns>
-                        <TableColumn fx:id="firstNameColumn" prefWidth="75.0" text="First Name" />
-                        <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Last Name" />
-                     </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
-                  <HBox alignment="BOTTOM_RIGHT" layoutX="3.8000000000000114" layoutY="444.0" prefHeight="68.0" prefWidth="330.0" spacing="10.0" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="444.0">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#handleNewRecord" text="New" />
-                        <Button id="button-warning" mnemonicParsing="false" onAction="#handleDeletePerson" text="Delete" />
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </HBox>
-                  <Label layoutX="4.0" layoutY="4.0" styleClass="label-header" text="Checkout Records" />
-               </children>
-            </AnchorPane>
-            <AnchorPane>
-               <children>
-                  <Label layoutX="45.0" layoutY="6.0" styleClass="label-header" text="Checkout Entries" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
-                  <TableView fx:id="checkoutEntryTable" layoutX="-12.0" layoutY="28.0" prefHeight="322.0" prefWidth="337.0" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
-                     <columns>
-                        <TableColumn fx:id="bookTitleColumn" prefWidth="221.60003662109375" text="Book Title" />
-                        <TableColumn fx:id="checkoutDateColumn" prefWidth="112.79998779296875" text="Checkout Date" />
-                        <TableColumn fx:id="dueDateColumn" prefWidth="115.199951171875" text="Due Date" />
-                     </columns>
-                  </TableView>
-                  <HBox alignment="BOTTOM_RIGHT" layoutX="3.8000000000000114" layoutY="444.0" prefHeight="68.0" prefWidth="449.0" spacing="10.0" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="444.0">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#handleNewEntry" text="Add" />
-                        <Button mnemonicParsing="false" onAction="#handleUpdateEntry" text="Edit" />
-                        <Button id="button-warning" mnemonicParsing="false" onAction="#handleDeletePerson" text="Delete" />
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </HBox>
-                  <Button layoutX="394.0" layoutY="1.0" mnemonicParsing="false" onAction="#navigateToLogin" text="Logout" />
-               </children>
-            </AnchorPane>
-         </items>
-      </SplitPane>
-   </children>
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.librarian.viewCheckout.ViewCheckout">
+    <children>
+        <HBox prefHeight="60.0" prefWidth="1080.0" style="-fx-background-color: #333;">
+            <children>
+                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../common/images/logo.png" />
+                    </image>
+                    <HBox.margin>
+                        <Insets left="17.0" top="5.0" />
+                    </HBox.margin>
+                </ImageView>
+                <Region prefHeight="60.0" prefWidth="606.0" />
+                <ImageView fx:id="checkoutImage" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                    <HBox.margin>
+                        <Insets top="17.0" />
+                    </HBox.margin>
+                    <image>
+                        <Image url="@../../../common/images/checkout.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="checkoutButton" mnemonicParsing="false" onAction="#navigateToCheckout" style="-fx-background-color: #333;" text="Checkout" textFill="WHITE">
+                    <HBox.margin>
+                        <Insets right="10.0" top="19.0" />
+                    </HBox.margin>
+                </Button>
+                <ImageView fx:id="booksImage" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../common/images/books.png" />
+                    </image>
+                    <HBox.margin>
+                        <Insets top="17.0" />
+                    </HBox.margin>
+                </ImageView>
+                <Button fx:id="bookButton" mnemonicParsing="false" onAction="#navigateToBooksHandler" prefHeight="33.0" prefWidth="66.0" style="-fx-background-color: #333;" text="Books" textFill="WHITE">
+                    <HBox.margin>
+                        <Insets right="10.0" top="15.0" />
+                    </HBox.margin>
+                </Button>
+                <ImageView fx:id="membersImage" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../common/images/users.png" />
+                    </image>
+                    <HBox.margin>
+                        <Insets top="18.0" />
+                    </HBox.margin>
+                </ImageView>
+                <Button fx:id="memberButton" mnemonicParsing="false" onAction="#navigateToMembersHandler" style="-fx-background-color: #333;" text="Members" textFill="WHITE">
+                    <HBox.margin>
+                        <Insets right="15.0" top="20.0" />
+                    </HBox.margin>
+                </Button>
+                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../common/images/logout.png" />
+                    </image>
+                    <HBox.margin>
+                        <Insets top="18.0" />
+                    </HBox.margin>
+                </ImageView>
+                <Button mnemonicParsing="false" onAction="#navigateToLogin" style="-fx-background-color: #333;" text="Log out" textFill="WHITE">
+                    <HBox.margin>
+                        <Insets top="18.0" />
+                    </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
+        <SplitPane dividerPositions="0.43333333333333335" layoutY="59.0" prefHeight="661.0" prefWidth="1080.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="59.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                    <children>
+                        <TableView fx:id="memberTable" layoutX="-12.0" layoutY="40.0" prefHeight="628.0" prefWidth="464.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                            <columns>
+                                <TableColumn fx:id="firstNameColumn" prefWidth="75.0" text="First Name" />
+                                <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Last Name" />
+                            </columns>
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                            </columnResizePolicy>
+                        </TableView>
+                        <Label layoutX="23.0" prefHeight="40.0" prefWidth="145.0" styleClass="label-header" text="Checkout Records">
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </AnchorPane>
+                <AnchorPane>
+                    <children>
+                        <Label layoutX="24.0" layoutY="3.0" prefHeight="40.0" prefWidth="137.0" styleClass="label-header" text="Checkout Entries" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="3.0">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Label>
+                        <TableView fx:id="checkoutEntryTable" layoutX="-12.0" layoutY="41.0" prefHeight="570.0" prefWidth="608.0" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="41.0">
+                            <columns>
+                                <TableColumn fx:id="bookTitleColumn" prefWidth="221.60003662109375" text="Book Title" />
+                                <TableColumn fx:id="checkoutDateColumn" prefWidth="112.79998779296875" text="Checkout Date" />
+                                <TableColumn fx:id="dueDateColumn" prefWidth="115.199951171875" text="Due Date" />
+                            </columns>
+                        </TableView>
+                        <HBox alignment="BOTTOM_RIGHT" layoutX="3.8000000000000114" layoutY="617.0" prefHeight="40.0" prefWidth="608.0" spacing="10.0" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="617.0">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#handleNewEntry" style="-fx-background-color: #333;" text="Add" textFill="WHITE">
+                                    <padding>
+                                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                    </padding>
+                                </Button>
+                                <Button mnemonicParsing="false" onAction="#handleUpdateEntry" style="-fx-background-color: #333;" text="Edit" textFill="WHITE">
+                                    <padding>
+                                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                    </padding>
+                                </Button>
+<!--                                <Button id="button-warning" mnemonicParsing="false" onAction="#handleDeletePerson"-->
+<!--                                        style="-fx-background-color: #333;" text="Delete" textFill="WHITE">-->
+<!--                                    <padding>-->
+<!--                                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0"/>-->
+<!--                                    </padding>-->
+<!--                                </Button>-->
+                            </children>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </HBox>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
 </AnchorPane>

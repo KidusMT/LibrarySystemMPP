@@ -122,48 +122,39 @@ public class ViewCheckout {
         return checkoutEntityData;
     }
 
-    /**
-     * Called when the user clicks on the delete button.
-     */
-    @FXML
-    private void handleDeletePerson() {
-        int selectedIndex = memberTable.getSelectionModel().getSelectedIndex();
-        if (selectedIndex >= 0) {
-
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.initOwner(View.stage);
-            alert.setTitle("Delete");
-            alert.setHeaderText("Delete Selection");
-            alert.setContentText("Are you sure you want to delete this record from the table?");
-
-            Optional<ButtonType> result = alert.showAndWait();
-            if (!result.isPresent()) {
-                // alert is exited, no button has been pressed.
-            } else if (result.get() == ButtonType.OK) {
-                //oke button is pressed
-                memberTable.getItems().remove(selectedIndex);
-            } else if (result.get() == ButtonType.CANCEL) {
-                // cancel button is pressed
-            }
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.initOwner(View.stage);
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Person Selected");
-            alert.setContentText("Please select a person in the table.");
-
-            alert.showAndWait();
-        }
-    }
-
-    /**
-     * Called when the user clicks the new button. Opens a dialog to edit
-     * details for a new person.
-     */
-    @FXML
-    private void handleNewRecord() throws IOException {
-        View.routeToCreateCheckout();
-    }
+//    /**
+//     * Called when the user clicks on the delete button.
+//     */
+//    @FXML
+//    private void handleDeletePerson() {
+//        int selectedIndex = memberTable.getSelectionModel().getSelectedIndex();
+//        if (selectedIndex >= 0) {
+//
+//            Alert alert = new Alert(Alert.AlertType.WARNING);
+//            alert.initOwner(View.stage);
+//            alert.setTitle("Delete");
+//            alert.setHeaderText("Delete Selection");
+//            alert.setContentText("Are you sure you want to delete this record from the table?");
+//
+//            Optional<ButtonType> result = alert.showAndWait();
+//            if (!result.isPresent()) {
+//                // alert is exited, no button has been pressed.
+//            } else if (result.get() == ButtonType.OK) {
+//                //oke button is pressed
+//                memberTable.getItems().remove(selectedIndex);
+//            } else if (result.get() == ButtonType.CANCEL) {
+//                // cancel button is pressed
+//            }
+//        } else {
+//            Alert alert = new Alert(Alert.AlertType.WARNING);
+//            alert.initOwner(View.stage);
+//            alert.setTitle("No Selection");
+//            alert.setHeaderText("No Person Selected");
+//            alert.setContentText("Please select a person in the table.");
+//
+//            alert.showAndWait();
+//        }
+//    }
 
     @FXML
     private void handleNewEntry() throws IOException {
