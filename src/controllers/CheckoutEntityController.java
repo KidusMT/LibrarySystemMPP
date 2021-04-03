@@ -78,12 +78,25 @@ public class CheckoutEntityController {
         if(entries.isEmpty()) {
             System.out.println("No Entry");
         }
-        System.out.println("Member ID\tBook Title\tCheckout Date\tDue Date");
+        System.out.println("\nMember ID\tBook Title\tCheckout Date\tDue Date");
         System.out.println("-----------------------------------------------------------");
 
         for(CheckoutEntity e : entries) {
             System.out.println(e.getMemberId() + "\t\t" + e.getBookCopy().getBook().getTitle() + "\t" + e.getDate()
                     + "\t" + e.getDueDate());
         }
+    }
+    public List<CheckoutEntity>  getOverDueBookCopy() {
+        List<CheckoutEntity> entries = new ArrayList<>();
+        DataAccess da = new DataAccessFacade();
+        HashMap<String, CheckoutEntity> e = da.readCheckoutEntityMap();
+        Set<String> keys = e.keySet();
+        for(String k : keys) {
+            CheckoutEntity entry = e.get(k);
+            if(LocalDate.now().compareTo(entry.getDueDate()) > 0) {
+                entries.add(entry);
+            }
+        }
+        return entries;
     }
 }

@@ -9,7 +9,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import main.Main;
 import models.CheckoutEntity;
@@ -17,11 +20,24 @@ import models.LibraryMember;
 import views.View;
 
 import java.io.IOException;
+import java.util.List;
 
 public class ViewCheckout {
     private final ObservableList<LibraryMember> memberData = FXCollections.observableArrayList();
     CheckoutEntityController entityController;
     MemberController memberController;
+    @FXML
+    ImageView checkOutImage;
+    @FXML
+    Button checkoutButton;
+    @FXML
+    ImageView membersImage;
+    @FXML
+    ImageView booksImage;
+    @FXML
+    Button bookButton;
+    @FXML
+    Button memberButton;
     private ObservableList<CheckoutEntity> checkoutEntityData = FXCollections.observableArrayList();
     @FXML
     private TableView<LibraryMember> memberTable;
@@ -38,31 +54,13 @@ public class ViewCheckout {
     @FXML
     private TableColumn<CheckoutEntity, String> dueDateColumn;
 
-    @FXML
-    ImageView checkOutImage;
-
-    @FXML
-    Button checkoutButton;
-
-    @FXML
-    ImageView membersImage;
-
-    @FXML
-    ImageView booksImage;
-
-    @FXML
-    Button bookButton;
-
-    @FXML
-    Button memberButton;
-
     public void navigateToCheckout(ActionEvent event) throws IOException {
         View.routeToViewCheckouts();
     }
 
     public void initialize() {
         UserSession userSession = UserSession.getInstance();
-        if(userSession.getAuthorization().equals(Authorization.LIBRARIAN)){
+        if (userSession.getAuthorization().equals(Authorization.LIBRARIAN)) {
             memberButton.setVisible(false);
             membersImage.setVisible(false);
             checkoutButton.setVisible(false);
@@ -86,6 +84,24 @@ public class ViewCheckout {
         memberTable.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> showCheckoutEntitiesTable(newValue));
     }
+
+    public void showOverDueBooks(ActionEvent event) {
+        MemberController memberController = new MemberController();
+        CheckoutEntityController checkoutEntityController = new CheckoutEntityController();
+        List<CheckoutEntity> checkoutEntities = checkoutEntityController.getOverDueBookCopy();
+        ObservableList<CheckoutEntity> checkoutEntitiesObservable = FXCollections.observableArrayList();
+        ObservableList<LibraryMember> members = FXCollections.observableArrayList();
+        for (CheckoutEntity checkoutEntity : checkoutEntities) {
+            checkoutEntitiesObservable.add(checkoutEntity);
+            LibraryMember member = memberController.getMember(checkoutEntity.getMemberId());
+            members.add(member);
+        }
+        memberTable.setItems(members);
+        checkoutEntryTable.setItems(checkoutEntitiesObservable);
+        memberTable.getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> showCheckoutEntitiesTable(newValue));
+    }
+
 
     private void showCheckoutEntitiesTable(LibraryMember checkoutRecord) {
         if (checkoutRecord != null) {
@@ -113,11 +129,9 @@ public class ViewCheckout {
 //        dueDateColumn.setCellValueFactory(param -> new SimpleObjectProperty(param.getValue().getDue_date()));
     }
 
-    public void printEntryHandler(ActionEvent event){
+    public void printEntryHandler(ActionEvent event) {
         CheckoutEntityController entityController = new CheckoutEntityController();
-        memberTable.getSelectionModel().selectedItemProperty()
-                .addListener((observable, oldValue, newValue) -> entityController.printCheckoutEntry(newValue.getMemberId()));
-
+        entityController.printCheckoutEntry(memberTable.getSelectionModel().selectedItemProperty().getValue().getMemberId());
     }
 
     public ObservableList<LibraryMember> getMemberData() {
