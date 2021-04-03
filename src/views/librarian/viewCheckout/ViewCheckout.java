@@ -189,8 +189,8 @@ public class ViewCheckout {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(View.stage);
             alert.setTitle("No Selection");
-            alert.setHeaderText("No Person Selected");
-            alert.setContentText("Please select a person in the table.");
+            alert.setHeaderText("No Entry Selected");
+            alert.setContentText("Please select an entry from the right side table.");
 
             alert.showAndWait();
         }
