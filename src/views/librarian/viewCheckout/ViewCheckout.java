@@ -40,6 +40,12 @@ public class ViewCheckout {
     private TableColumn<CheckoutEntity, String> dueDateColumn;
 
     @FXML
+    ImageView checkOutImage;
+
+    @FXML
+    Button checkoutButton;
+
+    @FXML
     ImageView membersImage;
 
     @FXML
@@ -60,6 +66,8 @@ public class ViewCheckout {
         if(userSession.getAuthorization().equals(Authorization.LIBRARIAN)){
             memberButton.setVisible(false);
             membersImage.setVisible(false);
+            checkoutButton.setVisible(false);
+            checkOutImage.setVisible(false);
             bookButton.setVisible(false);
             booksImage.setVisible(false);
         }
