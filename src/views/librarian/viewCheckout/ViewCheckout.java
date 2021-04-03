@@ -126,7 +126,7 @@ public class ViewCheckout {
             else return new SimpleObjectProperty<>("");
         });
 
-        fineAmtColumn.setCellValueFactory(param ->  new SimpleObjectProperty<>(String.format("$", param.getValue().getFineAmount())));
+        fineAmtColumn.setCellValueFactory(param ->  new SimpleObjectProperty<>(String.format("$%s", param.getValue().getFineAmount())));
 
         paidDateColumn.setCellValueFactory(param -> {
             if (param.getValue().getPaidDate() != null)
