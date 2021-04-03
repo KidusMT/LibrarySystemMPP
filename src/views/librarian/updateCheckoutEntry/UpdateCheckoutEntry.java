@@ -4,12 +4,10 @@ import controllers.CheckoutEntityController;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import models.Book;
 import models.CheckoutEntity;
+import models.LibraryMember;
 import views.View;
 
 import java.io.IOException;
@@ -24,6 +22,7 @@ public class UpdateCheckoutEntry {
     private static CheckoutEntity checkoutEntity;
     private static List<Book> bookListDb;
     private static CheckoutEntityController entityController;
+    private static LibraryMember libraryMember;
     List<String> books = new ArrayList<>();
     @FXML
     private TextField firstName;
@@ -42,17 +41,24 @@ public class UpdateCheckoutEntry {
     @FXML
     private TextField overdue;
     @FXML
+    private DatePicker returnDate;
+    @FXML
     private ComboBox bookList;
     private long overdueDays = 0;
+    private final double fineAmt = 0;
+    @FXML
+    private CheckBox paid;
 
-    public static void createInstance(CheckoutEntity entity, CheckoutEntityController eController, List<Book> bookList) {
+    public static void createInstance(LibraryMember record, CheckoutEntity entity, CheckoutEntityController eController, List<Book> bookList) {
         checkoutEntity = entity;
         entityController = eController;
         bookListDb = bookList;
+        libraryMember = record;
     }
 
     @FXML
     public void initialize() {
+
         int selectedBook = 0;
         for (int i = 0; i < bookListDb.size(); i++) {
             if (checkoutEntity.getBookCopy().getBook().getIsbn().equals(bookListDb.get(i).getIsbn())) {
@@ -72,19 +78,81 @@ public class UpdateCheckoutEntry {
             lastName.setDisable(true);
         }
 
+        firstName.setText(libraryMember.getFirstName());
+        lastName.setText(libraryMember.getLastName());
+
         // overdue
         overdueDays = DAYS.between(LocalDate.now(), dueDate.getValue());
         overdue.setText(String.format("%d %s", overdueDays, overdueDays > 0 ? "days" : "day"));
 
         // fine amount
-        fineAmount.setText(String.format("$%a", overdueDays * CheckoutEntity.FINE_RATE));
+        if (returnDate.getValue() == null) {
+            // display from today
+            // if the date is different for return then calculate when that entered automatically
+            if (LocalDate.now().isAfter(dueDate.getValue())) {
+                long fnDays = DAYS.between(LocalDate.now(), dueDate.getValue());
+                fineAmount.setText(String.format("$%s", (Math.abs(fnDays) * CheckoutEntity.FINE_RATE)));
+            } else {
+                fineAmount.setText(String.format("$%s", 0));
+            }
+        } else {
+            if (returnDate.getValue().isAfter(dueDate.getValue())) {
+                long fnDays = DAYS.between(returnDate.getValue(), dueDate.getValue());
+                fineAmount.setText(String.format("$%s", (Math.abs(fnDays) * CheckoutEntity.FINE_RATE)));
+            } else {
+                fineAmount.setText(String.format("$%s", 0));
+            }
+        }
+
+        paid.setIndeterminate(overdueDays <= 0);
+
+        returnDate.valueProperty().addListener((ov, oldValue, newValue) -> {
+            if (newValue.isAfter(dueDate.getValue())) {
+                long fnDays = DAYS.between(newValue, dueDate.getValue());
+                fineAmount.setText(String.format("$%s", (Math.abs(fnDays) * CheckoutEntity.FINE_RATE)));
+            } else {
+                fineAmount.setText(String.format("$%s", 0));
+            }
+        });
+
     }
 
     public void navigateToViewCheckoutRecords(ActionEvent event) throws IOException {
         View.routeToViewCheckouts();
     }
 
-    public void updateCheckoutEntity(ActionEvent event) {
-
+    public void updateCheckoutEntity(ActionEvent event) throws IOException {
+        // todo validation of the inputs
+        checkoutEntity.setBorrowedDate(dateBorrowed.getValue());
+        checkoutEntity.setDueDate(dueDate.getValue());
+        if (returnDate.getValue() == null) {
+            // display from today
+            // if the date is different for return then calculate when that entered automatically
+            if (LocalDate.now().isAfter(dueDate.getValue())) {
+                long fnDays = DAYS.between(LocalDate.now(), dueDate.getValue());
+                checkoutEntity.setFineAmount((Math.abs(fnDays) * CheckoutEntity.FINE_RATE));
+            } else {
+                checkoutEntity.setFineAmount(0);
+            }
+        } else {
+            if (returnDate.getValue().isAfter(dueDate.getValue())) {
+                long fnDays = DAYS.between(returnDate.getValue(), dueDate.getValue());
+                checkoutEntity.setFineAmount((Math.abs(fnDays) * CheckoutEntity.FINE_RATE));
+            } else {
+                checkoutEntity.setFineAmount(0);
+            }
+        }
+        checkoutEntity.setReturnDate(returnDate.getValue());
+        entityController.updateCheckoutEntity(
+                checkoutEntity.getEntryId(),
+                checkoutEntity.getMemberId(),
+                checkoutEntity.getBorrowedDate(),
+                checkoutEntity.getDueDate(),
+                checkoutEntity.getReturnDate(),
+                checkoutEntity.getBookCopy(),
+                fineAmt,
+                paid.isSelected() ? LocalDate.now() : null,
+                overdueDays);
+        View.routeToViewCheckouts();
     }
 }

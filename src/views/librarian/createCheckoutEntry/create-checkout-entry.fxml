@@ -26,11 +26,11 @@
                 <Label text="Last name" textFill="#7b7b7b" />
                 <TextField fx:id="lastName" promptText="Last name" />
                 <ComboBox fx:id="bookList" onAction="#comboAction" prefHeight="26.0" prefWidth="981.0" promptText="-- SELECT BOOK TO BORROW --" />
-                <Label fx:id="errorMessage" prefHeight="18.0" prefWidth="509.0" textFill="RED"/>
+                <Label fx:id="errorMessage" prefHeight="18.0" prefWidth="509.0" textFill="RED" />
                 <Label text="Borrowed date" textFill="#7b7b7b" />
-                <DatePicker fx:id="dateBorrowed" prefHeight="26.0" prefWidth="1022.0" />
+                <DatePicker fx:id="dateBorrowed" prefHeight="26.0" prefWidth="1022.0" promptText="MM/DD/YYYY" />
                 <Label text="Due date" textFill="#7b7b7b" />
-                <DatePicker fx:id="dueDate" prefHeight="26.0" prefWidth="1054.0" />
+                <DatePicker fx:id="dueDate" prefHeight="26.0" prefWidth="1054.0" promptText="MM/DD/YYYY" />
                 <Label prefHeight="28.0" prefWidth="460.0" />
                 <HBox alignment="BOTTOM_RIGHT" prefHeight="27.0" prefWidth="456.0" spacing="10.0">
                     <children>

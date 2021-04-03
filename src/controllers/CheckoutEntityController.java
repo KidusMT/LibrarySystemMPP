@@ -3,8 +3,10 @@ package controllers;
 import common.utils.DataAccess;
 import common.utils.DataAccessFacade;
 import daos.CheckoutEntityDAO;
+import models.Address;
 import models.BookCopy;
 import models.CheckoutEntity;
+import models.LibraryMember;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -28,6 +30,20 @@ public class CheckoutEntityController {
 
         bookCopy.changeAvailability();
         dataAccess.saveNewCheckoutEntity(entity);
+    }
+
+    public void updateCheckoutEntity(String entryId, String memberId, LocalDate borrowedDate, LocalDate dueDate,
+                                     LocalDate returnDate, BookCopy bookCopy, double fAmount, LocalDate pDate, long odue){
+        CheckoutEntity entity = new CheckoutEntity(entryId, memberId, borrowedDate, dueDate, returnDate, bookCopy, fAmount,
+                pDate, odue);
+        HashMap<String, CheckoutEntity> entityMap = dataAccess.readCheckoutEntityMap();
+        Set<String> keys = entityMap.keySet();
+        for(String k : keys) {
+            if(k.equals(entryId)) {
+                dataAccess.saveNewCheckoutEntity(entity);
+                break;
+            }
+        }
     }
 
     public List<CheckoutEntity> getCheckoutEntries(String memberId) {

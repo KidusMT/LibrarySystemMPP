@@ -156,9 +156,10 @@ public class ViewCheckout {
 
     @FXML
     private void handleUpdateEntry() throws IOException {
+        LibraryMember libraryMember = memberTable.getSelectionModel().getSelectedItem();
         CheckoutEntity checkoutEntity = checkoutEntryTable.getSelectionModel().getSelectedItem();
-        if (checkoutEntity != null) {
-            View.routeToUpdateCheckoutEntry(checkoutEntity, entityController, bookListDb);
+        if (checkoutEntity != null && libraryMember!=null) {
+            View.routeToUpdateCheckoutEntry(libraryMember, checkoutEntity, entityController, bookListDb);
         } else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);

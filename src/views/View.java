@@ -77,8 +77,8 @@ public class View extends Application {
         route(FXMLLoader.load(View.class.getResource("/views/librarian/createCheckoutEntry/create-checkout-entry.fxml")), "View checkout records");
     }
 
-    public static void routeToUpdateCheckoutEntry(CheckoutEntity checkoutEntity, CheckoutEntityController entityController, List<Book> bookList) throws IOException {
-        UpdateCheckoutEntry.createInstance(checkoutEntity, entityController, bookList);
+    public static void routeToUpdateCheckoutEntry(LibraryMember record, CheckoutEntity checkoutEntity, CheckoutEntityController entityController, List<Book> bookList) throws IOException {
+        UpdateCheckoutEntry.createInstance(record, checkoutEntity, entityController, bookList);
         route(FXMLLoader.load(View.class.getResource("/views/librarian/updateCheckoutEntry/update-checkout-entry.fxml")), "View checkout records");
     }
     @Override
