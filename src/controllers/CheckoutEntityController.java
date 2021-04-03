@@ -3,10 +3,8 @@ package controllers;
 import common.utils.DataAccess;
 import common.utils.DataAccessFacade;
 import daos.CheckoutEntityDAO;
-import models.Address;
 import models.BookCopy;
 import models.CheckoutEntity;
-import models.LibraryMember;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,8 +13,8 @@ import java.util.List;
 import java.util.Set;
 
 public class CheckoutEntityController {
-    private CheckoutEntityDAO bookDAO;
     private final DataAccess dataAccess;
+    private CheckoutEntityDAO bookDAO;
 
     public CheckoutEntityController() {
         dataAccess = new DataAccessFacade();
@@ -33,13 +31,13 @@ public class CheckoutEntityController {
     }
 
     public void updateCheckoutEntity(String entryId, String memberId, LocalDate borrowedDate, LocalDate dueDate,
-                                     LocalDate returnDate, BookCopy bookCopy, double fAmount, LocalDate pDate, long odue){
+                                     LocalDate returnDate, BookCopy bookCopy, double fAmount, LocalDate pDate, long odue) {
         CheckoutEntity entity = new CheckoutEntity(entryId, memberId, borrowedDate, dueDate, returnDate, bookCopy, fAmount,
                 pDate, odue);
         HashMap<String, CheckoutEntity> entityMap = dataAccess.readCheckoutEntityMap();
         Set<String> keys = entityMap.keySet();
-        for(String k : keys) {
-            if(k.equals(entryId)) {
+        for (String k : keys) {
+            if (k.equals(entryId)) {
                 dataAccess.saveNewCheckoutEntity(entity);
                 break;
             }
@@ -79,13 +77,13 @@ public class CheckoutEntityController {
 
     public void printCheckoutEntry(String memberId) {
         List<CheckoutEntity> entries = getCheckoutEntries(memberId);
-        if(entries.isEmpty()) {
+        if (entries.isEmpty()) {
             System.out.println("No Entry");
         }
         System.out.println("Member ID\tBook Title\tCheckout Date\tDue Date");
         System.out.println("-----------------------------------------------------------");
 
-        for(CheckoutEntity e : entries) {
+        for (CheckoutEntity e : entries) {
             System.out.println(e.getMemberId() + "\t\t" + e.getBookCopy().getBook().getTitle() + "\t" + e.getBorrowedDate()
                     + "\t" + e.getDueDate());
         }
