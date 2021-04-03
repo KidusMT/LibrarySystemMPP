@@ -33,7 +33,7 @@ public class BookController {
         List<Book> books = new ArrayList<>();
         HashMap<String, Book> b = dataAccess.readBooksMap();
         // handling NPE
-        if(b!=null){
+        if (b != null) {
             Set<String> keys = b.keySet();
             for (String k : keys) {
                 Book lb = b.get(k);
@@ -64,14 +64,27 @@ public class BookController {
     public void addBookCopy(Book book) {
         Book newBook = book;
         newBook.addCopy();
-        HashMap<String,Book> bookHashMap = dataAccess.readBooksMap();
-        for(String isbn: bookHashMap.keySet()){
-            if(isbn.equals(newBook.getIsbn())){
+        HashMap<String, Book> bookHashMap = dataAccess.readBooksMap();
+        for (String isbn : bookHashMap.keySet()) {
+            if (isbn.equals(newBook.getIsbn())) {
                 Book oldBook = bookHashMap.get(isbn);
-                bookHashMap.replace(isbn,oldBook,newBook);
+                bookHashMap.replace(isbn, oldBook, newBook);
             }
         }
         dataAccess.clearBooks();
         dataAccess.loadBooks(bookHashMap);
+    }
+
+    public void updateBook(Book book) {
+        DataAccess dataAccess = new DataAccessFacade();
+        HashMap<String, Book> bookHashMap = dataAccess.readBooksMap();
+        for (String isbn : bookHashMap.keySet()) {
+            if (book.getIsbn().equals(isbn)) {
+                Book oldBook = bookHashMap.get(isbn);
+                bookHashMap.replace(isbn, oldBook, book);
+                dataAccess.loadBooks(bookHashMap);
+                break;
+            }
+        }
     }
 }

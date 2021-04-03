@@ -23,8 +23,10 @@ public class CheckoutEntityController {
     // add new checkout record with 1 copy #NEW
     public void newCheckoutEntity(String entryId, String memberId, LocalDate date, java.time.LocalDate dueDate, BookCopy bookCopy) {
 //        String entryId, LocalDate date, java.time.LocalDate dueDate, BookCopy bookCopy, CheckoutRecord checkoutRecord
-        CheckoutEntity entity = new CheckoutEntity(entryId, memberId, date, dueDate, bookCopy);
+        BookController bookController = new BookController();
         bookCopy.changeAvailability();
+        bookController.updateBook(bookCopy.getBook());
+        CheckoutEntity entity = new CheckoutEntity(entryId, memberId, date, dueDate, bookCopy);
         dataAccess.saveNewCheckoutEntity(entity);
     }
 
