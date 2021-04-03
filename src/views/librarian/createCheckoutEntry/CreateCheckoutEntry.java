@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import models.Book;
 import models.BookCopy;
+import models.CheckoutEntity;
 import models.LibraryMember;
 import views.View;
 
@@ -75,8 +76,10 @@ public class CreateCheckoutEntry {
                 if (selectedBookCombo.getCopies()[i].isAvailable()) {
                     selectedBookCopyCombo = selectedBookCombo.getCopies()[i];
                     int recordId = new Random().nextInt(1000 - 1) + 1;
+
                     entityController.newCheckoutEntity(String.valueOf(recordId), libraryMember.getMemberId(),
-                            dateBorrowed.getValue(), dueDate.getValue(), selectedBookCopyCombo);
+                            dateBorrowed.getValue(), dueDate.getValue(), null, selectedBookCopyCombo, 0.0,
+                            null, 0);
 
                     View.routeToViewCheckouts();
                     break;

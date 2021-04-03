@@ -21,9 +21,11 @@ public class CheckoutEntityController {
     }
 
     // add new checkout record with 1 copy #NEW
-    public void newCheckoutEntity(String entryId, String memberId, LocalDate date, java.time.LocalDate dueDate, BookCopy bookCopy) {
-//        String entryId, LocalDate date, java.time.LocalDate dueDate, BookCopy bookCopy, CheckoutRecord checkoutRecord
-        CheckoutEntity entity = new CheckoutEntity(entryId, memberId, date, dueDate, bookCopy);
+    public void newCheckoutEntity(String entryId, String memberId, LocalDate borrowedDate, LocalDate dueDate,
+                                  LocalDate returnDate, BookCopy bookCopy, double fAmount, LocalDate pDate, long odue) {
+        CheckoutEntity entity = new CheckoutEntity(entryId, memberId, borrowedDate, dueDate, returnDate, bookCopy, fAmount,
+                pDate, odue);
+
         bookCopy.changeAvailability();
         dataAccess.saveNewCheckoutEntity(entity);
     }
@@ -59,20 +61,6 @@ public class CheckoutEntityController {
         return entities;
     }
 
-//    public List<CheckoutEntity> getCheckoutEntries(String memberId) {
-//        List<CheckoutEntity> entries = new ArrayList<>();
-//        DataAccess da = new DataAccessFacade();
-//        HashMap<String, CheckoutEntity> e = da.readCheckoutEntityMap();
-//        Set<String> keys = e.keySet();
-//        for(String k : keys) {
-//            CheckoutEntity entry = e.get(k);
-//            if(entry.getMemberId().equals(memberId)) {
-//                entries.add(entry);
-//            }
-//        }
-//        return entries;
-//    }
-
     public void printCheckoutEntry(String memberId) {
         List<CheckoutEntity> entries = getCheckoutEntries(memberId);
         if(entries.isEmpty()) {
@@ -82,7 +70,7 @@ public class CheckoutEntityController {
         System.out.println("-----------------------------------------------------------");
 
         for(CheckoutEntity e : entries) {
-            System.out.println(e.getMemberId() + "\t\t" + e.getBookCopy().getBook().getTitle() + "\t" + e.getDate()
+            System.out.println(e.getMemberId() + "\t\t" + e.getBookCopy().getBook().getTitle() + "\t" + e.getBorrowedDate()
                     + "\t" + e.getDueDate());
         }
     }

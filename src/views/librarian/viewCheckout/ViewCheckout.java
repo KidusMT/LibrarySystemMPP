@@ -10,7 +10,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import main.Main;
 import models.Book;
@@ -26,6 +29,20 @@ public class ViewCheckout {
     private final ObservableList<LibraryMember> memberData = FXCollections.observableArrayList();
     CheckoutEntityController entityController;
     MemberController memberController;
+    @FXML
+    ImageView checkOutImage;
+    @FXML
+    Button checkoutButton;
+    @FXML
+    ImageView membersImage;
+    @FXML
+    ImageView booksImage;
+    @FXML
+    Button bookButton;
+    @FXML
+    Button memberButton;
+    BookController bookController;
+    List<Book> bookListDb = new ArrayList<>();
     private ObservableList<CheckoutEntity> checkoutEntityData = FXCollections.observableArrayList();
     @FXML
     private TableView<LibraryMember> memberTable;
@@ -42,36 +59,17 @@ public class ViewCheckout {
     @FXML
     private TableColumn<CheckoutEntity, String> dueDateColumn;
 
-    @FXML
-    ImageView checkOutImage;
-
-    @FXML
-    Button checkoutButton;
-
-    @FXML
-    ImageView membersImage;
-
-    @FXML
-    ImageView booksImage;
-
-    @FXML
-    Button bookButton;
-
-    @FXML
-    Button memberButton;
-
     public void navigateToCheckout(ActionEvent event) throws IOException {
         View.routeToViewCheckouts();
     }
-    BookController bookController;
-    List<Book> bookListDb = new ArrayList<>();
+
     @FXML
     public void initialize() {
         bookController = new BookController();
         bookListDb = bookController.getAllBooks();
 
         UserSession userSession = UserSession.getInstance();
-        if(userSession.getAuthorization().equals(Authorization.LIBRARIAN)){
+        if (userSession.getAuthorization().equals(Authorization.LIBRARIAN)) {
             memberButton.setVisible(false);
             membersImage.setVisible(false);
             checkoutButton.setVisible(false);
@@ -82,7 +80,7 @@ public class ViewCheckout {
         entityController = new CheckoutEntityController();
         memberController = new MemberController();
 
-        preJava8();
+        populateTable();
         checkoutEntityData = FXCollections.observableArrayList();
         memberData.addAll(memberController.getAllMembers());
 
@@ -106,19 +104,29 @@ public class ViewCheckout {
         }
     }
 
-    private void preJava8() {
+    private void populateTable() {
+        // Record Table Attributes
         firstNameColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getFirstName()));
         lastNameColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getLastName()));
+
+        // Record Entry Attributes
         bookTitleColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getBookCopy().getBook().getTitle()));
-        checkoutDateColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getDate().toString()));
-        dueDateColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getDueDate().toString()));
+        checkoutDateColumn.setCellValueFactory(param -> {
+            if (param.getValue().getBorrowedDate() != null)
+                return new SimpleObjectProperty<>(param.getValue().getBorrowedDate().toString());
+            else return new SimpleObjectProperty<>("");
+        });
+        dueDateColumn.setCellValueFactory(param -> {
+            if (param.getValue().getDueDate() != null)
+                return new SimpleObjectProperty<>(param.getValue().getDueDate().toString());
+            else return new SimpleObjectProperty<>("");
+        });
     }
 
-    public void printEntryHandler(ActionEvent event){
+    public void printEntryHandler(ActionEvent event) {
         CheckoutEntityController entityController = new CheckoutEntityController();
         memberTable.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> entityController.printCheckoutEntry(newValue.getMemberId()));
-
     }
 
     public ObservableList<LibraryMember> getMemberData() {
