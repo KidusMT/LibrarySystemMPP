@@ -58,6 +58,10 @@ public class ViewCheckout {
     private TableColumn<CheckoutEntity, String> checkoutDateColumn;
     @FXML
     private TableColumn<CheckoutEntity, String> dueDateColumn;
+    @FXML
+    private TableColumn<CheckoutEntity, String> fineAmtColumn;
+    @FXML
+    private TableColumn<CheckoutEntity, String> paidDateColumn;
 
     public void navigateToCheckout(ActionEvent event) throws IOException {
         View.routeToViewCheckouts();
@@ -118,6 +122,14 @@ public class ViewCheckout {
         });
         dueDateColumn.setCellValueFactory(param -> {
             if (param.getValue().getDueDate() != null)
+                return new SimpleObjectProperty<>(param.getValue().getDueDate().toString());
+            else return new SimpleObjectProperty<>("");
+        });
+
+        fineAmtColumn.setCellValueFactory(param ->  new SimpleObjectProperty<>(String.format("$", param.getValue().getFineAmount())));
+
+        paidDateColumn.setCellValueFactory(param -> {
+            if (param.getValue().getPaidDate() != null)
                 return new SimpleObjectProperty<>(param.getValue().getDueDate().toString());
             else return new SimpleObjectProperty<>("");
         });

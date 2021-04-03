@@ -110,7 +110,6 @@ public class UpdateCheckoutEntry {
                 fineAmount.setText(String.format("$%s", 0));
             }
         });
-
     }
 
     public void navigateToViewCheckoutRecords(ActionEvent event) throws IOException {
