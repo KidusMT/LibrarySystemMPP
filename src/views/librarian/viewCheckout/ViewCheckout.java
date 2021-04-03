@@ -1,5 +1,7 @@
 package views.librarian.viewCheckout;
 
+import common.utils.Authorization;
+import common.utils.UserSession;
 import controllers.CheckoutEntityController;
 import controllers.MemberController;
 import javafx.beans.property.SimpleObjectProperty;
@@ -7,17 +9,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import main.Main;
 import models.CheckoutEntity;
 import models.LibraryMember;
-import views.librarian.Librarian;
+import views.View;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Optional;
 
 public class ViewCheckout {
@@ -40,7 +39,30 @@ public class ViewCheckout {
     @FXML
     private TableColumn<CheckoutEntity, String> dueDateColumn;
 
+    @FXML
+    ImageView membersImage;
+
+    @FXML
+    ImageView booksImage;
+
+    @FXML
+    Button bookButton;
+
+    @FXML
+    Button memberButton;
+
+    public void navigateToCheckout(ActionEvent event) throws IOException {
+        View.routeToViewCheckouts();
+    }
+
     public void initialize() {
+        UserSession userSession = UserSession.getInstance();
+        if(userSession.getAuthorization().equals(Authorization.LIBRARIAN)){
+            memberButton.setVisible(false);
+            membersImage.setVisible(false);
+            bookButton.setVisible(false);
+            booksImage.setVisible(false);
+        }
         entityController = new CheckoutEntityController();
         memberController = new MemberController();
 
@@ -101,7 +123,7 @@ public class ViewCheckout {
         if (selectedIndex >= 0) {
 
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.initOwner(Librarian.stage);
+            alert.initOwner(View.stage);
             alert.setTitle("Delete");
             alert.setHeaderText("Delete Selection");
             alert.setContentText("Are you sure you want to delete this record from the table?");
@@ -117,7 +139,7 @@ public class ViewCheckout {
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.initOwner(Librarian.stage);
+            alert.initOwner(View.stage);
             alert.setTitle("No Selection");
             alert.setHeaderText("No Person Selected");
             alert.setContentText("Please select a person in the table.");
@@ -132,18 +154,18 @@ public class ViewCheckout {
      */
     @FXML
     private void handleNewRecord() throws IOException {
-        Librarian.routeToCreateCheckout();
+        View.routeToCreateCheckout();
     }
 
     @FXML
     private void handleNewEntry() throws IOException {
         LibraryMember libraryMember = memberTable.getSelectionModel().getSelectedItem();
         if (libraryMember != null) {
-            Librarian.routeToCreateCheckoutEntry(libraryMember);
+            View.routeToCreateCheckoutEntry(libraryMember);
         } else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.initOwner(Librarian.stage);
+            alert.initOwner(View.stage);
             alert.setTitle("No Selection");
             alert.setHeaderText("No Checkout Record Selected");
             alert.setContentText("Please select a Record in the table first.");
@@ -156,11 +178,11 @@ public class ViewCheckout {
     private void handleUpdateEntry() throws IOException {
         CheckoutEntity checkoutEntity = checkoutEntryTable.getSelectionModel().getSelectedItem();
         if (checkoutEntity != null) {
-            Librarian.routeToUpdateCheckoutEntry(checkoutEntity);
+            View.routeToUpdateCheckoutEntry(checkoutEntity);
         } else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.initOwner(Librarian.stage);
+            alert.initOwner(View.stage);
             alert.setTitle("No Selection");
             alert.setHeaderText("No Person Selected");
             alert.setContentText("Please select a person in the table.");
@@ -170,8 +192,16 @@ public class ViewCheckout {
     }
 
     public void navigateToLogin(ActionEvent event) throws IOException {
-//        UserSession.destroySession();
-        Librarian.stage.hide();
+        UserSession.destroySession();
+        View.stage.hide();
         Main.primaryStage.show();
+    }
+
+    public void navigateToMembersHandler(ActionEvent event) throws IOException {
+        View.routeToViewMembers();
+    }
+
+    public void navigateToBooksHandler(ActionEvent event) throws IOException {
+        View.routeViewBooks();
     }
 }

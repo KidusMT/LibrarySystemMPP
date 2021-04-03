@@ -1,7 +1,7 @@
 package views.librarian.updateCheckout;
 
 import javafx.event.ActionEvent;
-import views.librarian.Librarian;
+import views.View;
 
 import java.io.IOException;
 
@@ -10,6 +10,6 @@ public class UpdateCheckout {
     }
 
     public void navigateToViewCheckoutRecords(ActionEvent event) throws IOException {
-        Librarian.routeToViewCheckouts();
+        View.routeToViewCheckouts();
     }
 }

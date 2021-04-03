@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import models.Address;
 import models.LibraryMember;
-import views.librarian.Librarian;
+import views.View;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -58,7 +58,7 @@ public class CreateCheckout {
             CheckoutRecordController recordController = new CheckoutRecordController();
             int recordId = new Random().nextInt(1000 - 1) + 1;
             recordController.newCheckoutRecord(String.valueOf(recordId), selectedLibraryMember);
-            Librarian.routeToCreateCheckout();
+            View.routeToCreateCheckout();
         } else {
             // show error message saying that there is no selection for library member
             System.out.println("=====> didn't get the selected user");
@@ -67,6 +67,6 @@ public class CreateCheckout {
     }
 
     public void navigateToViewCheckoutRecords(ActionEvent event) throws IOException {
-        Librarian.routeToViewCheckouts();
+        View.routeToViewCheckouts();
     }
 }

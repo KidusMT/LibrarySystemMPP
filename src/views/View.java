@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.Book;
 import models.CheckoutEntity;
-import models.CheckoutRecord;
+import models.LibraryMember;
 import views.admin.bookDetail.BookSingleton;
 import views.librarian.createCheckoutEntry.CreateCheckoutEntry;
 import views.librarian.updateCheckoutEntry.UpdateCheckoutEntry;
@@ -52,6 +52,12 @@ public class View extends Application {
 
     // Librarian
 
+
+    private static void route(Parent contentRoot, String title) {
+        stage.setTitle(title);
+        stage.setScene(new Scene(contentRoot, 1080, 720));
+    }
+
     public static void routeToCreateCheckout() throws IOException {
         route(FXMLLoader.load(View.class.getResource("/views/librarian/createCheckout/create-checkout.fxml")), "Create checkout");
     }
@@ -64,8 +70,8 @@ public class View extends Application {
         route(FXMLLoader.load(View.class.getResource("/views/librarian/viewCheckout/view-checkout.fxml")), "View checkout records");
     }
 
-    public static void routeToCreateCheckoutEntry(CheckoutRecord checkoutEntity) throws IOException {
-        CreateCheckoutEntry.newInstance(checkoutEntity);
+    public static void routeToCreateCheckoutEntry(LibraryMember libraryMember) throws IOException {
+        CreateCheckoutEntry.newInstance(libraryMember);
         route(FXMLLoader.load(View.class.getResource("/views/librarian/createCheckoutEntry/create-checkout-entry.fxml")), "View checkout records");
     }
 
@@ -73,12 +79,6 @@ public class View extends Application {
         UpdateCheckoutEntry.createInstance(checkoutEntity);
         route(FXMLLoader.load(View.class.getResource("/views/librarian/updateCheckoutEntry/update-checkout-entry.fxml")), "View checkout records");
     }
-
-    private static void route(Parent contentRoot, String title) {
-        stage.setTitle(title);
-        stage.setScene(new Scene(contentRoot, 1080, 720));
-    }
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;

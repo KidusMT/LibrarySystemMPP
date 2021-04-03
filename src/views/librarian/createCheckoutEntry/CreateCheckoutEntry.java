@@ -11,7 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import models.Book;
 import models.LibraryMember;
-import views.librarian.Librarian;
+import views.View;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -74,7 +74,7 @@ public class CreateCheckoutEntry {
     }
 
     public void navigateToViewCheckoutRecords(ActionEvent event) throws IOException {
-        Librarian.routeToViewCheckouts();
+        View.routeToViewCheckouts();
     }
 
     public void createCheckoutEntity(ActionEvent event) throws IOException {
@@ -97,7 +97,7 @@ public class CreateCheckoutEntry {
                     entityController.newCheckoutEntity(String.valueOf(recordId), libraryMember.getMemberId(),
                             dateBorrowed.getValue(), dueDate.getValue(), selectedBookCombo.getCopies()[i]);
 
-                    Librarian.routeToViewCheckouts();
+                    View.routeToViewCheckouts();
                     break;
                 }else{
                     // tell the user there is no book available

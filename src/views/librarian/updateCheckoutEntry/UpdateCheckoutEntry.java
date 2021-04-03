@@ -8,7 +8,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import models.CheckoutEntity;
-import views.librarian.Librarian;
+import views.View;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -51,7 +51,7 @@ public class UpdateCheckoutEntry {
     }
 
     public void navigateToViewCheckoutRecords(ActionEvent event) throws IOException {
-        Librarian.routeToViewCheckouts();
+        View.routeToViewCheckouts();
     }
 
     public void updateCheckoutEntity(ActionEvent event) {
