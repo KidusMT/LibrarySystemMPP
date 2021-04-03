@@ -42,18 +42,10 @@ public class CreateCheckoutEntry {
     @FXML
     private ComboBox bookList;
     @FXML
-    private TextField bookISBN;
-    @FXML
     private Label errorMessage;
 
     public static void newInstance(LibraryMember record) {
         libraryMember = record;
-    }
-
-    public static final LocalDate LOCAL_DATE(String dateString) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate localDate = LocalDate.parse(dateString, formatter);
-        return localDate;
     }
 
     @FXML
@@ -61,7 +53,7 @@ public class CreateCheckoutEntry {
         entityController = new CheckoutEntityController();
         bookController = new BookController();
         bookListDb = bookController.getAllBooks();
-//        books
+
         for (int i = 0; i < bookListDb.size(); i++) {
             books.add(bookListDb.get(i).getTitle());
         }
@@ -80,18 +72,6 @@ public class CreateCheckoutEntry {
     }
 
     public void createCheckoutEntity(ActionEvent event) throws IOException {
-//        CheckoutEntityController entityController = new CheckoutEntityController();
-//        BookController bookController = new BookController();
-
-//        selectedBook = bookList.getSelectionModel().getSelectedItem().toString();
-//        System.out.println(selectedBook);
-//
-//        for (int i = 0; i < bookListDb.size(); i++) {
-//            if (selectedBook.equals(bookListDb.get(i).getTitle())) {
-//                selectedBookCombo = bookListDb.get(i);
-//                break;
-//            }
-//        }
         if (selectedBookCombo != null) {
             for (int i = 0; i < selectedBookCombo.getCopies().length; i++) {
                 if (selectedBookCombo.getCopies()[i].isAvailable()) {
@@ -126,11 +106,5 @@ public class CreateCheckoutEntry {
             LocalDate due= dateBorrowed.getValue().plusDays(maxDateLength);
             dueDate.setValue(due);
         }
-    }
-
-    public void findBook(ActionEvent event) {
-        String isbn = bookISBN.getText().trim();
-        System.out.println(isbn);
-        errorMessage.setText(isbn + " couldn't be found.");
     }
 }

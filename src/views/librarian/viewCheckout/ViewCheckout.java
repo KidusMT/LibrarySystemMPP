@@ -98,19 +98,11 @@ public class ViewCheckout {
     }
 
     private void preJava8() {
-//        firstNameColumn.setCellValueFactory(param -> param.getValue().getCheckedOutBy().getFirstName());
-//        lastNameColumn.setCellValueFactory(param -> param.getValue().getCheckedOutBy().getLastName());
-
         firstNameColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getFirstName()));
         lastNameColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getLastName()));
         bookTitleColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getBookCopy().getBook().getTitle()));
         checkoutDateColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getDate().toString()));
         dueDateColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getDue_date().toString()));
-
-
-//        bookTitleColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getBookCopy().getBook().getTitle()));
-//        checkoutDateColumn.setCellValueFactory(param -> new SimpleObjectProperty(param.getValue().getDate()));
-//        dueDateColumn.setCellValueFactory(param -> new SimpleObjectProperty(param.getValue().getDue_date()));
     }
 
     public void printEntryHandler(ActionEvent event){
@@ -127,40 +119,6 @@ public class ViewCheckout {
     public ObservableList<CheckoutEntity> getCheckoutEntityData() {
         return checkoutEntityData;
     }
-
-//    /**
-//     * Called when the user clicks on the delete button.
-//     */
-//    @FXML
-//    private void handleDeletePerson() {
-//        int selectedIndex = memberTable.getSelectionModel().getSelectedIndex();
-//        if (selectedIndex >= 0) {
-//
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.initOwner(View.stage);
-//            alert.setTitle("Delete");
-//            alert.setHeaderText("Delete Selection");
-//            alert.setContentText("Are you sure you want to delete this record from the table?");
-//
-//            Optional<ButtonType> result = alert.showAndWait();
-//            if (!result.isPresent()) {
-//                // alert is exited, no button has been pressed.
-//            } else if (result.get() == ButtonType.OK) {
-//                //oke button is pressed
-//                memberTable.getItems().remove(selectedIndex);
-//            } else if (result.get() == ButtonType.CANCEL) {
-//                // cancel button is pressed
-//            }
-//        } else {
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.initOwner(View.stage);
-//            alert.setTitle("No Selection");
-//            alert.setHeaderText("No Person Selected");
-//            alert.setContentText("Please select a person in the table.");
-//
-//            alert.showAndWait();
-//        }
-//    }
 
     @FXML
     private void handleNewEntry() throws IOException {
