@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ViewMembers implements Initializable {
@@ -88,8 +89,23 @@ public class ViewMembers implements Initializable {
     }
 
     public void deleteMemberHandler(ActionEvent event) {
-        memberController.deleteMember(selectedMember.getMemberId());
-        populateTable(memberController.getAllMembers());
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.initOwner(View.stage);
+        alert.setTitle("Delete");
+        alert.setHeaderText("Delete Selection");
+        alert.setContentText("Are you sure you want to delete this member?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (!result.isPresent()) {
+            // alert is exited, no button has been pressed.
+        } else if (result.get() == ButtonType.OK) {
+            //oke button is pressed
+            memberController.deleteMember(selectedMember.getMemberId());
+            populateTable(memberController.getAllMembers());
+        } else if (result.get() == ButtonType.CANCEL) {
+            // cancel button is pressed
+        }
+
     }
 
     @Override

@@ -17,7 +17,6 @@ import models.LibraryMember;
 import views.View;
 
 import java.io.IOException;
-import java.util.Optional;
 
 public class ViewCheckout {
     private final ObservableList<LibraryMember> memberData = FXCollections.observableArrayList();
@@ -40,6 +39,12 @@ public class ViewCheckout {
     private TableColumn<CheckoutEntity, String> dueDateColumn;
 
     @FXML
+    ImageView checkOutImage;
+
+    @FXML
+    Button checkoutButton;
+
+    @FXML
     ImageView membersImage;
 
     @FXML
@@ -60,6 +65,8 @@ public class ViewCheckout {
         if(userSession.getAuthorization().equals(Authorization.LIBRARIAN)){
             memberButton.setVisible(false);
             membersImage.setVisible(false);
+            checkoutButton.setVisible(false);
+            checkOutImage.setVisible(false);
             bookButton.setVisible(false);
             booksImage.setVisible(false);
         }
