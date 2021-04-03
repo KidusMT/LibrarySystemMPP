@@ -113,6 +113,13 @@ public class ViewCheckout {
 //        dueDateColumn.setCellValueFactory(param -> new SimpleObjectProperty(param.getValue().getDue_date()));
     }
 
+    public void printEntryHandler(ActionEvent event){
+        CheckoutEntityController entityController = new CheckoutEntityController();
+        memberTable.getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> entityController.printCheckoutEntry(newValue.getMemberId()));
+
+    }
+
     public ObservableList<LibraryMember> getMemberData() {
         return memberData;
     }
