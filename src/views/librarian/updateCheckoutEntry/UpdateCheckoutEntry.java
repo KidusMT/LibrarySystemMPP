@@ -145,7 +145,7 @@ public class UpdateCheckoutEntry {
                 checkoutEntity.getDueDate(),
                 checkoutEntity.getReturnDate(),
                 checkoutEntity.getBookCopy(),
-                fineAmt,
+                checkoutEntity.getFineAmount(),
                 paid.isSelected() ? LocalDate.now() : null,
                 overdueDays);
         View.routeToViewCheckouts();
