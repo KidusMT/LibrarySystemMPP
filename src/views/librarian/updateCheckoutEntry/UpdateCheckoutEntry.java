@@ -33,10 +33,6 @@ public class UpdateCheckoutEntry {
     @FXML
     private DatePicker dueDate;
     @FXML
-    private TextField bookISBN;
-    @FXML
-    private Label errorMessage;
-    @FXML
     private TextField fineAmount;
     @FXML
     private TextField overdue;

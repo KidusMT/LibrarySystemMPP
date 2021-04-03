@@ -28,7 +28,6 @@
                 <TextField fx:id="lastName" promptText="Last name" />
                 <Label text="Book" textFill="#7b7b7b" />
                 <ComboBox fx:id="bookList" prefHeight="26.0" prefWidth="987.0" promptText="-- SELECT BOOK TO BORROW --" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                <Label fx:id="errorMessage" prefHeight="18.0" prefWidth="982.0" textFill="RED" />
                 <Label text="Borrowed date" textFill="#7b7b7b" />
                 <DatePicker fx:id="dateBorrowed" prefHeight="26.0" prefWidth="989.0" promptText="MM/DD/YYYY" />
                 <Label text="Due date" textFill="#7b7b7b" />
