@@ -130,7 +130,7 @@ public class ViewCheckout {
 
         paidDateColumn.setCellValueFactory(param -> {
             if (param.getValue().getPaidDate() != null)
-                return new SimpleObjectProperty<>(param.getValue().getDueDate().toString());
+                return new SimpleObjectProperty<>(param.getValue().getPaidDate().toString());
             else return new SimpleObjectProperty<>("");
         });
     }

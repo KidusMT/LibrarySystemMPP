@@ -77,26 +77,33 @@ public class UpdateCheckoutEntry {
         firstName.setText(libraryMember.getFirstName());
         lastName.setText(libraryMember.getLastName());
 
-        // overdue
-        overdueDays = DAYS.between(LocalDate.now(), dueDate.getValue());
-        overdue.setText(String.format("%d %s", overdueDays, overdueDays > 0 ? "days" : "day"));
-
+        if(checkoutEntity.getReturnDate()!=null){
+            returnDate.setValue(checkoutEntity.getReturnDate());
+        }
         // fine amount
         if (returnDate.getValue() == null) {
             // display from today
             // if the date is different for return then calculate when that entered automatically
             if (LocalDate.now().isAfter(dueDate.getValue())) {
                 long fnDays = DAYS.between(LocalDate.now(), dueDate.getValue());
+                overdueDays = Math.abs(fnDays);
+                overdue.setText(String.format("%d %s", Math.abs(fnDays), Math.abs(fnDays) > 0 ? "days" : "day"));
                 fineAmount.setText(String.format("$%s", (Math.abs(fnDays) * CheckoutEntity.FINE_RATE)));
             } else {
+                overdueDays = 0;
+                overdue.setText(String.format("$%s day", 0));
                 fineAmount.setText(String.format("$%s", 0));
             }
         } else {
             if (returnDate.getValue().isAfter(dueDate.getValue())) {
                 long fnDays = DAYS.between(returnDate.getValue(), dueDate.getValue());
+                overdueDays = Math.abs(fnDays);
+                overdue.setText(String.format("%d %s", Math.abs(fnDays), Math.abs(fnDays) > 0 ? "days" : "day"));
                 fineAmount.setText(String.format("$%s", (Math.abs(fnDays) * CheckoutEntity.FINE_RATE)));
             } else {
+                overdueDays = 0;
                 fineAmount.setText(String.format("$%s", 0));
+                overdue.setText(String.format("$%s day", 0));
             }
         }
 
@@ -104,10 +111,15 @@ public class UpdateCheckoutEntry {
 
         returnDate.valueProperty().addListener((ov, oldValue, newValue) -> {
             if (newValue.isAfter(dueDate.getValue())) {
+                paid.setIndeterminate(false);
                 long fnDays = DAYS.between(newValue, dueDate.getValue());
+                overdueDays = Math.abs(fnDays);
+                overdue.setText(String.format("%d %s", Math.abs(fnDays), Math.abs(fnDays) > 0 ? "days" : "day"));
                 fineAmount.setText(String.format("$%s", (Math.abs(fnDays) * CheckoutEntity.FINE_RATE)));
             } else {
+                overdueDays = 0;
                 fineAmount.setText(String.format("$%s", 0));
+                overdue.setText(String.format("$%s day", 0));
             }
         });
     }
@@ -125,15 +137,21 @@ public class UpdateCheckoutEntry {
             // if the date is different for return then calculate when that entered automatically
             if (LocalDate.now().isAfter(dueDate.getValue())) {
                 long fnDays = DAYS.between(LocalDate.now(), dueDate.getValue());
+                overdueDays = Math.abs(fnDays);
+                overdue.setText(String.format("%d %s", Math.abs(fnDays), Math.abs(fnDays) > 0 ? "days" : "day"));
                 checkoutEntity.setFineAmount((Math.abs(fnDays) * CheckoutEntity.FINE_RATE));
             } else {
+                overdueDays = 0;
                 checkoutEntity.setFineAmount(0);
             }
         } else {
             if (returnDate.getValue().isAfter(dueDate.getValue())) {
                 long fnDays = DAYS.between(returnDate.getValue(), dueDate.getValue());
+                overdueDays = Math.abs(fnDays);
+                overdue.setText(String.format("%d %s", Math.abs(fnDays), Math.abs(fnDays) > 0 ? "days" : "day"));
                 checkoutEntity.setFineAmount((Math.abs(fnDays) * CheckoutEntity.FINE_RATE));
             } else {
+                overdueDays = 0;
                 checkoutEntity.setFineAmount(0);
             }
         }
