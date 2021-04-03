@@ -52,7 +52,7 @@
             </VBox>
             <HBox prefHeight="32.0" prefWidth="477.0">
                <children>
-                  <Label fx:id="noOfBookCopies" prefHeight="30.0" prefWidth="192.0" text="Number of copies">
+                  <Label prefHeight="30.0" prefWidth="192.0" text="Number of copies">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
