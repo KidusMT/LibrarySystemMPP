@@ -2,7 +2,6 @@ package controllers;
 
 import common.utils.DataAccess;
 import common.utils.DataAccessFacade;
-import daos.BookDAO;
 import models.Author;
 import models.Book;
 
@@ -13,7 +12,6 @@ import java.util.Set;
 
 public class BookController {
 
-    private BookDAO bookDAO;
     private DataAccess dataAccess;
 
 
