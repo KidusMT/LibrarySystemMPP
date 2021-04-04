@@ -3,7 +3,6 @@ package views.librarian.viewCheckout;
 import common.utils.Authorization;
 import common.utils.UserSession;
 import controllers.BookController;
-import controllers.BookController;
 import controllers.CheckoutEntityController;
 import controllers.MemberController;
 import javafx.beans.property.SimpleObjectProperty;
@@ -11,10 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import main.Main;
 import models.Book;
@@ -32,12 +28,31 @@ public class ViewCheckout {
     MemberController memberController;
     BookController bookController;
     List<Book> bookListDb = new ArrayList<>();
-
+    @FXML
+    ImageView checkOutImage;
+    @FXML
+    Button checkoutButton;
+    @FXML
+    ImageView membersImage;
+    @FXML
+    ImageView booksImage;
+    @FXML
+    Button bookButton;
+    @FXML
+    Button memberButton;
+    @FXML
+    TextField isbn;
+    @FXML
+    TextField copyNumber;
+    @FXML
+    Button checkOverdueButton;
     private ObservableList<CheckoutEntity> checkoutEntityData = FXCollections.observableArrayList();
     @FXML
     private TableView<LibraryMember> memberTable;
     @FXML
     private TableColumn<LibraryMember, String> firstNameColumn;
+    @FXML
+    private TableColumn<LibraryMember, String> telephoneNoColumn;
     @FXML
     private TableColumn<LibraryMember, String> lastNameColumn;
     @FXML
@@ -48,25 +63,6 @@ public class ViewCheckout {
     private TableColumn<CheckoutEntity, String> checkoutDateColumn;
     @FXML
     private TableColumn<CheckoutEntity, String> dueDateColumn;
-
-    @FXML
-    ImageView checkOutImage;
-
-    @FXML
-    Button checkoutButton;
-
-    @FXML
-    ImageView membersImage;
-
-    @FXML
-    ImageView booksImage;
-
-    @FXML
-    Button bookButton;
-
-    @FXML
-    Button memberButton;
-
     @FXML
     private TableColumn<CheckoutEntity, String> fineAmtColumn;
     @FXML
@@ -98,7 +94,7 @@ public class ViewCheckout {
         memberData.addAll(memberController.getAllMembers());
 
         // Add observable list data to the table
-        memberTable.setItems(getMemberData());
+        memberTable.setItems(memberData);
         checkoutEntryTable.setItems(null);
 
         showCheckoutEntitiesTable(null);
@@ -107,21 +103,31 @@ public class ViewCheckout {
                 .addListener((observable, oldValue, newValue) -> showCheckoutEntitiesTable(newValue));
     }
 
-    public void showOverDueBooks(ActionEvent event) {
-        MemberController memberController = new MemberController();
-        CheckoutEntityController checkoutEntityController = new CheckoutEntityController();
-        List<CheckoutEntity> checkoutEntities = checkoutEntityController.getOverDueBookCopy();
-        ObservableList<CheckoutEntity> checkoutEntitiesObservable = FXCollections.observableArrayList();
-        ObservableList<LibraryMember> members = FXCollections.observableArrayList();
-        for (CheckoutEntity checkoutEntity : checkoutEntities) {
-            checkoutEntitiesObservable.add(checkoutEntity);
-            LibraryMember member = memberController.getMember(checkoutEntity.getMemberId());
-            members.add(member);
+    public void checkIfOverDue(ActionEvent event) {
+        if (isbn.getText().trim().isEmpty() || copyNumber.getText().trim().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(View.stage);
+            alert.setTitle("Check book overdue");
+            alert.setHeaderText("Form error");
+            alert.setContentText("Please fill out both ISBN and Book copy number.");
+            alert.showAndWait();
+        } else {
+            MemberController memberController = new MemberController();
+            CheckoutEntityController checkoutEntityController = new CheckoutEntityController();
+            List<CheckoutEntity> checkoutEntities = checkoutEntityController.getOverDueBookCopy(isbn.getText(), Integer.parseInt(copyNumber.getText()));
+            ObservableList<CheckoutEntity> checkoutEntitiesObservable = FXCollections.observableArrayList();
+            ObservableList<LibraryMember> members = FXCollections.observableArrayList();
+            for (CheckoutEntity checkoutEntity : checkoutEntities) {
+                checkoutEntitiesObservable.add(checkoutEntity);
+                LibraryMember member = memberController.getMember(checkoutEntity.getMemberId());
+                if (member != null)
+                    members.add(member);
+            }
+            memberTable.setItems(members);
+            checkoutEntryTable.setItems(checkoutEntitiesObservable);
+            memberTable.getSelectionModel().selectedItemProperty()
+                    .addListener((observable, oldValue, newValue) -> showCheckoutEntitiesTable(newValue));
         }
-        memberTable.setItems(members);
-        checkoutEntryTable.setItems(checkoutEntitiesObservable);
-        memberTable.getSelectionModel().selectedItemProperty()
-                .addListener((observable, oldValue, newValue) -> showCheckoutEntitiesTable(newValue));
     }
 
 
@@ -129,7 +135,7 @@ public class ViewCheckout {
         if (checkoutRecord != null) {
             checkoutEntityData = FXCollections.observableArrayList();
             checkoutEntityData.addAll(entityController.getCheckoutEntries(checkoutRecord.getMemberId()));
-            checkoutEntryTable.setItems(getCheckoutEntityData());
+            checkoutEntryTable.setItems(checkoutEntityData);
         } else {
             checkoutEntryTable.setItems(checkoutEntityData);
         }
@@ -139,6 +145,7 @@ public class ViewCheckout {
         // Record Table Attributes
         firstNameColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getFirstName()));
         lastNameColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getLastName()));
+        telephoneNoColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getTelephone()));
 
         // Record Entry Attributes
         bookTitleColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getBookCopy().getBook().getTitle()));
@@ -153,7 +160,7 @@ public class ViewCheckout {
             else return new SimpleObjectProperty<>("");
         });
 
-        fineAmtColumn.setCellValueFactory(param ->  new SimpleObjectProperty<>(String.format("$%s", param.getValue().getFineAmount())));
+        fineAmtColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(String.format("$%s", param.getValue().getFineAmount())));
 
         paidDateColumn.setCellValueFactory(param -> {
             if (param.getValue().getPaidDate() != null)
@@ -165,14 +172,6 @@ public class ViewCheckout {
     public void printEntryHandler(ActionEvent event) {
         CheckoutEntityController entityController = new CheckoutEntityController();
         entityController.printCheckoutEntry(memberTable.getSelectionModel().selectedItemProperty().getValue().getMemberId());
-    }
-
-    public ObservableList<LibraryMember> getMemberData() {
-        return memberData;
-    }
-
-    public ObservableList<CheckoutEntity> getCheckoutEntityData() {
-        return checkoutEntityData;
     }
 
     @FXML
@@ -196,7 +195,7 @@ public class ViewCheckout {
     private void handleUpdateEntry() throws IOException {
         LibraryMember libraryMember = memberTable.getSelectionModel().getSelectedItem();
         CheckoutEntity checkoutEntity = checkoutEntryTable.getSelectionModel().getSelectedItem();
-        if (checkoutEntity != null && libraryMember!=null) {
+        if (checkoutEntity != null && libraryMember != null) {
             View.routeToUpdateCheckoutEntry(libraryMember, checkoutEntity, entityController, bookListDb);
         } else {
             // Nothing selected.

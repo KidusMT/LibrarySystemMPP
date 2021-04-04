@@ -11,10 +11,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class CheckoutEntityController {
-    private CheckoutEntityDAO bookDAO;
     private final DataAccess dataAccess;
+    private CheckoutEntityDAO bookDAO;
 
     public CheckoutEntityController() {
         dataAccess = new DataAccessFacade();
@@ -75,44 +76,34 @@ public class CheckoutEntityController {
         return entities;
     }
 
-//    public List<CheckoutEntity> getCheckoutEntries(String memberId) {
-//        List<CheckoutEntity> entries = new ArrayList<>();
-//        DataAccess da = new DataAccessFacade();
-//        HashMap<String, CheckoutEntity> e = da.readCheckoutEntityMap();
-//        Set<String> keys = e.keySet();
-//        for(String k : keys) {
-//            CheckoutEntity entry = e.get(k);
-//            if(entry.getMemberId().equals(memberId)) {
-//                entries.add(entry);
-//            }
-//        }
-//        return entries;
-//    }
-
     public void printCheckoutEntry(String memberId) {
         List<CheckoutEntity> entries = getCheckoutEntries(memberId);
-        if(entries.isEmpty()) {
+        if (entries.isEmpty()) {
             System.out.println("No Entry");
         }
-        System.out.println("Member ID\tBook Title\tCheckout Date\tDue Date");
+        System.out.println("\nMember ID\tBook Title\tCheckout Date\tDue Date");
         System.out.println("-----------------------------------------------------------");
 
-        for(CheckoutEntity e : entries) {
-            System.out.println(e.getMemberId() + "\t\t" + e.getBookCopy().getBook().getTitle() + "\t" + e.getDate()
+        for (CheckoutEntity e : entries) {
+            System.out.println(e.getMemberId() + "\t\t" + e.getBookCopy().getBook().getTitle() + "\t" + e.getBorrowedDate()
                     + "\t" + e.getDueDate());
         }
     }
-    public List<CheckoutEntity>  getOverDueBookCopy() {
+
+    public List<CheckoutEntity> getOverDueBookCopy(String isbn, int copyNumber) {
         List<CheckoutEntity> entries = new ArrayList<>();
         DataAccess da = new DataAccessFacade();
         HashMap<String, CheckoutEntity> e = da.readCheckoutEntityMap();
         Set<String> keys = e.keySet();
-        for(String k : keys) {
+        for (String k : keys) {
             CheckoutEntity entry = e.get(k);
-            if(LocalDate.now().compareTo(entry.getDueDate()) > 0) {
+            if (LocalDate.now().compareTo(entry.getDueDate()) > 0) {
                 entries.add(entry);
             }
         }
+        entries = entries.stream().filter(b -> b.getBookCopy().getBook().getIsbn().equals(isbn)).collect(Collectors.toList());
+        if (!entries.isEmpty())
+            entries = entries.stream().filter(b -> b.getBookCopy().getCopyNum() == copyNumber).collect(Collectors.toList());
         return entries;
     }
 }

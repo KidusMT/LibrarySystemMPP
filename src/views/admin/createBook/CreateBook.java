@@ -168,6 +168,7 @@ public class CreateBook {
         firstName.setText("");
         lastName.setText("");
         telephoneNo.setText("");
+        authorFormError.setText("");
         bio.setText("");
         street.setText("");
         city.setText("");

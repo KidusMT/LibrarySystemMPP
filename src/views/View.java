@@ -64,10 +64,6 @@ public class View extends Application {
         route(FXMLLoader.load(View.class.getResource("/views/librarian/createCheckout/create-checkout.fxml")), "Create checkout");
     }
 
-    public static void routeToUpdateCheckout() throws IOException {
-        route(FXMLLoader.load(View.class.getResource("/views/librarian/updateCheckout/update-checkout.fxml")), "Update checkout record");
-    }
-
     public static void routeToViewCheckouts() throws IOException {
         route(FXMLLoader.load(View.class.getResource("/views/librarian/viewCheckout/view-checkout.fxml")), "View checkout records");
     }
@@ -94,6 +90,7 @@ public class View extends Application {
             root = FXMLLoader.load(getClass().getResource("/views/librarian/viewCheckout/view-checkout.fxml"));
         stage.setScene(new Scene(root, 1080, 720));
         stage.setFullScreenExitHint("");
+        stage.setResizable(false);
         stage.show();
     }
 }
