@@ -2,6 +2,7 @@ package views;
 
 import common.utils.Authorization;
 import common.utils.UserSession;
+import controllers.CheckoutEntityController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,6 +16,7 @@ import views.librarian.createCheckoutEntry.CreateCheckoutEntry;
 import views.librarian.updateCheckoutEntry.UpdateCheckoutEntry;
 
 import java.io.IOException;
+import java.util.List;
 
 public class View extends Application {
     public static Stage stage;
@@ -70,13 +72,13 @@ public class View extends Application {
         route(FXMLLoader.load(View.class.getResource("/views/librarian/viewCheckout/view-checkout.fxml")), "View checkout records");
     }
 
-    public static void routeToCreateCheckoutEntry(LibraryMember libraryMember) throws IOException {
-        CreateCheckoutEntry.newInstance(libraryMember);
+    public static void routeToCreateCheckoutEntry(LibraryMember libraryMember, CheckoutEntityController entityController, List<Book> bookList) throws IOException {
+        CreateCheckoutEntry.newInstance(libraryMember, entityController, bookList);
         route(FXMLLoader.load(View.class.getResource("/views/librarian/createCheckoutEntry/create-checkout-entry.fxml")), "View checkout records");
     }
 
-    public static void routeToUpdateCheckoutEntry(CheckoutEntity checkoutEntity) throws IOException {
-        UpdateCheckoutEntry.createInstance(checkoutEntity);
+    public static void routeToUpdateCheckoutEntry(LibraryMember record, CheckoutEntity checkoutEntity, CheckoutEntityController entityController, List<Book> bookList) throws IOException {
+        UpdateCheckoutEntry.createInstance(record, checkoutEntity, entityController, bookList);
         route(FXMLLoader.load(View.class.getResource("/views/librarian/updateCheckoutEntry/update-checkout-entry.fxml")), "View checkout records");
     }
     @Override

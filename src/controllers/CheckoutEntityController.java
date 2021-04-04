@@ -21,13 +21,27 @@ public class CheckoutEntityController {
     }
 
     // add new checkout record with 1 copy #NEW
-    public void newCheckoutEntity(String entryId, String memberId, LocalDate date, java.time.LocalDate dueDate, BookCopy bookCopy) {
-//        String entryId, LocalDate date, java.time.LocalDate dueDate, BookCopy bookCopy, CheckoutRecord checkoutRecord
+    public void newCheckoutEntity(String entryId, String memberId, LocalDate borrowedDate, LocalDate dueDate,
+                                  LocalDate returnDate, BookCopy bookCopy, double fAmount, LocalDate pDate, long odue) {
+        CheckoutEntity entity = new CheckoutEntity(entryId, memberId, borrowedDate, dueDate, returnDate, bookCopy, fAmount, pDate, odue);
         BookController bookController = new BookController();
         bookCopy.changeAvailability();
         bookController.updateBook(bookCopy.getBook());
-        CheckoutEntity entity = new CheckoutEntity(entryId, memberId, date, dueDate, bookCopy);
         dataAccess.saveNewCheckoutEntity(entity);
+    }
+
+    public void updateCheckoutEntity(String entryId, String memberId, LocalDate borrowedDate, LocalDate dueDate,
+                                     LocalDate returnDate, BookCopy bookCopy, double fAmount, LocalDate pDate, long odue) {
+        CheckoutEntity entity = new CheckoutEntity(entryId, memberId, borrowedDate, dueDate, returnDate, bookCopy, fAmount,
+                pDate, odue);
+        HashMap<String, CheckoutEntity> entityMap = dataAccess.readCheckoutEntityMap();
+        Set<String> keys = entityMap.keySet();
+        for (String k : keys) {
+            if (k.equals(entryId)) {
+                dataAccess.saveNewCheckoutEntity(entity);
+                break;
+            }
+        }
     }
 
     public List<CheckoutEntity> getCheckoutEntries(String memberId) {
@@ -80,7 +94,7 @@ public class CheckoutEntityController {
         if(entries.isEmpty()) {
             System.out.println("No Entry");
         }
-        System.out.println("\nMember ID\tBook Title\tCheckout Date\tDue Date");
+        System.out.println("Member ID\tBook Title\tCheckout Date\tDue Date");
         System.out.println("-----------------------------------------------------------");
 
         for(CheckoutEntity e : entries) {

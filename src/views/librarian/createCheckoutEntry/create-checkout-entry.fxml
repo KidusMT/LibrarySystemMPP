@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.librarian.createCheckoutEntry.CreateCheckoutEntry">
+<AnchorPane prefHeight="720" prefWidth="1080" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.librarian.createCheckoutEntry.CreateCheckoutEntry">
 
     <children>
-        <VBox layoutX="290.0" layoutY="89.0" prefHeight="512.0" prefWidth="509.0" spacing="12.0" styleClass="card-background" stylesheets="@../../../common/styles/common.css" AnchorPane.bottomAnchor="119.0" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="281.0" AnchorPane.topAnchor="89.0">
+        <VBox prefHeight="598.0" prefWidth="767.0" spacing="12.0" styleClass="card-background" stylesheets="@../../../common/styles/common.css" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="20.0">
             <children>
-                <Label alignment="CENTER" prefHeight="50.0" prefWidth="510.0" text="Create Entries">
+                <Label alignment="CENTER" prefHeight="50.0" prefWidth="982.0" text="Create Entries">
                     <font>
                         <Font size="18.0" />
                     </font>
@@ -19,16 +25,12 @@
                 <TextField fx:id="firstName" promptText="First name" />
                 <Label text="Last name" textFill="#7b7b7b" />
                 <TextField fx:id="lastName" promptText="Last name" />
-                <ComboBox fx:id="bookList" onAction="#comboAction" prefHeight="25.0" prefWidth="497.0" promptText="-- SELECT BOOK TO BORROW --" />
-                <HBox prefHeight="26.0" prefWidth="496.0">
-                    <children>
-                        <Region prefHeight="10.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
-                    </children>
-                </HBox>
+                <ComboBox fx:id="bookList" onAction="#comboAction" prefHeight="26.0" prefWidth="981.0" promptText="-- SELECT BOOK TO BORROW --" />
+                <Label fx:id="errorMessage" prefHeight="18.0" prefWidth="509.0" textFill="RED" />
                 <Label text="Borrowed date" textFill="#7b7b7b" />
-                <DatePicker fx:id="dateBorrowed" prefHeight="26.0" prefWidth="493.0" />
+                <DatePicker fx:id="dateBorrowed" prefHeight="26.0" prefWidth="1022.0" promptText="MM/DD/YYYY" />
                 <Label text="Due date" textFill="#7b7b7b" />
-                <DatePicker fx:id="dueDate" prefHeight="26.0" prefWidth="493.0" />
+                <DatePicker fx:id="dueDate" prefHeight="26.0" prefWidth="1054.0" promptText="MM/DD/YYYY" />
                 <Label prefHeight="28.0" prefWidth="460.0" />
                 <HBox alignment="BOTTOM_RIGHT" prefHeight="27.0" prefWidth="456.0" spacing="10.0">
                     <children>

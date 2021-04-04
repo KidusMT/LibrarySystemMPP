@@ -4,19 +4,44 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class CheckoutEntity implements Serializable {
+    public static final double FINE_RATE = 0.25;// $0.25 / day for a fine rate
     private String entryId;
-    private LocalDate date;
+    private LocalDate borrowedDate;
     private LocalDate dueDate;
+    private LocalDate returnDate;
     private BookCopy bookCopy;
     private String memberId;
-
-
-    public CheckoutEntity(String entryId, String mId, LocalDate date, LocalDate dueDate, BookCopy bookCopy) {
+    private double fineAmount;// fine = overDue * FINE_RATE
+    private long overdue;//days passed return day
+    private LocalDate paidDate;
+    private static final long serialVersionUID = 5543070115257205802L;
+    public CheckoutEntity(String entryId, String mId, LocalDate borrowedDate, LocalDate dueDate,
+                          LocalDate returnDate, BookCopy bookCopy, double fAmount, LocalDate pDate, long odue) {
         this.entryId = entryId;
-        this.date = date;
+        this.borrowedDate = borrowedDate;
         this.dueDate = dueDate;
         this.bookCopy = bookCopy;
         this.memberId = mId;
+        this.returnDate = returnDate;
+        this.fineAmount = fAmount;
+        this.paidDate = pDate;
+        this.overdue = odue;
+    }
+
+    public long getOverdue() {
+        return overdue;
+    }
+
+    public double getFineAmount() {
+        return fineAmount;
+    }
+
+    public LocalDate getPaidDate() {
+        return paidDate;
+    }
+
+    public LocalDate getReturnDate() {
+        return returnDate;
     }
 
     public LocalDate getDueDate() {
@@ -31,18 +56,35 @@ public class CheckoutEntity implements Serializable {
         return bookCopy;
     }
 
-
     public String getEntryId() {
         return entryId;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getBorrowedDate() {
+        return borrowedDate;
     }
 
-
-    public LocalDate getDue_date() {
-        return dueDate;
+    public void setBorrowedDate(LocalDate borrowedDate) {
+        this.borrowedDate = borrowedDate;
     }
 
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
+    }
+
+    public void setFineAmount(double fineAmount) {
+        this.fineAmount = fineAmount;
+    }
+
+    public void setOverdue(long overdue) {
+        this.overdue = overdue;
+    }
+
+    public void setPaidDate(LocalDate paidDate) {
+        this.paidDate = paidDate;
+    }
 }

@@ -2,6 +2,8 @@ package views.librarian.viewCheckout;
 
 import common.utils.Authorization;
 import common.utils.UserSession;
+import controllers.BookController;
+import controllers.BookController;
 import controllers.CheckoutEntityController;
 import controllers.MemberController;
 import javafx.beans.property.SimpleObjectProperty;
@@ -15,29 +17,22 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import main.Main;
+import models.Book;
 import models.CheckoutEntity;
 import models.LibraryMember;
 import views.View;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewCheckout {
     private final ObservableList<LibraryMember> memberData = FXCollections.observableArrayList();
     CheckoutEntityController entityController;
     MemberController memberController;
-    @FXML
-    ImageView checkOutImage;
-    @FXML
-    Button checkoutButton;
-    @FXML
-    ImageView membersImage;
-    @FXML
-    ImageView booksImage;
-    @FXML
-    Button bookButton;
-    @FXML
-    Button memberButton;
+    BookController bookController;
+    List<Book> bookListDb = new ArrayList<>();
+
     private ObservableList<CheckoutEntity> checkoutEntityData = FXCollections.observableArrayList();
     @FXML
     private TableView<LibraryMember> memberTable;
@@ -54,11 +49,38 @@ public class ViewCheckout {
     @FXML
     private TableColumn<CheckoutEntity, String> dueDateColumn;
 
+    @FXML
+    ImageView checkOutImage;
+
+    @FXML
+    Button checkoutButton;
+
+    @FXML
+    ImageView membersImage;
+
+    @FXML
+    ImageView booksImage;
+
+    @FXML
+    Button bookButton;
+
+    @FXML
+    Button memberButton;
+
+    @FXML
+    private TableColumn<CheckoutEntity, String> fineAmtColumn;
+    @FXML
+    private TableColumn<CheckoutEntity, String> paidDateColumn;
+
     public void navigateToCheckout(ActionEvent event) throws IOException {
         View.routeToViewCheckouts();
     }
 
+    @FXML
     public void initialize() {
+        bookController = new BookController();
+        bookListDb = bookController.getAllBooks();
+
         UserSession userSession = UserSession.getInstance();
         if (userSession.getAuthorization().equals(Authorization.LIBRARIAN)) {
             memberButton.setVisible(false);
@@ -71,7 +93,7 @@ public class ViewCheckout {
         entityController = new CheckoutEntityController();
         memberController = new MemberController();
 
-        preJava8();
+        populateTable();
         checkoutEntityData = FXCollections.observableArrayList();
         memberData.addAll(memberController.getAllMembers());
 
@@ -113,20 +135,31 @@ public class ViewCheckout {
         }
     }
 
-    private void preJava8() {
-//        firstNameColumn.setCellValueFactory(param -> param.getValue().getCheckedOutBy().getFirstName());
-//        lastNameColumn.setCellValueFactory(param -> param.getValue().getCheckedOutBy().getLastName());
-
+    private void populateTable() {
+        // Record Table Attributes
         firstNameColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getFirstName()));
         lastNameColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getLastName()));
+
+        // Record Entry Attributes
         bookTitleColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getBookCopy().getBook().getTitle()));
-        checkoutDateColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getDate().toString()));
-        dueDateColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getDue_date().toString()));
+        checkoutDateColumn.setCellValueFactory(param -> {
+            if (param.getValue().getBorrowedDate() != null)
+                return new SimpleObjectProperty<>(param.getValue().getBorrowedDate().toString());
+            else return new SimpleObjectProperty<>("");
+        });
+        dueDateColumn.setCellValueFactory(param -> {
+            if (param.getValue().getDueDate() != null)
+                return new SimpleObjectProperty<>(param.getValue().getDueDate().toString());
+            else return new SimpleObjectProperty<>("");
+        });
 
+        fineAmtColumn.setCellValueFactory(param ->  new SimpleObjectProperty<>(String.format("$%s", param.getValue().getFineAmount())));
 
-//        bookTitleColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getBookCopy().getBook().getTitle()));
-//        checkoutDateColumn.setCellValueFactory(param -> new SimpleObjectProperty(param.getValue().getDate()));
-//        dueDateColumn.setCellValueFactory(param -> new SimpleObjectProperty(param.getValue().getDue_date()));
+        paidDateColumn.setCellValueFactory(param -> {
+            if (param.getValue().getPaidDate() != null)
+                return new SimpleObjectProperty<>(param.getValue().getPaidDate().toString());
+            else return new SimpleObjectProperty<>("");
+        });
     }
 
     public void printEntryHandler(ActionEvent event) {
@@ -142,45 +175,11 @@ public class ViewCheckout {
         return checkoutEntityData;
     }
 
-//    /**
-//     * Called when the user clicks on the delete button.
-//     */
-//    @FXML
-//    private void handleDeletePerson() {
-//        int selectedIndex = memberTable.getSelectionModel().getSelectedIndex();
-//        if (selectedIndex >= 0) {
-//
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.initOwner(View.stage);
-//            alert.setTitle("Delete");
-//            alert.setHeaderText("Delete Selection");
-//            alert.setContentText("Are you sure you want to delete this record from the table?");
-//
-//            Optional<ButtonType> result = alert.showAndWait();
-//            if (!result.isPresent()) {
-//                // alert is exited, no button has been pressed.
-//            } else if (result.get() == ButtonType.OK) {
-//                //oke button is pressed
-//                memberTable.getItems().remove(selectedIndex);
-//            } else if (result.get() == ButtonType.CANCEL) {
-//                // cancel button is pressed
-//            }
-//        } else {
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.initOwner(View.stage);
-//            alert.setTitle("No Selection");
-//            alert.setHeaderText("No Person Selected");
-//            alert.setContentText("Please select a person in the table.");
-//
-//            alert.showAndWait();
-//        }
-//    }
-
     @FXML
     private void handleNewEntry() throws IOException {
         LibraryMember libraryMember = memberTable.getSelectionModel().getSelectedItem();
         if (libraryMember != null) {
-            View.routeToCreateCheckoutEntry(libraryMember);
+            View.routeToCreateCheckoutEntry(libraryMember, entityController, bookListDb);
         } else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -195,16 +194,17 @@ public class ViewCheckout {
 
     @FXML
     private void handleUpdateEntry() throws IOException {
+        LibraryMember libraryMember = memberTable.getSelectionModel().getSelectedItem();
         CheckoutEntity checkoutEntity = checkoutEntryTable.getSelectionModel().getSelectedItem();
-        if (checkoutEntity != null) {
-            View.routeToUpdateCheckoutEntry(checkoutEntity);
+        if (checkoutEntity != null && libraryMember!=null) {
+            View.routeToUpdateCheckoutEntry(libraryMember, checkoutEntity, entityController, bookListDb);
         } else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(View.stage);
             alert.setTitle("No Selection");
-            alert.setHeaderText("No Person Selected");
-            alert.setContentText("Please select a person in the table.");
+            alert.setHeaderText("No Entry Selected");
+            alert.setContentText("Please select an entry from the right side table.");
 
             alert.showAndWait();
         }

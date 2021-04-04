@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import models.Book;
 import models.BookCopy;
+import models.CheckoutEntity;
 import models.LibraryMember;
 import views.View;
 
@@ -20,7 +21,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 public class CreateCheckoutEntry {
 
@@ -28,10 +28,8 @@ public class CreateCheckoutEntry {
     String selectedBook = "";
     Book selectedBookCombo = null;
     BookCopy selectedBookCopyCombo = null;
-    CheckoutEntityController entityController;
-    BookController bookController;
+    private static CheckoutEntityController entityController;
     List<String> books = new ArrayList<>();
-    List<Book> bookListDb = new ArrayList<>();
     @FXML
     private TextField firstName;
     @FXML
@@ -43,26 +41,18 @@ public class CreateCheckoutEntry {
     @FXML
     private ComboBox bookList;
     @FXML
-    private TextField bookISBN;
-    @FXML
     private Label errorMessage;
-
-    public static void newInstance(LibraryMember record) {
+    private static List<Book> bookListDb;
+    public static void newInstance(LibraryMember record, CheckoutEntityController eController, List<Book> bookList) {
+        bookListDb = bookList;
+        entityController = eController;
         libraryMember = record;
-    }
-
-    public static final LocalDate LOCAL_DATE(String dateString) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate localDate = LocalDate.parse(dateString, formatter);
-        return localDate;
     }
 
     @FXML
     public void initialize() {
         entityController = new CheckoutEntityController();
-        bookController = new BookController();
-        bookListDb = bookController.getAllBooks().stream().filter(book -> book.isAvailable()).collect(Collectors.toList());
-//        books
+
         for (int i = 0; i < bookListDb.size(); i++) {
             books.add(bookListDb.get(i).getTitle());
         }
@@ -81,25 +71,15 @@ public class CreateCheckoutEntry {
     }
 
     public void createCheckoutEntity(ActionEvent event) throws IOException {
-//        CheckoutEntityController entityController = new CheckoutEntityController();
-//        BookController bookController = new BookController();
-
-//        selectedBook = bookList.getSelectionModel().getSelectedItem().toString();
-//        System.out.println(selectedBook);
-//
-//        for (int i = 0; i < bookListDb.size(); i++) {
-//            if (selectedBook.equals(bookListDb.get(i).getTitle())) {
-//                selectedBookCombo = bookListDb.get(i);
-//                break;
-//            }
-//        }
         if (selectedBookCombo != null) {
             for (int i = 0; i < selectedBookCombo.getCopies().length; i++) {
                 if (selectedBookCombo.getCopies()[i].isAvailable()) {
                     selectedBookCopyCombo = selectedBookCombo.getCopies()[i];
                     int recordId = new Random().nextInt(1000 - 1) + 1;
+
                     entityController.newCheckoutEntity(String.valueOf(recordId), libraryMember.getMemberId(),
-                            dateBorrowed.getValue(), dueDate.getValue(), selectedBookCopyCombo);
+                            dateBorrowed.getValue(), dueDate.getValue(), null, selectedBookCopyCombo, 0.0,
+                            null, 0);
 
                     View.routeToViewCheckouts();
                     break;
@@ -127,11 +107,5 @@ public class CreateCheckoutEntry {
             LocalDate due= dateBorrowed.getValue().plusDays(maxDateLength);
             dueDate.setValue(due);
         }
-    }
-
-    public void findBook(ActionEvent event) {
-        String isbn = bookISBN.getText().trim();
-        System.out.println(isbn);
-        errorMessage.setText(isbn + " couldn't be found.");
     }
 }
