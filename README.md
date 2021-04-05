@@ -1,3 +1,19 @@
+# Project Build Setups
+
+## VM Options for JavaFX:
+```bash
+--module-path /path/to/javafx-sdk/lib --add-modules=javafx.controls,javafx.fxml
+```
+
+## CMD command for running the jar file in the release for this app (java 16 with javafx 16 for running)
+```bash
+java --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -jar LibrarySystemMPP.jar
+```
+
+## Java SDK and JavaFx Versions
+ - Java SDK: `jdk-15.0.2`
+ - JavaFX: `javafx-sdk-15.0.2`
+
 # LibrarySystemMPP
 Demo  project for CS401-2021-03E-04C(RM)
 
