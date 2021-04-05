@@ -34,14 +34,20 @@ Demo  project for CS401-2021-03E-04C(RM)
    - username: `library`
    - password: `library`
 
+## Documentation
+### Use case Diagram
 ![image](https://user-images.githubusercontent.com/18373774/113563589-91b00b80-95cd-11eb-9b58-7c3df0ab195d.png)
 
+### Class Diagram
 ![image](https://user-images.githubusercontent.com/18373774/113563612-a1c7eb00-95cd-11eb-9fa1-9fe2900d3bbf.png)
 
-Sequence Diagram for `Checkout Book`
+### Sequence Diagram
+- Sequence Diagram for `Checkout Book`
+
 ![image](https://user-images.githubusercontent.com/18373774/113563646-adb3ad00-95cd-11eb-8830-d3b226aff025.png)
 
-Sequence Diagram for `Add a copy of existing book`
+- Sequence Diagram for `Add a copy of existing book`
+
 ![image](https://user-images.githubusercontent.com/18373774/113563672-b86e4200-95cd-11eb-9250-6ff29193c165.png)
 
 ## Screenshots of the Application
